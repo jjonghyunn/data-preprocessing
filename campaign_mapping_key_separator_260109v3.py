@@ -6,8 +6,8 @@ from datetime import datetime
 # ===============================
 # 파일 경로 설정
 # ===============================
-base_dir = r'C:\Users\CNXK\Downloads'
-csv_filename = '26_nyny_qry_cutoff_20th_260122_v2.csv'
+base_dir = r'C:\Users\{username}\Downloads'
+csv_filename = 'filename.csv'
 input_path = os.path.join(base_dir, csv_filename)
 
 base_name = os.path.splitext(csv_filename)[0]
@@ -24,51 +24,9 @@ report_path = os.path.join(
 # 사이트코드 목록
 # ===============================
 valid_site_codes = set("""
-de
-es
-br
-mx
-tr
 us
-africa_en
-za
-kz_ru
-kz_kz
-mn
-hk
-al
-ba
-hr
-mk
-rs
-si
-hu
-it
-pl
-bg
-ro
-ua
-jp
-co
-ar
-cl
-latin_en
-latin
-pe
-iq_ar
-ku
-levant
-levant_ar
-pk
-sa
-sa_en
-ca
-ca_fr
-id
-ph
-sg
-my
-th
+fr
+uk
 uk_epp
 """.split())
 
@@ -278,3 +236,4 @@ with open(separated_path, newline='', encoding='utf-8') as f_in, \
 print("✅ CSV 2개 생성 완료")
 print(separated_path)
 print(report_path)
+
