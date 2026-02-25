@@ -12,7 +12,7 @@ with recursive src as (
         scom_total_multiorder_revenue,
         start_date,
         end_date
-    from nyny_multipurchase_260211
+    from table_name_260211
 ),
 split_seed as (
     select
@@ -480,4 +480,5 @@ left join currency_260209 c
 ;
 
 -- vrs로 바뀌며서 6곳은 이미 USD라서 환율 1로 적용.
+
 select * from currency_260209 where site_code in ('de','uk','es','be','nl','pt');
