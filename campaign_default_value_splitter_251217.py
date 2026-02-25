@@ -6,10 +6,10 @@ from datetime import datetime
 # =========================
 # 📁 경로 설정
 # =========================
-base_dir = r'C:\Users\CNXK\Downloads'
+base_dir = r'C:\Users\{username}\Downloads'
 
 # 📄 원본 파일명
-csv_filename = 'bf_25_n_24_traffic_추가요청건_qry_251217.csv'
+csv_filename = 'filename.csv'
 
 # 📌 전체 경로
 csv_path = os.path.join(base_dir, csv_filename)
@@ -84,3 +84,4 @@ df.to_csv(output_path, index=False, encoding='utf-8-sig')
 
 print('✅ 처리 완료')
 print(f'📄 저장 파일: {output_path}')
+
