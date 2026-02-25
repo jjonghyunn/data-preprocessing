@@ -1,8 +1,8 @@
 with 
 origin as (
   select org.site_code, org.breakdown, total, mx, vd, od.da
-  from 26_nyny_nextpage_excl_da org
-  left join 26_nyny_nextpage_only_da od 
+  from table_name_nextpage_excl_da org
+  left join table_name_nextpage_only_da od 
   on org.site_code = od.site_code and org.breakdown = od.breakdown
 ),
 mapped as (
@@ -144,3 +144,4 @@ where `VALUE` > 0
 -- SEC  pd 페이지의 all page track 이 buying configurator  이기 때문에 next page 시트 등에 해당 페이지를 pd 로 합산해줘야 함.
 -- US는 덜 변환된 케이스가 있어서 수기 변환 필요.
 ;
+
