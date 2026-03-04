@@ -1,7 +1,7 @@
 # data-preprocessing
 preprocessing data
 
-## ** AA_Exporter_260304(dummynumber)**
+## **AA_Exporter_260304(dummynumber)**
 * 보안을 위해 추출된 value#칼럼들의 숫자값들은 모두 dummy화 했습니다.
 
 아래 3개 주피터파일로 api추출.
