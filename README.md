@@ -9,8 +9,8 @@ preprocessing data
 2. 26ny_prior_period.ipynb
 3. 25ny_last_campaign_period.ipynb  
 (현재 작업 중이던 프로젝트 최종업데이트 us가 없어서 다 돌릴 경우 us용 주피터파일까지 3개정도 더 만들 수 있을 거 같습니다. 그러면 총 6개.) * 이 프로젝트 US는 AA Report Suite 따로 있음.
-* 보조작업 파일 1:
-   이 과정에서 failed가 어떤 파일마다 한번에 있는지 보면 편하다는 생각에 check_failed_status.py도 추가 했습니다. 
+* 보조작업 파일 1:  
+   이 과정에서 failed가 어떤 파일마다 한번에 있는지 보면 편하다는 생각에 check_failed_status.py도 추가 했습니다.  
    (돌리면 어떤 csv파일에 몇건의 failed가 있는지 확인 가능. UK 등 VRS가 이런 문제가 있었는데요, 
    수기로 AA들어가서 넣는 경우를 고려하고 만들었습니다.)
 
@@ -27,7 +27,7 @@ preprocessing data
 4-1. union만드는 과정에서 ITEM칼럼에 visit이나 home_gnb_tocmp 등 과 같은 값이 잘 안 나오던 점과 
 추출되었던 bestselling이나 multi-order 등도 union시킨 케이스를 다시 제외시키는 점까지 개선했습니다.
 
-* 보조작업 파일 2:
-ipynb_json_usage_mapper.py
+* 보조작업 파일 2:  
+ipynb_json_usage_mapper.py  
 json파일 따온 걸 api추출용 주피터파일(위3개)에서 다 사용한게 맞는지 확인하는 코드입니다. (json열심히 따놓고 누락된 게 있는지 확인용)
 결과는 json_usage_report폴더에 저장됩니다. _all_json_mapping.csv파일을 보시면 되겠습니다.
