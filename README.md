@@ -8,7 +8,7 @@ preprocessing data
 1. 26ny_campaign_period.ipynb
 2. 26ny_prior_period.ipynb
 3. 25ny_last_campaign_period.ipynb
-(현재 작업 중이던 프로젝트 최종업데이트 us가 없어서 다 돌릴 경우 us용 주피터파일까지 3개정도 더 만들 수 있을 거 같습니다. 그러면 총 6개.) * 이 프로젝트 US는 AA Report Suite 따로 있음.
+-- (현재 작업 중이던 프로젝트 최종업데이트 us가 없어서 다 돌릴 경우 us용 주피터파일까지 3개정도 더 만들 수 있을 거 같습니다. 그러면 총 6개.) * 이 프로젝트 US는 AA Report Suite 따로 있음.
 * 보조작업 파일 1:
    이 과정에서 failed가 어떤 파일마다 한번에 있는지 보면 편하다는 생각에 check_failed_status.py도 추가 했습니다. 
    (돌리면 어떤 csv파일에 몇건의 failed가 있는지 확인 가능. UK 등 VRS가 이런 문제가 있었는데요, 
