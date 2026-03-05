@@ -1,0 +1,152 @@
+{
+    "rsid": "sssamsung4br",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2025-12-20T00:00:00.000/2026-01-12T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "2",
+                "id": "metrics/units",
+                "filters": [
+                    "0",
+                    "1"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/orders",
+                "filters": [
+                    "2",
+                    "3"
+                ]
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/revenue",
+                "filters": [
+                    "4",
+                    "5"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/units",
+                "filters": [
+                    "6"
+                ],
+                "sort": "desc"
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/orders",
+                "filters": [
+                    "7"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/revenue",
+                "filters": [
+                    "8"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            }
+        ]
+    },
+    "dimension": "variables/evar41",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "exclude-nones",
+        "limit": 10,
+        "page": 0
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Campaign Multi Order (Total) [w. Prior Period]"
+            }
+        ]
+    }
+}
