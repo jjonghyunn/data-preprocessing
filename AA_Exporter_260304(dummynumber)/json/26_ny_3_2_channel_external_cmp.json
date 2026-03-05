@@ -1,0 +1,194 @@
+{
+    "rsid": "vrs_samsun0_p6webmstukcopy",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-01-19T00:00:00.000/2026-01-26T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "3",
+                "id": "cm200001591_56c1679b04f4860205c9f511",
+                "filters": [
+                    "0",
+                    "1",
+                    "2"
+                ],
+                "sort": "desc"
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/bounces",
+                "filters": [
+                    "3",
+                    "4",
+                    "5"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "cm200001591_56c1679b04f4860205c9f511",
+                "filters": [
+                    "6",
+                    "7",
+                    "8"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/bounces",
+                "filters": [
+                    "9",
+                    "10",
+                    "11"
+                ]
+            },
+            {
+                "columnId": "9",
+                "id": "metrics/entries",
+                "filters": [
+                    "12",
+                    "13"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "cm200001591_680982137431683723d70110",
+                "filters": [
+                    "14",
+                    "15"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c491a23424c0a67fc3e16"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c491a23424c0a67fc3e16"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c493cb66c3a1b0f78eab5"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c493cb66c3a1b0f78eab5"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "11",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            },
+            {
+                "id": "12",
+                "type": "segment",
+                "segmentId": "s200001591_630439ccd573f419827c4948"
+            },
+            {
+                "id": "13",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            },
+            {
+                "id": "14",
+                "type": "segment",
+                "segmentId": "s200001591_630439ccd573f419827c4948"
+            },
+            {
+                "id": "15",
+                "type": "segment",
+                "segmentId": "s200001591_69707c8f0469e85076de8e86"
+            }
+        ]
+    },
+    "dimension": "variables/marketingchannel",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "External Traffic by Channel - Campaign Page (Web & App)"
+            }
+        ]
+    }
+}
