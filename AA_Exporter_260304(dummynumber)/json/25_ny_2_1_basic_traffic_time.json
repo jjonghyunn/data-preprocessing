@@ -1,0 +1,194 @@
+{
+    "rsid": "sssamsung4br",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2025-02-01T00:00:00.000/2025-03-17T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "0"
+                ]
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "4",
+                    "5",
+                    "6"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "7",
+                    "8",
+                    "9"
+                ]
+            },
+            {
+                "columnId": "8",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "10",
+                    "11",
+                    "12"
+                ]
+            },
+            {
+                "columnId": "9",
+                "id": "metrics/timespentvisit",
+                "filters": [
+                    "13",
+                    "14",
+                    "15"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c491a23424c0a67fc3e16"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_5e7c493cb66c3a1b0f78eab5"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_630439ccd573f419827c4948"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "android_activity"
+            },
+            {
+                "id": "11",
+                "type": "segment",
+                "segmentId": "s200001591_630439ccd573f419827c4948"
+            },
+            {
+                "id": "12",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            },
+            {
+                "id": "13",
+                "type": "segment",
+                "segmentId": "ios_activity"
+            },
+            {
+                "id": "14",
+                "type": "segment",
+                "segmentId": "s200001591_630439ccd573f419827c4948"
+            },
+            {
+                "id": "15",
+                "type": "segment",
+                "segmentId": "s200001591_697165d139770a0fa4576ab8"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Basic Traffic  - Campaign Page Time Spent per Visit (Web & App)"
+            }
+        ]
+    }
+}
