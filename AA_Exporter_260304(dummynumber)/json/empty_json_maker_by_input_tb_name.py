@@ -58,13 +58,65 @@ names = """
 26_ny_7_1_order_by_channel_cmp
 26_ny_7_1_order_by_channel_scom
 26_ny_7_1_order_by_channel_scom_prior
-us_26_ny_5_1_campaign_order_cvr_total
+26_ny_8_8_cmp_adaptive_banner
 26_ny_bestselling
 26_ny_raw_multi_purchase_v41
 26_ny_raw_multi_purchase_v41_prior
 26_ny_nextpage
 25_ny_bestselling
-26_ny_8_8_cmp_adaptive_banner
+
+us_26_ny_1_1_scom_mx_traffic_web_prior
+us_26_ny_1_1_scom_vd_traffic_web_prior
+us_26_ny_1_1_scom_da_traffic_web_prior
+us_26_ny_2_1_basic_traffic_scom_prior
+us_26_ny_2_1_basic_traffic_time_scom_prior
+us_26_ny_3_2_channel_external_scom_prior
+us_25_ny_5_1_campaign_order_cvr_total
+us_26_ny_6_1_multi_order_cross_sell_prior
+us_26_ny_6_2_total_order_cross_sell_prior
+us_26_ny_7_1_order_by_channel_scom_prior
+us_25_ny_1_1_scom_mx_traffic_web
+us_25_ny_1_1_scom_vd_traffic_web
+us_25_ny_1_1_scom_da_traffic_web
+us_26_ny_1_1_scom_mx_traffic_web
+us_26_ny_1_1_scom_vd_traffic_web
+us_26_ny_1_1_scom_da_traffic_web
+us_25_ny_2_1_basic_traffic_cmp
+us_25_ny_2_1_basic_traffic_scom
+us_25_ny_2_1_basic_traffic_time
+us_26_ny_2_1_basic_traffic_cmp
+us_26_ny_2_1_basic_traffic_scom
+us_26_ny_2_1_basic_traffic_time_cmp
+us_26_ny_2_1_basic_traffic_time_scom
+us_26_ny_3_1_channel_internal
+us_25_ny_3_1_channel_internal
+us_25_ny_3_2_channel_traffic_external
+us_26_ny_3_2_channel_external_cmp
+us_26_ny_3_2_channel_external_scom
+us_25_ny_3_3_homepage_kv_gnb_to_cmp
+us_26_ny_3_3_homepage_kv_gnb_to_cmp
+us_25_ny_4_1_order_cvr_loginout
+us_25_ny_4_1_scom_order_cvr_loginout
+us_26_ny_4_1_order_cvr_loginout
+us_26_ny_4_2_order_cvr_visit_visitor
+us_26_ny_5_1_campaign_order_cvr_total
+us_25_ny_6_1_multi_order_cross_sell
+us_26_ny_6_1_multi_order_cross_sell
+us_25_ny_6_2_total_order_cross_sell
+us_26_ny_6_2_total_order_cross_sell
+us_25_ny_6_3_cmp_order_cross_sell
+us_26_ny_6_3_cmp_order_cross_sell
+us_25_ny_7_1_order_by_channel_cmp
+us_26_ny_7_1_order_by_channel_cmp
+us_26_ny_7_1_order_by_channel_scom
+us_26_ny_8_8_cmp_adaptive_banner
+us_26_ny_bestselling
+us_26_ny_raw_multi_purchase_v41
+us_26_ny_raw_multi_purchase_v41_prior
+us_26_ny_nextpage
+us_25_ny_bestselling
+
+
 """.strip().splitlines()
 
 cnt_exist = 0
@@ -79,8 +131,7 @@ for name in names:
         print(f"✔ 있음 (미생성): {name}.json")
         cnt_exist += 1
     else:
-        with open(filepath, "w", encoding="utf-8") as f:
-            json.dump({}, f)
+        open(filepath, "w", encoding="utf-8").close()
         print(f"✚ 없음 → 생성됨: {name}.json")
         cnt_created += 1
 
