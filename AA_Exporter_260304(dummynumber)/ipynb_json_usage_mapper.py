@@ -70,21 +70,23 @@ else:
 # ── 노트북 목록 결정 ───────────────────────────────────────────────
 targets = [t.strip() for t in TARGET_NOTEBOOKS if t.strip()]
 
+all_ipynb = [
+    p for p in BASE_DIR.glob("*.ipynb")
+    if ".ipynb_checkpoints" not in str(p)
+]
+
 if targets:
     nb_paths = []
     for name in targets:
-        p = BASE_DIR / name
-        if p.suffix != ".ipynb":
-            p = p.with_suffix(".ipynb")
-        if p.exists():
-            nb_paths.append(p)
+        keyword = Path(name).stem  # 확장자 제거
+        matched = [p for p in all_ipynb if keyword in p.stem]
+        if matched:
+            nb_paths.extend(matched)
         else:
-            print(f"⚠  파일 없음: {p.name}")
+            print(f"⚠  매칭되는 파일 없음: '{keyword}'")
+    nb_paths = sorted(set(nb_paths))
 else:
-    nb_paths = sorted([
-        p for p in BASE_DIR.glob("*.ipynb")
-        if ".ipynb_checkpoints" not in str(p)
-    ])
+    nb_paths = sorted(all_ipynb)
 
 # ── json 폴더 내 전체 파일 목록 ────────────────────────────────────
 all_json_files = sorted([
