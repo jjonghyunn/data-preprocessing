@@ -11,53 +11,67 @@
         },
         {
             "type": "dateRange",
-            "dateRange": "2026-01-25T00:00:00.000/2026-02-01T00:00:00.000"
+            "dateRange": "2025-01-19T00:00:00.000/2025-02-09T00:00:00.000"
         }
     ],
     "metricContainer": {
         "metrics": [
             {
-                "columnId": "0",
-                "id": "metrics/orders"
-            },
-            {
                 "columnId": "1",
-                "id": "metrics/event100"
-            },
-            {
-                "columnId": "3",
                 "id": "metrics/orders",
                 "filters": [
                     "0"
                 ]
             },
             {
-                "columnId": "5",
+                "columnId": "2",
                 "id": "metrics/orders",
                 "filters": [
                     "1"
                 ]
             },
             {
-                "columnId": "6",
+                "columnId": "3",
                 "id": "metrics/orders",
                 "filters": [
                     "2"
                 ]
             },
             {
-                "columnId": "7",
-                "id": "metrics/orders",
+                "columnId": "5",
+                "id": "metrics/event100",
                 "filters": [
                     "3"
                 ]
             },
             {
-                "columnId": "9",
-                "id": "metrics/orders",
+                "columnId": "6",
+                "id": "metrics/event100",
                 "filters": [
-                    "4",
+                    "4"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/event100",
+                "filters": [
                     "5"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "metrics/visits",
+                "filters": [
+                    "6",
+                    "7"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/visits",
+                "filters": [
+                    "8",
+                    "9"
                 ]
             }
         ],
@@ -65,32 +79,52 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+                "segmentId": "All_Visits"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970838c0469e85076de8e9e"
+                "segmentId": "s200001591_6513b8c578fba360c5d1afaa"
             },
             {
                 "id": "2",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
+                "segmentId": "s200001591_651d45bbcf1e1063ab843694"
             },
             {
                 "id": "3",
                 "type": "segment",
-                "segmentId": "s200001591_697090d2a6005a2f78050c01"
+                "segmentId": "All_Visits"
             },
             {
                 "id": "4",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
+                "segmentId": "s200001591_6513b8c578fba360c5d1afaa"
             },
             {
                 "id": "5",
                 "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
+                "segmentId": "s200001591_651d45bbcf1e1063ab843694"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_6513b8c578fba360c5d1afaa"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_5c6d01f39c6d5908e3a5c7fa"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_651d45bbcf1e1063ab843694"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "s200001591_5c6d01f39c6d5908e3a5c7fa"
             }
         ]
     },
@@ -125,7 +159,7 @@
             },
             {
                 "name": "panelName",
-                "value": "S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X"
+                "value": "Order Conversion - S.com Order / (4-2.) Visit/Visitor by Login & Non-login (Total)"
             }
         ]
     }
