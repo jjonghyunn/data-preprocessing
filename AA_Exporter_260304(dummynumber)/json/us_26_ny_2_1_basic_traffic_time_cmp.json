@@ -1,4 +1,4 @@
-{
+{}{
     "rsid": "sssamsungnewus",
     "globalFilters": [
         {
@@ -17,47 +17,26 @@
     "metricContainer": {
         "metrics": [
             {
-                "columnId": "0",
-                "id": "metrics/orders"
-            },
-            {
                 "columnId": "1",
-                "id": "metrics/event100"
-            },
-            {
-                "columnId": "3",
-                "id": "metrics/orders",
+                "id": "metrics/timespentvisit",
                 "filters": [
                     "0"
                 ]
             },
             {
-                "columnId": "5",
-                "id": "metrics/orders",
+                "columnId": "3",
+                "id": "metrics/timespentvisit",
                 "filters": [
-                    "1"
-                ]
-            },
-            {
-                "columnId": "6",
-                "id": "metrics/orders",
-                "filters": [
+                    "1",
                     "2"
                 ]
             },
             {
-                "columnId": "7",
-                "id": "metrics/orders",
+                "columnId": "4",
+                "id": "metrics/timespentvisit",
                 "filters": [
-                    "3"
-                ]
-            },
-            {
-                "columnId": "9",
-                "id": "metrics/orders",
-                "filters": [
-                    "4",
-                    "5"
+                    "3",
+                    "4"
                 ]
             }
         ],
@@ -65,32 +44,27 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+                "segmentId": "s200001591_69707cef0469e85076de8e8c"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970838c0469e85076de8e9e"
+                "segmentId": "s200001591_5e7c491a23424c0a67fc3e16"
             },
             {
                 "id": "2",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
+                "segmentId": "s200001591_69707cef0469e85076de8e8c"
             },
             {
                 "id": "3",
                 "type": "segment",
-                "segmentId": "s200001591_697090d2a6005a2f78050c01"
+                "segmentId": "s200001591_5e7c493cb66c3a1b0f78eab5"
             },
             {
                 "id": "4",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
-            },
-            {
-                "id": "5",
-                "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
+                "segmentId": "s200001591_69707cef0469e85076de8e8c"
             }
         ]
     },
@@ -125,7 +99,7 @@
             },
             {
                 "name": "panelName",
-                "value": "S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X"
+                "value": "Basic Traffic  - Campaign Page Time Spent per Visit (Web)"
             }
         ]
     }

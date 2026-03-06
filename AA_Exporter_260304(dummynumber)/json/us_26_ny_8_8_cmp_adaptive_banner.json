@@ -17,46 +17,44 @@
     "metricContainer": {
         "metrics": [
             {
-                "columnId": "0",
-                "id": "metrics/orders"
-            },
-            {
                 "columnId": "1",
-                "id": "metrics/event100"
-            },
-            {
-                "columnId": "3",
-                "id": "metrics/orders",
+                "id": "metrics/visits",
                 "filters": [
                     "0"
                 ]
             },
             {
-                "columnId": "5",
-                "id": "metrics/orders",
+                "columnId": "2",
+                "id": "metrics/visits",
                 "filters": [
                     "1"
                 ]
             },
             {
-                "columnId": "6",
-                "id": "metrics/orders",
+                "columnId": "3",
+                "id": "metrics/visits",
                 "filters": [
                     "2"
                 ]
             },
             {
-                "columnId": "7",
-                "id": "metrics/orders",
+                "columnId": "4",
+                "id": "metrics/visits",
                 "filters": [
                     "3"
                 ]
             },
             {
-                "columnId": "9",
-                "id": "metrics/orders",
+                "columnId": "5",
+                "id": "metrics/visits",
                 "filters": [
-                    "4",
+                    "4"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/visits",
+                "filters": [
                     "5"
                 ]
             }
@@ -65,32 +63,32 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+                "segmentId": "s200001591_69706d4ebb7e344da115609e"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970838c0469e85076de8e9e"
+                "segmentId": "s200001591_69770214bb7e344da1156a48"
             },
             {
                 "id": "2",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
+                "segmentId": "s200001591_6978930e26f5fe7b44b4059e"
             },
             {
                 "id": "3",
                 "type": "segment",
-                "segmentId": "s200001591_697090d2a6005a2f78050c01"
+                "segmentId": "s200001591_697882d239770a0fa45789b7"
             },
             {
                 "id": "4",
                 "type": "segment",
-                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
+                "segmentId": "s200001591_66ebb0742b27373dedccf319"
             },
             {
                 "id": "5",
                 "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
+                "segmentId": "s200001591_66ebb0742b27373dedccf319"
             }
         ]
     },
@@ -125,7 +123,7 @@
             },
             {
                 "name": "panelName",
-                "value": "S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X"
+                "value": "Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA - TBD"
             }
         ]
     }

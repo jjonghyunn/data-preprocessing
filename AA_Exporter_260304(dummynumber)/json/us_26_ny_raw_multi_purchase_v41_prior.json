@@ -17,47 +17,49 @@
     "metricContainer": {
         "metrics": [
             {
-                "columnId": "0",
-                "id": "metrics/orders"
-            },
-            {
-                "columnId": "1",
-                "id": "metrics/event100"
+                "columnId": "2",
+                "id": "metrics/units",
+                "filters": [
+                    "0",
+                    "1"
+                ]
             },
             {
                 "columnId": "3",
                 "id": "metrics/orders",
                 "filters": [
-                    "0"
+                    "2",
+                    "3"
+                ]
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/event100",
+                "filters": [
+                    "4",
+                    "5"
                 ]
             },
             {
                 "columnId": "5",
-                "id": "metrics/orders",
+                "id": "metrics/units",
                 "filters": [
-                    "1"
-                ]
+                    "6"
+                ],
+                "sort": "desc"
             },
             {
                 "columnId": "6",
                 "id": "metrics/orders",
                 "filters": [
-                    "2"
+                    "7"
                 ]
             },
             {
                 "columnId": "7",
-                "id": "metrics/orders",
+                "id": "metrics/event100",
                 "filters": [
-                    "3"
-                ]
-            },
-            {
-                "columnId": "9",
-                "id": "metrics/orders",
-                "filters": [
-                    "4",
-                    "5"
+                    "8"
                 ]
             }
         ],
@@ -65,12 +67,12 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+                "segmentId": "s200001591_697083c581c6a66dcbe3d744"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970838c0469e85076de8e9e"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "2",
@@ -80,7 +82,7 @@
             {
                 "id": "3",
                 "type": "segment",
-                "segmentId": "s200001591_697090d2a6005a2f78050c01"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "4",
@@ -90,18 +92,32 @@
             {
                 "id": "5",
                 "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             }
         ]
     },
-    "dimension": "variables/daterangeyear",
+    "dimension": "variables/evar38",
     "settings": {
         "countRepeatInstances": true,
         "includeAnnotations": true,
-        "nonesBehavior": "return-nones",
-        "limit": 400,
-        "page": 0,
-        "dimensionSort": "asc"
+        "nonesBehavior": "exclude-nones",
+        "limit": 10,
+        "page": 0
     },
     "statistics": {
         "functions": [
@@ -125,7 +141,7 @@
             },
             {
                 "name": "panelName",
-                "value": "S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X"
+                "value": "Campaign Multi Order (Total) [w. Prior Period]"
             }
         ]
     }
