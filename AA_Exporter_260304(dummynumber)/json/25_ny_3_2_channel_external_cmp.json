@@ -1,0 +1,86 @@
+{
+    "rsid": "sssamsung4sec",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2025-02-18T00:00:00.000/2025-03-18T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "cm200001591_56c1679b04f4860205c9f511",
+                "filters": [
+                    "0"
+                ],
+                "sort": "desc"
+            },
+            {
+                "columnId": "2",
+                "id": "metrics/bounces",
+                "filters": [
+                    "1"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_6971600dbb7e344da11563fd"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_6971600dbb7e344da11563fd"
+            }
+        ]
+    },
+    "dimension": "variables/marketingchannel",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "exclude-nones",
+        "limit": 50,
+        "page": 0
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "External Traffic by Channel (Total)"
+            }
+        ]
+    }
+}

@@ -1,0 +1,332 @@
+{
+    "rsid": "vrs_samsun0_p6webmstukcopy",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-01-19T00:00:00.000/2026-01-26T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "metrics/visits",
+                "filters": [
+                    "0"
+                ]
+            },
+            {
+                "columnId": "2",
+                "id": "metrics/visits",
+                "filters": [
+                    "1"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/visits",
+                "filters": [
+                    "2"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/orders",
+                "filters": [
+                    "3",
+                    "4"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/orders",
+                "filters": [
+                    "5",
+                    "6"
+                ]
+            },
+            {
+                "columnId": "8",
+                "id": "metrics/orders",
+                "filters": [
+                    "7",
+                    "8"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "metrics/orders",
+                "filters": [
+                    "9",
+                    "10"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/orders",
+                "filters": [
+                    "11",
+                    "12"
+                ]
+            },
+            {
+                "columnId": "12",
+                "id": "metrics/orders",
+                "filters": [
+                    "13",
+                    "14"
+                ]
+            },
+            {
+                "columnId": "15",
+                "id": "metrics/revenue",
+                "filters": [
+                    "15",
+                    "16"
+                ]
+            },
+            {
+                "columnId": "16",
+                "id": "metrics/revenue",
+                "filters": [
+                    "17",
+                    "18"
+                ]
+            },
+            {
+                "columnId": "17",
+                "id": "metrics/revenue",
+                "filters": [
+                    "19",
+                    "20"
+                ]
+            },
+            {
+                "columnId": "19",
+                "id": "metrics/orders",
+                "filters": [
+                    "21"
+                ]
+            },
+            {
+                "columnId": "20",
+                "id": "metrics/orders",
+                "filters": [
+                    "22"
+                ]
+            },
+            {
+                "columnId": "21",
+                "id": "metrics/orders",
+                "filters": [
+                    "23"
+                ]
+            },
+            {
+                "columnId": "23",
+                "id": "metrics/revenue",
+                "filters": [
+                    "24"
+                ]
+            },
+            {
+                "columnId": "24",
+                "id": "metrics/revenue",
+                "filters": [
+                    "25"
+                ]
+            },
+            {
+                "columnId": "25",
+                "id": "metrics/revenue",
+                "filters": [
+                    "26"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_697080618864ef5c3c4f71fc"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_697080a6a6005a2f78050bec"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_697080f2ea80cf08b63b3ccf"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_6970812da6005a2f78050bed"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e5c46f10812c2bb41aa"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_6970812da6005a2f78050bed"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e114aac3900e39be229"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_6970812da6005a2f78050bed"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "11",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e5c46f10812c2bb41aa"
+            },
+            {
+                "id": "12",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "13",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e114aac3900e39be229"
+            },
+            {
+                "id": "14",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "15",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "16",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "17",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e5c46f10812c2bb41aa"
+            },
+            {
+                "id": "18",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "19",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e114aac3900e39be229"
+            },
+            {
+                "id": "20",
+                "type": "segment",
+                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+            },
+            {
+                "id": "21",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "22",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e5c46f10812c2bb41aa"
+            },
+            {
+                "id": "23",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e114aac3900e39be229"
+            },
+            {
+                "id": "24",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "25",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e5c46f10812c2bb41aa"
+            },
+            {
+                "id": "26",
+                "type": "segment",
+                "segmentId": "s200001591_63c63e114aac3900e39be229"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Order Conversion - Campaign Page > PD / ATC Page / Campaign Page & S.com Order (Total)"
+            }
+        ]
+    }
+}

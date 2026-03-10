@@ -1,0 +1,866 @@
+{
+    "rsid": "sssamsung4sec",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_598d31c241c44b23755aab56"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_6913ecaaae08334ca67cfa0f"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_690da368fcf6bf1e8dc30b49"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-02-01T00:00:00.000/2026-02-04T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "3",
+                "id": "metrics/visits",
+                "filters": [
+                    "0",
+                    "1",
+                    "2"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/visits",
+                "filters": [
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/visits",
+                "filters": [
+                    "7",
+                    "8",
+                    "9",
+                    "10"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/visits",
+                "filters": [
+                    "11",
+                    "12",
+                    "13",
+                    "14"
+                ]
+            },
+            {
+                "columnId": "8",
+                "id": "metrics/visits",
+                "filters": [
+                    "15",
+                    "16",
+                    "17",
+                    "18"
+                ]
+            },
+            {
+                "columnId": "9",
+                "id": "metrics/visits",
+                "filters": [
+                    "19",
+                    "20",
+                    "21",
+                    "22"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "metrics/visits",
+                "filters": [
+                    "23",
+                    "24",
+                    "25",
+                    "26"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/visits",
+                "filters": [
+                    "27",
+                    "28",
+                    "29",
+                    "30"
+                ]
+            },
+            {
+                "columnId": "12",
+                "id": "metrics/visits",
+                "filters": [
+                    "31",
+                    "32",
+                    "33",
+                    "34"
+                ]
+            },
+            {
+                "columnId": "13",
+                "id": "metrics/visits",
+                "filters": [
+                    "35",
+                    "36",
+                    "37",
+                    "38"
+                ]
+            },
+            {
+                "columnId": "14",
+                "id": "metrics/visits",
+                "filters": [
+                    "39",
+                    "40",
+                    "41",
+                    "42"
+                ]
+            },
+            {
+                "columnId": "15",
+                "id": "metrics/visits",
+                "filters": [
+                    "43",
+                    "44",
+                    "45",
+                    "46"
+                ]
+            },
+            {
+                "columnId": "16",
+                "id": "metrics/visits",
+                "filters": [
+                    "47",
+                    "48",
+                    "49",
+                    "50"
+                ]
+            },
+            {
+                "columnId": "17",
+                "id": "metrics/visits",
+                "filters": [
+                    "51",
+                    "52",
+                    "53",
+                    "54"
+                ]
+            },
+            {
+                "columnId": "18",
+                "id": "metrics/visits",
+                "filters": [
+                    "55",
+                    "56",
+                    "57",
+                    "58"
+                ]
+            },
+            {
+                "columnId": "19",
+                "id": "metrics/visits",
+                "filters": [
+                    "59",
+                    "60",
+                    "61",
+                    "62"
+                ]
+            },
+            {
+                "columnId": "20",
+                "id": "metrics/visits",
+                "filters": [
+                    "63",
+                    "64",
+                    "65",
+                    "66"
+                ]
+            },
+            {
+                "columnId": "21",
+                "id": "metrics/visits",
+                "filters": [
+                    "67",
+                    "68",
+                    "69",
+                    "70"
+                ]
+            },
+            {
+                "columnId": "22",
+                "id": "metrics/visits",
+                "filters": [
+                    "71",
+                    "72",
+                    "73",
+                    "74"
+                ]
+            },
+            {
+                "columnId": "23",
+                "id": "metrics/visits",
+                "filters": [
+                    "75",
+                    "76",
+                    "77",
+                    "78"
+                ]
+            },
+            {
+                "columnId": "24",
+                "id": "metrics/visits",
+                "filters": [
+                    "79",
+                    "80",
+                    "81",
+                    "82"
+                ]
+            },
+            {
+                "columnId": "25",
+                "id": "metrics/visits",
+                "filters": [
+                    "83",
+                    "84",
+                    "85",
+                    "86"
+                ]
+            },
+            {
+                "columnId": "26",
+                "id": "metrics/visits",
+                "filters": [
+                    "87",
+                    "88",
+                    "89",
+                    "90"
+                ]
+            },
+            {
+                "columnId": "27",
+                "id": "metrics/visits",
+                "filters": [
+                    "91",
+                    "92",
+                    "93",
+                    "94"
+                ]
+            },
+            {
+                "columnId": "28",
+                "id": "metrics/visits",
+                "filters": [
+                    "95",
+                    "96",
+                    "97",
+                    "98"
+                ]
+            },
+            {
+                "columnId": "29",
+                "id": "metrics/visits",
+                "filters": [
+                    "99",
+                    "100",
+                    "101",
+                    "102"
+                ]
+            },
+            {
+                "columnId": "30",
+                "id": "metrics/visits",
+                "filters": [
+                    "103",
+                    "104",
+                    "105",
+                    "106"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_69705ac097c1fc1c14728f6b"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_697188642f62aa76904bc20a"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "s200001591_6971859439770a0fa4576b16"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "11",
+                "type": "segment",
+                "segmentId": "s200001591_69718748a6005a2f78050fd6"
+            },
+            {
+                "id": "12",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "13",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "14",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "15",
+                "type": "segment",
+                "segmentId": "s200001591_697187a32f62aa76904bc209"
+            },
+            {
+                "id": "16",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "17",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "18",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "19",
+                "type": "segment",
+                "segmentId": "s200001591_69718b4c209faa7c9e4129c7"
+            },
+            {
+                "id": "20",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "21",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "22",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "23",
+                "type": "segment",
+                "segmentId": "s200001591_69787cc05038661934675c6b"
+            },
+            {
+                "id": "24",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "25",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "26",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "27",
+                "type": "segment",
+                "segmentId": "s200001591_69787d495038661934675c74"
+            },
+            {
+                "id": "28",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "29",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "30",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "31",
+                "type": "segment",
+                "segmentId": "s200001591_69787d81a6005a2f78052cc7"
+            },
+            {
+                "id": "32",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "33",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "34",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "35",
+                "type": "segment",
+                "segmentId": "s200001591_6971a2a8bb7e344da1156452"
+            },
+            {
+                "id": "36",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "37",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "38",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "39",
+                "type": "segment",
+                "segmentId": "s200001591_6971c586e3905c382286bb6d"
+            },
+            {
+                "id": "40",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "41",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "42",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "43",
+                "type": "segment",
+                "segmentId": "s200001591_6971c568a6005a2f7805108d"
+            },
+            {
+                "id": "44",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "45",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "46",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "47",
+                "type": "segment",
+                "segmentId": "s200001591_6971c53939770a0fa4576bde"
+            },
+            {
+                "id": "48",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "49",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "50",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "51",
+                "type": "segment",
+                "segmentId": "s200001591_6971c51d39770a0fa4576bdd"
+            },
+            {
+                "id": "52",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "53",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "54",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "55",
+                "type": "segment",
+                "segmentId": "s200001591_6971c4e4e3905c382286bb6b"
+            },
+            {
+                "id": "56",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "57",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "58",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "59",
+                "type": "segment",
+                "segmentId": "s200001591_6971c4bee3905c382286bb69"
+            },
+            {
+                "id": "60",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "61",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "62",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "63",
+                "type": "segment",
+                "segmentId": "s200001591_6971c4a639770a0fa4576bdb"
+            },
+            {
+                "id": "64",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "65",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "66",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "67",
+                "type": "segment",
+                "segmentId": "s200001591_6971c48ee3905c382286bb66"
+            },
+            {
+                "id": "68",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "69",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "70",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "71",
+                "type": "segment",
+                "segmentId": "s200001591_6971c471a6005a2f78051088"
+            },
+            {
+                "id": "72",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "73",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "74",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "75",
+                "type": "segment",
+                "segmentId": "s200001591_6971c45aa6005a2f78051086"
+            },
+            {
+                "id": "76",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "77",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "78",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "79",
+                "type": "segment",
+                "segmentId": "s200001591_6971c422e3905c382286bb64"
+            },
+            {
+                "id": "80",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "81",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "82",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "83",
+                "type": "segment",
+                "segmentId": "s200001591_6971c3f6a6005a2f78051082"
+            },
+            {
+                "id": "84",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "85",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "86",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "87",
+                "type": "segment",
+                "segmentId": "s200001591_6971c38839770a0fa4576bd4"
+            },
+            {
+                "id": "88",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "89",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "90",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "91",
+                "type": "segment",
+                "segmentId": "s200001591_6971c1af39770a0fa4576bce"
+            },
+            {
+                "id": "92",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "93",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "94",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "95",
+                "type": "segment",
+                "segmentId": "s200001591_6971a3938864ef5c3c4f75a4"
+            },
+            {
+                "id": "96",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "97",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "98",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "99",
+                "type": "segment",
+                "segmentId": "s200001591_6971a45b8864ef5c3c4f75a9"
+            },
+            {
+                "id": "100",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "101",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "102",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            },
+            {
+                "id": "103",
+                "type": "segment",
+                "segmentId": "s200001591_6971a490209faa7c9e4129f7"
+            },
+            {
+                "id": "104",
+                "type": "segment",
+                "segmentId": "s200001591_69707eeebb7e344da11560e2"
+            },
+            {
+                "id": "105",
+                "type": "segment",
+                "segmentId": "s200001591_663c64831cf368116ea92109"
+            },
+            {
+                "id": "106",
+                "type": "segment",
+                "segmentId": "s200001591_628b1aef98f4d21b4afca69d"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "6972fc504d836f6d0ecf43e1"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You | Contents Click Analysis_API 추출용"
+            },
+            {
+                "name": "panelName",
+                "value": "Contents Click Rate - Visit"
+            }
+        ]
+    }
+}
