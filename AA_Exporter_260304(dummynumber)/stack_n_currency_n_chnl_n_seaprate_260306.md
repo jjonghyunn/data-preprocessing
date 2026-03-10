@@ -30,12 +30,21 @@
 - `value_vars`가 완전히 비어있을 때(매핑 value_n이 실제 CSV 컬럼과 전혀 안 맞는 경우) 에러 대신 skip 처리하고 결과 요약에 별도 보고하도록 수정
   → `⚠️ 매핑컬럼 불일치 skip` 항목으로 출력됨
   → 원인: tb_column_name_mapping.csv의 value_n이 '이번에 없음' 등 플레이스홀더인 경우 발생
+- `finalize_df()` 함수 신규 적용: channel 파일 및 union 최종 저장 시 컬럼명 rename + 순서 고정
+  → 이전: `df_long.to_csv(...)` 직접 저장 → 이후: `finalize_df(df_long).to_csv(...)`
+- union 생성 시 US dummy 행 자동 삽입 로직 추가
+  → non-US에 `_app/_android/_ios` metric_col이 존재하는데 US에 없는 경우 → US에 해당 metric_col 0행 자동 삽입
+
+* 출력 컬럼 구조 (finalize_df 기준)
+TIER, SUBS, COUNTRY, SITE CODE, REPORT NO., DIVISION, DATE, DEVICE TYPE, TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin, start_date, end_date
+- KEY = SITE CODE(소문자) + "_" + metric_col
 
 보조작업 파일 2:
 ipynb_json_usage_mapper.py
 json파일 따온 걸 api추출용 주피터파일(위 6개)에서 다 사용한게 맞는지 확인하는 코드입니다. (json열심히 따놓고 누락된 게 있는지 확인용)
 결과는 json_usage_report폴더에 저장됩니다.
-_all_check.csv파일을 보시면 됩니다. (json폴더 + tb_column_name_mapping.csv 합집합 기준 3방향 검수)
+_all_check.csv파일을 보시면 됩니다.
+(json폴더 + tb_column_name_mapping.csv 합집합 기준 3방향 검수)
 
 보조작업 파일 3:
 check_mapping_match.py
