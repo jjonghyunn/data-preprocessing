@@ -1,0 +1,106 @@
+{
+    "rsid": "sssamsungnewus",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_5f9239c11f49c6526ae9c830"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_67b56395c07d0a77c8195998"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2025-01-19T00:00:00.000/2025-02-09T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "metrics/visits",
+                "filters": [
+                    "0"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/orders",
+                "filters": [
+                    "1"
+                ]
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/event100",
+                "filters": [
+                    "2"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/orders",
+                "filters": [
+                    "3"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_5c6d01f39c6d5908e3a5c7fa"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "S.com Order & Revenue / Campaign Page Order (Total)"
+            }
+        ]
+    }
+}
