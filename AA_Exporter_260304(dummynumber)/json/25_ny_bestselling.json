@@ -1,5 +1,5 @@
 {
-    "rsid": "sssamsung4mstglobal",
+    "rsid": "sssamsung4sec",
     "globalFilters": [
         {
             "type": "segment",
@@ -15,7 +15,7 @@
         },
         {
             "type": "dateRange",
-            "dateRange": "2026-01-19T00:00:00.000/2026-01-27T00:00:00.000"
+            "dateRange": "2025-02-18T00:00:00.000/2025-03-18T00:00:00.000"
         }
     ],
     "metricContainer": {
@@ -48,12 +48,12 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "s200001591_68940b2984012618bbb1748f"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "s200001591_68940b2984012618bbb1748f"
             }
         ]
     },
@@ -79,11 +79,11 @@
             },
             {
                 "name": "projectId",
-                "value": "697c37ed85fe4d10025210cc"
+                "value": "697077f23f3e84671583f0bd"
             },
             {
                 "name": "projectName",
-                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_260130"
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
             },
             {
                 "name": "panelName",
