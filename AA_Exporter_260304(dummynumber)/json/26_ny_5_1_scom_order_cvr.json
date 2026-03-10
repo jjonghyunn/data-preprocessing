@@ -21,28 +21,30 @@
     "metricContainer": {
         "metrics": [
             {
+                "columnId": "0",
+                "id": "metrics/orders"
+            },
+            {
                 "columnId": "1",
+                "id": "metrics/revenue"
+            },
+            {
+                "columnId": "3",
                 "id": "metrics/orders",
                 "filters": [
                     "0"
                 ]
             },
             {
-                "columnId": "2",
+                "columnId": "6",
                 "id": "metrics/orders",
                 "filters": [
-                    "1"
-                ]
-            },
-            {
-                "columnId": "3",
-                "id": "metrics/orders",
-                "filters": [
+                    "1",
                     "2"
                 ]
             },
             {
-                "columnId": "5",
+                "columnId": "7",
                 "id": "metrics/orders",
                 "filters": [
                     "3",
@@ -54,110 +56,58 @@
                 "id": "metrics/orders",
                 "filters": [
                     "5",
-                    "6",
-                    "7"
+                    "6"
                 ]
             },
             {
-                "columnId": "9",
-                "id": "metrics/orders",
+                "columnId": "10",
+                "id": "metrics/revenue",
                 "filters": [
-                    "8",
+                    "7",
+                    "8"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/revenue",
+                "filters": [
                     "9",
                     "10"
                 ]
             },
             {
-                "columnId": "10",
-                "id": "metrics/orders",
+                "columnId": "12",
+                "id": "metrics/revenue",
                 "filters": [
                     "11",
-                    "12",
-                    "13"
+                    "12"
                 ]
             },
             {
-                "columnId": "12",
+                "columnId": "15",
                 "id": "metrics/orders",
                 "filters": [
+                    "13",
                     "14",
-                    "15",
-                    "16"
-                ]
-            },
-            {
-                "columnId": "13",
-                "id": "metrics/orders",
-                "filters": [
-                    "17",
-                    "18",
-                    "19"
-                ]
-            },
-            {
-                "columnId": "14",
-                "id": "metrics/orders",
-                "filters": [
-                    "20",
-                    "21",
-                    "22"
+                    "15"
                 ]
             },
             {
                 "columnId": "16",
                 "id": "metrics/orders",
                 "filters": [
-                    "23",
-                    "24",
-                    "25"
+                    "16",
+                    "17",
+                    "18"
                 ]
             },
             {
                 "columnId": "17",
                 "id": "metrics/orders",
                 "filters": [
-                    "26",
-                    "27",
-                    "28"
-                ]
-            },
-            {
-                "columnId": "18",
-                "id": "metrics/orders",
-                "filters": [
-                    "29",
-                    "30",
-                    "31"
-                ]
-            },
-            {
-                "columnId": "21",
-                "id": "metrics/orders",
-                "filters": [
-                    "32",
-                    "33",
-                    "34",
-                    "35"
-                ]
-            },
-            {
-                "columnId": "22",
-                "id": "metrics/orders",
-                "filters": [
-                    "36",
-                    "37",
-                    "38",
-                    "39"
-                ]
-            },
-            {
-                "columnId": "23",
-                "id": "metrics/orders",
-                "filters": [
-                    "40",
-                    "41",
-                    "42",
-                    "43"
+                    "19",
+                    "20",
+                    "21"
                 ]
             }
         ],
@@ -165,52 +115,52 @@
             {
                 "id": "0",
                 "type": "segment",
-                "segmentId": "s200001591_6970812da6005a2f78050bed"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "1",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "All_Visits"
             },
             {
                 "id": "2",
                 "type": "segment",
-                "segmentId": "s200001591_6970830339770a0fa4576744"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "3",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "android_activity"
             },
             {
                 "id": "4",
                 "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "5",
                 "type": "segment",
-                "segmentId": "All_Visits"
+                "segmentId": "ios_activity"
             },
             {
                 "id": "6",
                 "type": "segment",
-                "segmentId": "s200001591_6970812da6005a2f78050bed"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "7",
                 "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
+                "segmentId": "All_Visits"
             },
             {
                 "id": "8",
                 "type": "segment",
-                "segmentId": "android_activity"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "9",
                 "type": "segment",
-                "segmentId": "s200001591_6970812da6005a2f78050bed"
+                "segmentId": "android_activity"
             },
             {
                 "id": "10",
@@ -225,160 +175,50 @@
             {
                 "id": "12",
                 "type": "segment",
-                "segmentId": "s200001591_6970812da6005a2f78050bed"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "13",
                 "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
+                "segmentId": "All_Visits"
             },
             {
                 "id": "14",
                 "type": "segment",
-                "segmentId": "All_Visits"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "15",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "16",
                 "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
+                "segmentId": "android_activity"
             },
             {
                 "id": "17",
                 "type": "segment",
-                "segmentId": "android_activity"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "18",
                 "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
+                "segmentId": "s200001591_630439ccd573f419827c4948"
             },
             {
                 "id": "19",
                 "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
+                "segmentId": "ios_activity"
             },
             {
                 "id": "20",
                 "type": "segment",
-                "segmentId": "ios_activity"
+                "segmentId": "s200001591_65418fae9139705ba7d6c3da"
             },
             {
                 "id": "21",
-                "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
-            },
-            {
-                "id": "22",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "23",
-                "type": "segment",
-                "segmentId": "All_Visits"
-            },
-            {
-                "id": "24",
-                "type": "segment",
-                "segmentId": "s200001591_6970830339770a0fa4576744"
-            },
-            {
-                "id": "25",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "26",
-                "type": "segment",
-                "segmentId": "android_activity"
-            },
-            {
-                "id": "27",
-                "type": "segment",
-                "segmentId": "s200001591_6970830339770a0fa4576744"
-            },
-            {
-                "id": "28",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "29",
-                "type": "segment",
-                "segmentId": "ios_activity"
-            },
-            {
-                "id": "30",
-                "type": "segment",
-                "segmentId": "s200001591_6970830339770a0fa4576744"
-            },
-            {
-                "id": "31",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "32",
-                "type": "segment",
-                "segmentId": "All_Visits"
-            },
-            {
-                "id": "33",
-                "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
-            },
-            {
-                "id": "34",
-                "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
-            },
-            {
-                "id": "35",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "36",
-                "type": "segment",
-                "segmentId": "android_activity"
-            },
-            {
-                "id": "37",
-                "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
-            },
-            {
-                "id": "38",
-                "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
-            },
-            {
-                "id": "39",
-                "type": "segment",
-                "segmentId": "s200001591_630439ccd573f419827c4948"
-            },
-            {
-                "id": "40",
-                "type": "segment",
-                "segmentId": "ios_activity"
-            },
-            {
-                "id": "41",
-                "type": "segment",
-                "segmentId": "s200001591_6970816757bfa635fe4c1e81"
-            },
-            {
-                "id": "42",
-                "type": "segment",
-                "segmentId": "s200001591_62902bcc0ecc150af8d46c01"
-            },
-            {
-                "id": "43",
                 "type": "segment",
                 "segmentId": "s200001591_630439ccd573f419827c4948"
             }
@@ -415,7 +255,7 @@
             },
             {
                 "name": "panelName",
-                "value": "S.com Order Conversion - Campaign Page Order (Total & App)"
+                "value": "S.com Order Conversion - Order & Revenue (Total & APP)"
             }
         ]
     }
