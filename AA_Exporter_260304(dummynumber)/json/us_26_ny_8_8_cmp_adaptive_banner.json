@@ -1,0 +1,130 @@
+{
+    "rsid": "sssamsungnewus",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "s200001591_5f9239c11f49c6526ae9c830"
+        },
+        {
+            "type": "segment",
+            "segmentId": "s200001591_67b56395c07d0a77c8195998"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-01-25T00:00:00.000/2026-02-01T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "metrics/visits",
+                "filters": [
+                    "0"
+                ]
+            },
+            {
+                "columnId": "2",
+                "id": "metrics/visits",
+                "filters": [
+                    "1"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/visits",
+                "filters": [
+                    "2"
+                ]
+            },
+            {
+                "columnId": "4",
+                "id": "metrics/visits",
+                "filters": [
+                    "3"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/visits",
+                "filters": [
+                    "4"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/visits",
+                "filters": [
+                    "5"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "s200001591_69706d4ebb7e344da115609e"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "s200001591_69770214bb7e344da1156a48"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "s200001591_6978930e26f5fe7b44b4059e"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "s200001591_697882d239770a0fa45789b7"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "s200001591_66ebb0742b27373dedccf319"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "s200001591_66ebb0742b27373dedccf319"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "697077f23f3e84671583f0bd"
+            },
+            {
+                "name": "projectName",
+                "value": "[GMO DG] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA - TBD"
+            }
+        ]
+    }
+}
