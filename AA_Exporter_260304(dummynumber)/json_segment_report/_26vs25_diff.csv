@@ -1,0 +1,31 @@
+﻿file_26,file_25,seg_type,status,metric_26,metric_25,only_in_26,only_in_25
+26_ny_1_1_scom_da_traffic_app.json,25_ny_1_1_scom_da_traffic_app.json,같아야정상,✅ 정상(동일),24,24,,
+26_ny_1_1_scom_da_traffic_web.json,25_ny_1_1_scom_da_traffic_web.json,같아야정상,✅ 정상(동일),16,16,,
+26_ny_1_1_scom_mx_traffic_app.json,25_ny_1_1_scom_mx_traffic_app.json,같아야정상,✅ 정상(동일),24,24,,
+26_ny_1_1_scom_mx_traffic_web.json,25_ny_1_1_scom_mx_traffic_web.json,같아야정상,✅ 정상(동일),16,16,,
+26_ny_1_1_scom_vd_traffic_app.json,25_ny_1_1_scom_vd_traffic_app.json,같아야정상,✅ 정상(동일),24,24,,
+26_ny_1_1_scom_vd_traffic_web.json,25_ny_1_1_scom_vd_traffic_web.json,같아야정상,✅ 정상(동일),16,16,,
+26_ny_2_1_basic_traffic_cmp.json,25_ny_2_1_basic_traffic_cmp.json,달라야정상,✅ 업데이트됨(다름),35,35,s200001591_69705ac097c1fc1c14728f6b / s200001591_69707c8f0469e85076de8e86,s200001591_68940aee43d0937d861a3edd / s200001591_6971600dbb7e344da11563fd
+26_ny_2_1_basic_traffic_scom.json,25_ny_2_1_basic_traffic_scom.json,특수케이스,ℹ️ 동일,30,30,,
+26_ny_2_1_basic_traffic_time_cmp.json,25_ny_2_1_basic_traffic_time_cmp.json,달라야정상,✅ 업데이트됨(다름),6,6,,s200001591_697165d139770a0fa4576ab8
+26_ny_2_1_basic_traffic_time_scom.json,25_ny_2_1_basic_traffic_time_scom.json,특수케이스,ℹ️ 동일,6,6,,
+26_ny_3_1_channel_internal.json,25_ny_3_1_channel_internal.json,달라야정상,✅ 업데이트됨(다름),18,18,s200001591_6971abdc209faa7c9e412a17 / s200001591_6971ac91209faa7c9e412a1c / s200001591_6971ace8209faa7c9e412a1e / s200001591_6971ae71bb7e344da115648e / s200001591_6971af9039770a0fa4576b86 / s200001591_6978736ea6005a2f78052c38,s200001591_6971b7fba6005a2f7805105e / s200001591_6971becadc74af1c9ee8ee48 / s200001591_6971c14ba6005a2f7805107b / s200001591_6971c22ca6005a2f7805107c / s200001591_6971c2b3e3905c382286bb5c / s200001591_697873e8a6005a2f78052c3b
+26_ny_3_2_channel_external_cmp.json,25_ny_3_2_channel_external_cmp.json,달라야정상,✅ 업데이트됨(다름),6,2,s200001591_5e7c491a23424c0a67fc3e16 / s200001591_5e7c493cb66c3a1b0f78eab5 / s200001591_628b1aef98f4d21b4afca69d / s200001591_630439ccd573f419827c4948 / s200001591_69707c8f0469e85076de8e86,s200001591_6971600dbb7e344da11563fd
+26_ny_3_2_channel_external_scom.json,25_ny_3_2_channel_external_scom.json,특수케이스,ℹ️ 동일,4,4,,
+26_ny_3_3_homepage_kv_gnb_to_cmp.json,25_ny_3_3_homepage_kv_gnb_to_cmp.json,달라야정상,✅ 업데이트됨(다름),9,9,s200001591_6971ac91209faa7c9e412a1c / s200001591_6971b1c03cd6501c9095dbde,s200001591_6971becadc74af1c9ee8ee48 / s200001591_6971da4139770a0fa4576c39
+26_ny_4_1_order_cvr_loginout.json,25_ny_4_1_order_cvr_loginout.json,달라야정상,✅ 업데이트됨(다름),18,10,s200001591_697080618864ef5c3c4f71fc / s200001591_697080a6a6005a2f78050bec / s200001591_697080f2ea80cf08b63b3ccf / s200001591_6970812da6005a2f78050bed / s200001591_6970816757bfa635fe4c1e81,s200001591_628b1aef98f4d21b4afca69d / s200001591_630439ccd573f419827c4948 / s200001591_68940aee43d0937d861a3edd / s200001591_68940b2984012618bbb1748f
+26_ny_4_2_order_cvr_visit_visitor.json,25_ny_4_2_order_cvr_visit_visitor.json,같아야정상,✅ 정상(동일),12,12,,
+26_ny_5_1_campaign_order_cvr.json,25_ny_5_1_campaign_order_cvr.json,달라야정상,✅ 업데이트됨(다름),16,9,android_activity / ios_activity / s200001591_6970812da6005a2f78050bed / s200001591_6970816757bfa635fe4c1e81 / s200001591_6970830339770a0fa4576744,s200001591_5c5d425e5e39e44df56cf9c7 / s200001591_628b1aef98f4d21b4afca69d / s200001591_65418fae9139705ba7d6c3da / s200001591_68940b2984012618bbb1748f / s200001591_697167a0bb7e344da115640a / s200001591_6971685e8864ef5c3c4f7542
+26_ny_5_1_scom_order_cvr.json,25_ny_5_1_scom_order_cvr.json,같아야정상,— 25파일없음,,,,
+26_ny_6_1_multi_order_cross_sell.json,25_ny_6_1_multi_order_cross_sell.json,같아야정상,✅ 정상(동일),16,16,,
+26_ny_6_2_total_order_cross_sell.json,25_ny_6_2_total_order_cross_sell.json,같아야정상,✅ 정상(동일),16,16,,
+26_ny_6_3_cmp_order_cross_sell.json,25_ny_6_3_cmp_order_cross_sell.json,달라야정상,✅ 업데이트됨(다름),16,16,s200001591_6970816757bfa635fe4c1e81,s200001591_68940b2984012618bbb1748f
+26_ny_7_1_order_by_channel_cmp.json,25_ny_7_1_order_by_channel_cmp.json,달라야정상,✅ 업데이트됨(다름),15,3,All_Visits / android_activity / ios_activity / s200001591_5e7c491a23424c0a67fc3e16 / s200001591_5e7c493cb66c3a1b0f78eab5 / s200001591_628b1aef98f4d21b4afca69d / s200001591_630439ccd573f419827c4948 / s200001591_69705ac097c1fc1c14728f6b / s200001591_6970816757bfa635fe4c1e81,s200001591_68940aee43d0937d861a3edd / s200001591_68940b2984012618bbb1748f
+26_ny_7_1_order_by_channel_scom.json,25_ny_7_1_order_by_channel_scom.json,특수케이스,— 25파일없음,,,,
+26_ny_8_8_cmp_adaptive_banner.json,25_ny_8_8_cmp_adaptive_banner.json,달라야정상,— 25파일없음,,,,
+26_ny_bestselling.json,25_ny_bestselling.json,달라야정상,✅ 업데이트됨(다름),4,4,s200001591_6970816757bfa635fe4c1e81,s200001591_68940b2984012618bbb1748f
+26_ny_cc_order.json,25_ny_cc_order.json,특수케이스,— 25파일없음,,,,
+26_ny_cc_revenue.json,25_ny_cc_revenue.json,특수케이스,— 25파일없음,,,,
+26_ny_cc_visit.json,25_ny_cc_visit.json,특수케이스,— 25파일없음,,,,
+26_ny_nextpage.json,25_ny_nextpage.json,특수케이스,— 25파일없음,,,,
+26_ny_raw_multi_purchase_v41.json,25_ny_raw_multi_purchase_v41.json,특수케이스,ℹ️ 동일,6,6,,
