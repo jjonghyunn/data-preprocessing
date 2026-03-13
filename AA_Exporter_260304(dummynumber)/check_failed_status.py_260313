@@ -4,7 +4,8 @@ import csv
 TARGET_DIR = os.path.join(os.path.dirname(__file__), "aa_exports")
 
 def check_failed():
-    failed_report = []  # (파일명, FAILED 행 수)
+    failed_report = []   # (파일명, FAILED 행 수)
+    us_empty_report = [] # (파일명) US 파일인데 OK 데이터 행 0개
     skipped = []
     no_status = []
 
@@ -13,13 +14,16 @@ def check_failed():
         if f.endswith(".csv")
         and f != "separate.csv"
         and not f.lower().startswith("union")
-        and "separate" not in f.lower()  # *_separate.csv 제외
+        and "separate" not in f.lower()
+        and not f.lower().startswith("_stacked")
     ]
 
     print(f"검사 대상 파일 수: {len(files)}\n")
 
     for fname in sorted(files):
         fpath = os.path.join(TARGET_DIR, fname)
+        is_us = fname.lower().startswith("us_")
+
         try:
             with open(fpath, encoding="utf-8-sig", newline="") as f:
                 reader = csv.DictReader(f)
@@ -28,31 +32,48 @@ def check_failed():
                     skipped.append((fname, "헤더 없음"))
                     continue
 
-                # 대소문자 무관하게 status 컬럼 찾기
                 status_col = next((h for h in headers if h.strip().lower() == "status"), None)
                 if status_col is None:
                     no_status.append(fname)
                     continue
 
-                failed_count = sum(
-                    1 for row in reader
-                    if row.get(status_col, "").strip().upper() == "FAILED"
-                )
+                failed_count = 0
+                ok_count = 0
+                for row in reader:
+                    s = row.get(status_col, "").strip().upper()
+                    if s == "FAILED":
+                        failed_count += 1
+                    elif s == "OK":
+                        ok_count += 1
 
                 if failed_count > 0:
                     failed_report.append((fname, failed_count))
+
+                if is_us and ok_count == 0:
+                    us_empty_report.append((fname, failed_count))
 
         except Exception as e:
             skipped.append((fname, str(e)))
 
     # 결과 출력
     print("=" * 60)
+
     if failed_report:
         print(f"[FAILED 발견] {len(failed_report)}개 파일:")
         for fname, cnt in failed_report:
             print(f"  ❌  {fname}  ({cnt}건)")
     else:
         print("[OK] FAILED 상태인 파일 없음")
+
+    if us_empty_report:
+        print(f"\n[US 데이터 없음] {len(us_empty_report)}개 파일 (OK 행 0개):")
+        for fname, failed_cnt in us_empty_report:
+            note = f"FAILED {failed_cnt}건" if failed_cnt > 0 else "추출 값 없음"
+            print(f"  ⚠️  {fname}  ({note})")
+    else:
+        us_files = [f for f in files if f.lower().startswith("us_")]
+        if us_files:
+            print(f"\n[US OK] US 파일 {len(us_files)}개 모두 데이터 있음")
 
     if no_status:
         print(f"\n[참고] status 컬럼 없는 파일 ({len(no_status)}개):")
