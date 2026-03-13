@@ -41,14 +41,29 @@ OUT_DIR.mkdir(exist_ok=True)
 
 # ── 대상 파일 수집 ────────────────────────────────────────────────
 glob_fn = EXPORTS_DIR.rglob if SEARCH_SUBDIRS else EXPORTS_DIR.glob
-csv_files = [
+all_csv_files = [
     f for f in glob_fn("*.csv")
     if "_long"    not in f.name
     and "_stacked" not in f.name
     and not f.stem.startswith("union")
     and not f.stem.startswith("_")
 ]
-print(f"검사 대상 파일: {len(csv_files)}개\n")
+
+# tb_key별로 가장 최신 파일만 남기기 (파일명의 _YYYYMMDD_HHMMSS 기준)
+_TIMESTAMP_PAT = re.compile(r"_(\d{8}_\d{6})$")
+
+def _ts(path: Path) -> str:
+    m = _TIMESTAMP_PAT.search(path.stem)
+    return m.group(1) if m else ""
+
+latest: dict[str, Path] = {}
+for f in all_csv_files:
+    key = _TIMESTAMP_PAT.sub("", f.stem)
+    if key not in latest or _ts(f) > _ts(latest[key]):
+        latest[key] = f
+
+csv_files = sorted(latest.values())
+print(f"검사 대상 파일: {len(csv_files)}개 (tb_key별 최신 파일 기준)\n")
 
 
 # ── 상태 결정 ─────────────────────────────────────────────────────
