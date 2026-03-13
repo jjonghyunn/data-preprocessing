@@ -8,9 +8,9 @@ aa_exports/ 의 CSV 파일들이 tb_column_name_mapping.csv 와
   1. 매핑 테이블에 tb 자체가 없는 파일          → ❌ 매핑없음
   2. 매핑 value_n 이 CSV value 컬럼과 전혀 안 맞음 → 🔴 전혀불일치
   3. 매핑에만 있고 CSV에는 없는 컬럼 존재
-     (tb_column_name_mapping의 value_n > CSV 실제 컬럼) → ⚠️ 매핑초과(CSV부족)
+     (tb_column_name_mapping의 value_n > CSV 실제 컬럼) → ⚠️ 매핑초과(api 추출 된 CSV부족)
   4. CSV에만 있고 매핑에 없는 value 컬럼 존재
-     (CSV value19~20+ 등 > tb_column_name_mapping) → ⚠️ CSV초과(매핑누락)
+     (CSV value19~20+ 등 > tb_column_name_mapping) → ⚠️ CSV초과(tb_column_name매핑누락)
   5. 3+4 동시                                    → ⚠️ 양쪽불일치
   6. 완전 일치                                    → ✅ 정상
 
@@ -58,9 +58,9 @@ def get_status(matched, mapping_only, csv_only):
     if mapping_only and csv_only:
         return "⚠️ 양쪽불일치"
     if mapping_only:
-        return "⚠️ 매핑초과(CSV부족)"
+        return "⚠️ 매핑초과(api 추출 된 CSV부족)"
     if csv_only:
-        return "⚠️ CSV초과(매핑누락)"
+        return "⚠️ CSV초과(tb_column_name매핑누락)"
     return "✅ 정상"
 
 
@@ -162,18 +162,18 @@ print(f"\n✅ 정상 ({len(ok_list)}개)")
 for t in ok_list:
     print(f"  - {t}")
 
-print(f"\n⚠️  매핑초과·CSV부족 ({len(mapping_over_list)}개)"
+print(f"\n⚠️  매핑초과-api 추출 된 CSV부족 ({len(mapping_over_list)}개)"
       f"  ← 매핑 value_n이 CSV에 없음 (tb mapping이 CSV보다 많음)")
 for t in mapping_over_list:
-    r = next(x for x in rows if x["tb_key"] == t and x["status"] == "⚠️ 매핑초과(CSV부족)")
+    r = next(x for x in rows if x["tb_key"] == t and x["status"] == "⚠️ 매핑초과(api 추출 된 CSV부족)")
     print(f"  - {t}")
     print(f"      매칭됨       ({r['matched_cnt']}): {r['matched']}")
     print(f"      매핑에만 있음({r['mapping_only_cnt']}): {r['mapping_only']}")
 
-print(f"\n⚠️  CSV초과·매핑누락 ({len(csv_over_list)}개)"
+print(f"\n⚠️  CSV초과-tb_column_name매핑누락 ({len(csv_over_list)}개)"
       f"  ← CSV에 value19~20+ 등 있는데 tb mapping에 없음")
 for t in csv_over_list:
-    r = next(x for x in rows if x["tb_key"] == t and x["status"] == "⚠️ CSV초과(매핑누락)")
+    r = next(x for x in rows if x["tb_key"] == t and x["status"] == "⚠️ CSV초과(tb_column_name매핑누락)")
     print(f"  - {t}")
     print(f"      매칭됨      ({r['matched_cnt']}): {r['matched']}")
     print(f"      CSV에만 있음({r['csv_only_cnt']}): {r['csv_only']}")
@@ -204,8 +204,8 @@ total = len(ok_list) + len(mapping_over_list) + len(csv_over_list) + len(both_mi
 print(
     f"합계 {total}개: "
     f"정상 {len(ok_list)} / "
-    f"매핑초과 {len(mapping_over_list)} / "
-    f"CSV초과 {len(csv_over_list)} / "
+    f"매핑초과(api 추출 된 CSV부족) {len(mapping_over_list)} / "
+    f"CSV초과(tb_column_name매핑누락) {len(csv_over_list)} / "
     f"양쪽불일치 {len(both_mismatch_list)} / "
     f"전혀불일치 {len(empty_match_list)} / "
     f"매핑없음 {len(no_mapping_list)}"
