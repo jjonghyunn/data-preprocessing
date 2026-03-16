@@ -55,8 +55,17 @@ stack_n_currency_n_chnl_n_seaprate_260313.ipynb
 - metric_col을 `_`로 분리하여 J1~J7 파트로 분해
 - 숫자_숫자 패턴으로 REPORT NO. 결정 → `report_no_mapping` 딕셔너리 참고
 
-### 6. non-channel 파일: dummy 0행 삽입
+### 6. non-channel 파일: year-split 합산 → dummy 0행 삽입
 
+#### 6-1. year-split 합산
+- prior 기간이 연도를 넘을 때 AA가 연도별로 행을 분리 추출함 (value = "2025", "2026" 등)
+- `value`가 `^20\d{2}` 패턴인 행들을 `site × metric_col` 기준으로 집계
+  - `_time` 계열 (`metric_col`에 `"time"` 포함): **평균** (mean)
+  - 그 외: **합산** (sum)
+- `itemId`는 연도별로 다르므로 groupby 제외 → `first`로 처리
+- 셀 출력 예: `tb_key → year-split: 450행 → 276행 (time계열 평균, 나머지 합산)`
+
+#### 6-2. dummy 0행 삽입
 - pre-scan 기준 마스터 site_code에서 해당 파일에 없는 site에 dummy 0행 삽입
 - US 파일 → `_us_sites` 기준, 글로벌 파일 → `_global_sites` 기준
 - `_stacked_separate.csv`로 개별 저장
