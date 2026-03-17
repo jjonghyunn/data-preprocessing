@@ -14,9 +14,15 @@ json 폴더의 JSON 파일 간 세그먼트 ID 일관성을 검수합니다.
   → 특수케이스 : ℹ️ 동일 / ℹ️ 다름 (판단 보류)
   → 25 파일 없음: 별도 표시
 
+[검사 3] json 파일명 키워드 vs panelName 키워드 일관성
+  파일명에 cmp → panelName에 "Campaign" 포함 여부
+  파일명에 scom → panelName에 "S.com" 포함 여부
+  → 일치: 정상  /  불일치: 확인필요
+
 [결과 저장]
-  ../json_segment_report/_prior_check.csv   ← 검사 1
-  ../json_segment_report/_26vs25_diff.csv   ← 검사 2
+  ../json_segment_report/_prior_check.csv        ← 검사 1
+  ../json_segment_report/_26vs25_diff.csv        ← 검사 2
+  ../json_segment_report/_filename_panel_check.csv ← 검사 3
 """
 
 import json
@@ -52,6 +58,92 @@ def load_segments(path: Path):
             segs.add(mf["segmentId"])
     metrics_cnt = len(d.get("metricContainer", {}).get("metrics", []))
     return segs, metrics_cnt
+
+
+def get_panel_name(path: Path) -> str:
+    """JSON 파일의 capacityMetadata.associations에서 panelName 값 추출."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        for s in d.get("capacityMetadata", {}).get("associations", []):
+            if s.get("name") == "panelName":
+                return s.get("value", "")
+    except Exception:
+        pass
+    return ""
+
+
+def check_filename_vs_panel(fname: str, panel_name: str) -> tuple:
+    """
+    파일명 키워드(cmp/campaign/scom/prior)와 panelName 키워드(Campaign/S.com/Prior) 일관성 검사.
+    Returns: (filename_kw, panel_kw, status)
+    """
+    stem   = Path(fname).stem.lower()
+    tokens = set(stem.split("_"))
+
+    has_cmp   = "cmp"      in tokens or "campaign" in tokens  # cmp / campaign 둘 다 캠페인 의미
+    has_scom  = "scom"  in tokens
+    has_prior = "prior" in tokens
+
+    has_campaign_panel = "campaign" in panel_name.lower()
+    has_scom_panel     = "s.com"    in panel_name.lower()
+    has_prior_panel    = "prior"    in panel_name.lower()
+
+    fn_cmp_repr = next((k for k in ["cmp", "campaign"] if k in tokens), None)
+    filename_kw = "/".join(filter(None, [
+        fn_cmp_repr if has_cmp else None,
+        "scom"  if has_scom  else None,
+        "prior" if has_prior else None,
+    ])) or "-"
+    panel_kw = "/".join(k for k, f in [
+        ("Campaign", has_campaign_panel),
+        ("S.com",    has_scom_panel),
+        ("Prior",    has_prior_panel),
+    ] if f) or "-"
+
+    if not panel_name:
+        return filename_kw, panel_kw, "⚠️ panelName없음"
+
+    if not has_cmp and not has_scom:
+        # cmp/scom 없는 경우: prior 체크 우선
+        if has_prior:
+            if has_prior_panel:
+                return filename_kw, panel_kw, "정상. json은 prior, 패널명에 Prior포함."
+            else:
+                return filename_kw, panel_kw, "확인필요. json은 prior이나 패널명에 Prior없음."
+        # prior도 없고 cmp/scom도 없음
+        if not has_campaign_panel and not has_scom_panel:
+            return filename_kw, panel_kw, "해당없음"
+        # 파일명에 키워드 없는데 패널에 Campaign/S.com 있음
+        parts = []
+        if has_campaign_panel: parts.append("Campaign")
+        if has_scom_panel:     parts.append("S.com")
+        return filename_kw, panel_kw, f"확인필요. json키워드(cmp/scom)없음이나 패널명에 {'/'.join(parts)}포함."
+
+    statuses = []
+    cmp_label = fn_cmp_repr if fn_cmp_repr else "cmp"  # 실제 파일명 키워드 그대로 출력
+
+    if has_cmp:
+        if has_campaign_panel and not has_scom_panel:
+            statuses.append(f"정상. json은 {cmp_label}, 패널명에 Campaign포함.")
+        elif has_scom_panel and not has_campaign_panel:
+            statuses.append(f"확인필요. json은 {cmp_label}이나 패널명에 S.com포함.")
+        elif has_campaign_panel and has_scom_panel:
+            statuses.append(f"정상. json은 {cmp_label}, 패널명에 Campaign포함(+S.com도 있음).")
+        else:
+            statuses.append(f"확인필요. json은 {cmp_label}이나 패널명에 Campaign/S.com 없음.")
+
+    if has_scom:
+        if has_scom_panel and not has_campaign_panel:
+            statuses.append("정상. json은 scom, 패널명에 S.com포함.")
+        elif has_campaign_panel and not has_scom_panel:
+            statuses.append("확인필요. json은 scom이나 패널명에 Campaign포함.")
+        elif has_scom_panel and has_campaign_panel:
+            statuses.append("정상. json은 scom, 패널명에 S.com포함(+Campaign도 있음).")
+        else:
+            statuses.append("확인필요. json은 scom이나 패널명에 S.com/Campaign 없음.")
+
+    return filename_kw, panel_kw, " / ".join(statuses)
 
 
 # ── 분류 키워드 (매년/캠페인 바뀔 때 여기만 수정) ──────────────────────────
@@ -248,6 +340,37 @@ diff_df.to_csv(diff_path, index=False, encoding="utf-8-sig")
 print(f"\n▶ 저장: {diff_path}")
 
 
+# ── 검사 3: 파일명 키워드 vs panelName 키워드 ─────────────────────────────
+
+print()
+print("=" * 65)
+print("검사 3: json 파일명 키워드 vs panelName 키워드 일관성")
+print("  cmp → 패널명에 'Campaign' 포함 여부")
+print("  scom → 패널명에 'S.com' 포함 여부")
+print("=" * 65)
+
+rows_panel = []
+for fname in sorted(all_files):
+    panel_name  = get_panel_name(all_files[fname])
+    fn_kw, p_kw, status = check_filename_vs_panel(fname, panel_name)
+    rows_panel.append({
+        "file"        : fname,
+        "filename_kw" : fn_kw,
+        "panel_name"  : panel_name,
+        "panel_kw"    : p_kw,
+        "status"      : status,
+    })
+    if status != "해당없음":
+        print(f"  {status}  [{fname}]")
+        if panel_name:
+            print(f"      panelName: {panel_name}")
+
+panel_df   = pd.DataFrame(rows_panel, columns=["file", "filename_kw", "panel_name", "panel_kw", "status"])
+panel_path = OUT_DIR / "_filename_panel_check.csv"
+panel_df.to_csv(panel_path, index=False, encoding="utf-8-sig")
+print(f"\n▶ 저장: {panel_path}")
+
+
 # ── 요약 ──────────────────────────────────────────────────────────────────
 
 print()
@@ -269,6 +392,13 @@ print(f"[검사 2] 같아야정상: 정상 {ok_same} / 문제 {err_same}")
 print(f"         달라야정상: 업데이트됨 {ok_diff} / ⚠️미업데이트 {warn_diff}")
 print(f"         특수케이스: {special}")
 print(f"         25파일없음(26전용): {no_25_cnt}")
+
+# 검사 3 요약
+cnt_panel_ok   = sum(1 for r in rows_panel if r["status"].startswith("정상"))
+cnt_panel_chk  = sum(1 for r in rows_panel if r["status"].startswith("확인필요"))
+cnt_panel_na   = sum(1 for r in rows_panel if r["status"] == "해당없음")
+cnt_panel_warn = sum(1 for r in rows_panel if r["status"].startswith("⚠️"))
+print(f"[검사 3] 파일명↔패널명: 정상 {cnt_panel_ok} / 확인필요 {cnt_panel_chk} / 해당없음 {cnt_panel_na} / 기타⚠️ {cnt_panel_warn}")
 print()
 print(f"출력 폴더: {OUT_DIR}")
-print(f"  _prior_check.csv  /  _26vs25_diff.csv")
+print(f"  _prior_check.csv  /  _26vs25_diff.csv  /  _filename_panel_check.csv")
