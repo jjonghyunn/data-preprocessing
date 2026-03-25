@@ -1,0 +1,31 @@
+=== md_schedule 수식 모음 (공개용 — 법인명 익명화) ===
+
+※ 법인명 익명화 규칙:
+  실제 법인명 → CORP-XX 형식 (예: CORP-UK, CORP-WA, CORP-BN, CORP-SA)
+  한총 (한국법인 내부 용어) → 그대로 유지
+  한총의 출력 코드 → CORP-KR 로 표기
+
+--- AL4 (AR_clean) ---
+=IF(IF(OR(NOT(ISBLANK(AT4)),ISBLANK(AU4),AU4="Total"),"",IF(ISNUMBER(FIND("-",AU4)),LEFT(AU4,FIND("-",AU4)-1),IF(ISNUMBER(FIND(" ",AU4)),LEFT(AU4,FIND(" ",AU4)-1),AU4)))="한총","sec",IF(OR(NOT(ISBLANK(AT4)),ISBLANK(AU4),AU4="Total"),"",IF(ISNUMBER(FIND("-",AU4)),LEFT(AU4,FIND("-",AU4)-1),IF(ISNUMBER(FIND(" ",AU4)),LEFT(AU4,FIND(" ",AU4)-1),AU4))))
+
+--- AM4 (AR_key) — 7단계 우선순위 ---
+=IF(ISBLANK(AD4),"",IF(COUNTIF($AU$4:$AU$200,AB4&"-"&UPPER(IF(ISNUMBER(FIND("_",AD4)),LEFT(AD4,FIND("_",AD4)-1),AD4)))>0,AB4&"-"&UPPER(IF(ISNUMBER(FIND("_",AD4)),LEFT(AD4,FIND("_",AD4)-1),AD4)),IF(COUNTIF($AU$4:$AU$200,AB4&" ("&PROPER(LEFT(AD4,FIND("_",AD4)-1))&"_"&UPPER(MID(AD4,FIND("_",AD4)+1,20))&")")>0,AB4&" ("&PROPER(LEFT(AD4,FIND("_",AD4)-1))&"_"&UPPER(MID(AD4,FIND("_",AD4)+1,20))&")",IF(COUNTIF($AU$4:$AU$200,AB4)>0,AB4,IF(ISNUMBER(FIND("_",AD4)),"",IFERROR(INDEX($AU$4:$AU$200,MATCH(AB4,$AL$4:$AL$200,0)),IF(ISNUMBER(FIND("-",AB4)),IFERROR(INDEX($AU$4:$AU$200,MATCH(LEFT(AB4,FIND("-",AB4)-1),$AU$4:$AU$200,0)),""),IF(AB4="CORP-CA",IF(RIGHT(AD4,3)="_fr",IFERROR(INDEX($AU$4:$AU$200,MATCH("CORP-WA (Africa_FR)",$AU$4:$AU$200,0)),""),IF(RIGHT(AD4,3)="_en",IFERROR(INDEX($AU$4:$AU$200,MATCH("CORP-WA (Africa_EN)",$AU$4:$AU$200,0)),""),"")),""))))))))
+
+--- AM 수식 단계별 설명 ---
+1순위  : AB&"-"&UPPER(site_code 앞부분)  → 예) "CORP-BN-BE", "CORP-UK-IE"
+1.5순위: AB&" ("&PROPER(prefix)&"_"&UPPER(suffix)&")"  → 예) "CORP-WA (Africa_EN)"
+2순위  : AB 그대로  → 예) "CORP-UK", "CORP-AS"
+2.5순위: site_code에 "_" 있으면 "" 반환 (3순위 이하 스킵)  → africa_pt 등 미등록 site 처리
+3순위  : AL(AR_clean)로 AU MATCH  → 예) "CORP-SA" → "CORP-SA (ZA)"
+4순위  : AB 앞부분("-" 기준)으로 AU 검색  → 예) "CORP-EG-S" → "CORP-EG"
+5순위  : AB="CORP-CA"인 경우 site_code 끝 3자리로 Africa 구분  (현재 미사용)
+
+--- O4 (Subs 출력) ---
+=IF(ISBLANK(AD4),"",IF(AM4="한총","CORP-KR",IF(LEN(TRIM(AM4))=0,AB4,AM4)))
+
+--- AS6 (사용 안됨 체크) ---
+=IF((AW6="X")+(AW6=""),"",IF(COUNTIF($O$4:$O$191,IF(AU6="한총","CORP-KR",AU6))>0,"","사용 안됨"))
+
+--- A4 (최종 출력 — 편집 금지) ---
+=SORT(UNIQUE(FILTER(M4:T200,(Q4:Q200<>"")*(S4:S200<>"")*(U4:U200<>"O"))))
+
