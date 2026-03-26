@@ -117,7 +117,9 @@ for row in tgt_ws.iter_rows(min_row=2, max_row=999, min_col=2, max_col=11):
 # B2부터 값 붙여넣기
 for r_idx, row_data in enumerate(src_data, start=2):
     for c_idx, value in enumerate(row_data, start=2):  # B열=2
-        tgt_ws.cell(row=r_idx, column=c_idx, value=value)
+        cell = tgt_ws.cell(row=r_idx, column=c_idx, value=value)
+        if isinstance(value, dt.date):
+            cell.number_format = "YYYY-MM-DD"
 
 try:
     tgt_wb.save(output_file)
