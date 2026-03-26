@@ -85,11 +85,9 @@ for row in src_ws.iter_rows(min_row=3, min_col=2, max_col=10):  # B3:J
         # WEEKNUM 수식 셀 → W01 형식
         if (cell.row, cell.column) in weeknum_cells and v and isinstance(v, (int, float)):
             v = f"W{int(v):02d}"
-        # datetime / date → yyyy-mm-dd 문자열
+        # datetime → date로 변환 (시간 정보 제거, Excel 날짜값 유지)
         elif isinstance(v, dt.datetime):
-            v = v.strftime("%Y-%m-%d")
-        elif isinstance(v, dt.date):
-            v = v.strftime("%Y-%m-%d")
+            v = v.date()
         row_data.append(v)
     src_data.append(row_data)
 
