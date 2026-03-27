@@ -1,0 +1,12 @@
+:: cmd에서 아래 두 줄을 순서대로 실행 (또는 한 줄씩 붙여넣기)
+:: 조건: C:\Users\user_name\Documents\ 에 bat 파일 2개가 있어야 함
+::
+:: ⚠ 띄어쓰기 주의사항
+:: /tr 경로에 공백이 있으면 schtasks가 경로를 잘라서 오류 남 (0x80070005 원인)
+:: → bat 파일은 반드시 공백 없는 경로(Documents 등)에 둘 것
+:: → py 파일 경로는 bat 안에서 따옴표로 감싸면 공백 있어도 무관
+:: → 작업명(/tn)에도 공백 넣지 말 것 (공백 있으면 따옴표 필요, 오류 가능성 있음)
+
+schtasks /create /tn md_mail_check_v2 /tr C:\Users\user_name\Documents\run_md_mail_check.bat /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
+
+schtasks /create /tn md_schedule_update_v2 /tr C:\Users\user_name\Documents\run_md_schedule_update.bat /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
