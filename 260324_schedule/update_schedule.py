@@ -41,6 +41,7 @@ BASE = Path(
 
 SOURCE_FOLDER = BASE / "1.고객 법인 일정 파일"
 TARGET_SHEET  = "고객법인일정파일"
+LAST_SOURCE_FILE = Path(r"C:\Users\user_name\Documents\schedule_last_source.txt")
 
 # ── Auto 파일 자동 탐색 ──────────────────────────────────────
 auto_files = list(BASE.glob("*Auto*.xlsx"))
@@ -56,6 +57,11 @@ if not xlsx_files:
 
 source_file = xlsx_files[-1]
 print(f"[소스 파일] {source_file.name}")
+
+# 소스 파일이 이전과 동일하면 업데이트 불필요 → 스킵 (로컬 마커 파일 기준)
+if LAST_SOURCE_FILE.exists() and LAST_SOURCE_FILE.read_text(encoding="utf-8").strip() == source_file.name:
+    print(f"[SKIP] 소스 파일 변경 없음 ({source_file.name}), 업데이트 생략")
+    exit(0)
 
 # ── Pass 1: WEEKNUM 수식이 있는 셀 위치 파악 ─────────────────
 src_wb_raw = openpyxl.load_workbook(source_file, data_only=False)
@@ -192,6 +198,7 @@ try:
     excel.CalculateFull()
     wb_com.Save()
     wb_com.Close()
+    LAST_SOURCE_FILE.write_text(source_file.name, encoding="utf-8")
     print(f"[완료] {output_file.name} 저장 완료")
 finally:
     excel.Quit()
