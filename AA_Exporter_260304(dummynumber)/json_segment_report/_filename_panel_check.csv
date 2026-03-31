@@ -1,115 +1,111 @@
 ﻿file,filename_kw,panel_name,panel_kw,status
-25_ny_1_1_scom_da_traffic_app.json,scom,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_1_1_scom_mx_traffic_app.json,scom,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_1_1_scom_vd_traffic_app.json,scom,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-25_ny_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_2_1_basic_traffic_time.json,-,Basic Traffic  - Campaign Page Time Spent per Visit (Web & App),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-25_ny_2_1_basic_traffic_time_cmp.json,cmp,Basic Traffic  - Campaign Page Time Spent per Visit (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-25_ny_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_3_1_channel_internal.json,-,Internal Traffic (Web & App) ,-,해당없음
-25_ny_3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_3_2_channel_traffic_external.json,-,External Traffic by Channel (Total),-,해당없음
-25_ny_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV Clicks on Homepage (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-25_ny_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page Order / Visit/Visitor by Login & Non-login (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-25_ny_4_1_scom_order_cvr_loginout.json,scom,Order Conversion - S.com Order / Visit/Visitor by Login & Non-login (Total),S.com,"정상. json은 scom, 패널명에 S.com포함."
-25_ny_4_2_order_cvr_visit_visitor.json,-,Order Conversion - Visit/Visitor by Login & Non-login (Total),-,해당없음
-25_ny_5_1_campaign_order_cvr.json,campaign,S.com Order & Revenue / Campaign Page Order (Total),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
-25_ny_5_1_scom_campaign_order_cvr.json,campaign/scom,S.com Order & Revenue / Campaign Page Order (Total),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음). / 정상. json은 scom, 패널명에 S.com포함(+Campaign도 있음)."
-25_ny_5_1_scom_order_cvr.json,scom,S.com Order Conversion - Campaign Page Order (Total & App),Campaign/S.com,"정상. json은 scom, 패널명에 S.com포함(+Campaign도 있음)."
-25_ny_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-25_ny_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-25_ny_6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-25_ny_7_1_order_by_channel_cmp.json,cmp,Order Conversion by Channel (Total),-,확인필요. json은 cmp이나 패널명에 Campaign/S.com 없음.
-25_ny_bestselling.json,-,Best Selling Products (Total),-,해당없음
-25_ny_raw_multi_purchase_v41.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-26_ny_1_1_scom_da_traffic_app.json,scom,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_da_traffic_app_prior.json,scom/prior,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_da_traffic_web_prior.json,scom/prior,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_mx_traffic_app.json,scom,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_mx_traffic_app_prior.json,scom/prior,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_mx_traffic_web_prior.json,scom/prior,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_vd_traffic_app.json,scom,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_vd_traffic_app_prior.json,scom/prior,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_1_1_scom_vd_traffic_web_prior.json,scom/prior,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (w. CID) (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_2_1_basic_traffic_scom_prior.json,scom/prior,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_2_1_basic_traffic_time_cmp.json,cmp,Basic Traffic  - Campaign Page Time Spent per Visit (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_2_1_basic_traffic_time_scom_prior.json,scom/prior,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_3_1_channel_internal.json,-,Internal Traffic (Web & App),-,해당없음
-26_ny_3_2_channel_external_cmp.json,cmp,External Traffic by Channel - Campaign Page (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_3_2_channel_external_scom_prior.json,scom/prior,External Traffic by Channel - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV & GNB Clicks on Homepage (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page > PD / ATC Page / Campaign Page & S.com Order (Total),Campaign/S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign/S.com포함.
-26_ny_4_2_order_cvr_visit_visitor.json,-,Order Conversion - Visit/Visitor by Login & Non-login (Total),-,해당없음
-26_ny_5_1_campaign_order_cvr.json,campaign,S.com Order Conversion - Campaign Page Order (Total & App),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
-26_ny_5_1_scom_order_cvr.json,scom,S.com Order Conversion - Order & Revenue (Total & APP),S.com,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-26_ny_6_1_multi_order_cross_sell_prior.json,prior,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
-26_ny_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-26_ny_6_2_total_order_cross_sell_prior.json,prior,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
-26_ny_6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_7_1_order_by_channel_cmp.json,cmp,Campaign Page Order Conversion by Channel (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-26_ny_7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_7_1_order_by_channel_scom_prior.json,scom/prior,S.com Order Conversion by Channel (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-26_ny_8_8_cmp_adaptive_banner.json,cmp,Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA,-,확인필요. json은 cmp이나 패널명에 Campaign/S.com 없음.
-26_ny_bestselling.json,-,Best Selling Products (Total),-,해당없음
-26_ny_cc_order.json,-,Contents Order Conversion - Order,-,해당없음
-26_ny_cc_revenue.json,-,Contents Order Conversion - Revenue,-,해당없음
-26_ny_cc_visit.json,-,Contents Click Rate - Visit,-,해당없음
-26_ny_nextpage.json,-,Campaign Main Page > Next Page (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-26_ny_raw_multi_purchase_v41.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-26_ny_raw_multi_purchase_v41_prior.json,prior,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,"정상. json은 prior, 패널명에 Prior포함."
-us_25_ny_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_4_1_scom_order_cvr_loginout.json,scom,Order Conversion - S.com Order / (4-2.) Visit/Visitor by Login & Non-login (Total),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_5_1_scom_campaign_order_cvr.json,campaign/scom,S.com Order & Revenue / Campaign Page Order (Total),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음). / 정상. json은 scom, 패널명에 S.com포함(+Campaign도 있음)."
-us_25_ny_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-us_25_ny_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-us_25_ny_7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_25_ny_raw_multi_purchase_v41.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-us_26_ny_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_1_1_scom_da_traffic_web_prior.json,scom/prior,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_1_1_scom_mx_traffic_web_prior.json,scom/prior,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_1_1_scom_vd_traffic_web_prior.json,scom/prior,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (w. CID) (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_2_1_basic_traffic_scom_prior.json,scom/prior,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_2_1_basic_traffic_time_cmp.json,cmp,Basic Traffic  - Campaign Page Time Spent per Visit (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_2_1_basic_traffic_time_scom_prior.json,scom/prior,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_3_1_channel_internal.json,-,Internal Traffic (Web),-,해당없음
-us_26_ny_3_2_channel_external_cmp.json,cmp,External Traffic by Channel - Campaign Page (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_3_2_channel_external_scom_prior.json,scom/prior,External Traffic by Channel - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV & GNB Clicks on Homepage (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page > ATC Page / Campaign Page & S.com Order (Total),Campaign/S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign/S.com포함.
-us_26_ny_4_2_order_cvr_visit_visitor.json,-,Order Conversion - Visit/Visitor by Login & Non-login (Total),-,해당없음
-us_26_ny_5_1_campaign_order_cvr_total.json,campaign,S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X,Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
-us_26_ny_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-us_26_ny_6_1_multi_order_cross_sell_prior.json,prior,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
-us_26_ny_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
-us_26_ny_6_2_total_order_cross_sell_prior.json,prior,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
-us_26_ny_6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_7_1_order_by_channel_cmp.json,cmp,Campaign Page Order Conversion by Channel (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
-us_26_ny_7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_7_1_order_by_channel_scom_prior.json,scom/prior,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
-us_26_ny_8_8_cmp_adaptive_banner.json,cmp,Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA - TBD,-,확인필요. json은 cmp이나 패널명에 Campaign/S.com 없음.
-us_26_ny_bestselling.json,-,Best Selling Products (Total),-,해당없음
-us_26_ny_nextpage.json,-,Campaign Main Page > Next Page (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-us_26_ny_raw_multi_purchase_v41.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
-us_26_ny_raw_multi_purchase_v41_prior.json,prior,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,"정상. json은 prior, 패널명에 Prior포함."
+last_main/last_1_1_scom_da_traffic_app.json,scom,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_1_1_scom_mx_traffic_app.json,scom,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_1_1_scom_vd_traffic_app.json,scom,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_main/last_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_2_1_basic_traffic_time.json,-,Basic Traffic  - Campaign Page Time Spent per Visit (Web & App),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+last_main/last_3_1_channel_internal.json,-,Internal Traffic (Web & App) ,-,해당없음
+last_main/last_3_2_channel_traffic_external.json,-,External Traffic by Channel (Total),-,해당없음
+last_main/last_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV Clicks on Homepage (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_main/last_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page Order / Visit/Visitor by Login & Non-login (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+last_main/last_4_1_scom_order_cvr_loginout.json,scom,Order Conversion - S.com Order / Visit/Visitor by Login & Non-login (Total),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_main/last_5_1_scom_campaign_order_cvr.json,campaign/scom,S.com Order & Revenue / Campaign Page Order (Total),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음). / 정상. json은 scom, 패널명에 S.com포함(+Campaign도 있음)."
+last_main/last_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+last_main/last_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+last_main/last_6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_main/last_7_1_order_by_channel_cmp.json,cmp,Order Conversion by Channel (Total),-,확인필요. json은 cmp이나 패널명에 Campaign/S.com 없음.
+last_main/last_bestselling.json,-,Best Selling Products (Total),-,해당없음
+last_us_main/last_us_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (w. CID) (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_us_main/last_us_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_3_1_channel_internal_web.json,-,Internal Traffic (Web),-,해당없음
+last_us_main/last_us_3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV & GNB Clicks on Homepage (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_us_main/last_us_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page > ATC Page / Campaign Page & S.com Order (Total),Campaign/S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign/S.com포함.
+last_us_main/last_us_4_2_order_cvr_visit_visitor.json,-,Order Conversion - S.com Order / (4-2.) Visit/Visitor by Login & Non-login (Total),S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+last_us_main/last_us_5_1_campaign_order_cvr_total.json,campaign,S.com Order & Revenue / Campaign Page Order (Total),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
+last_us_main/last_us_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+last_us_main/last_us_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+last_us_main/last_us_7_1_order_by_channel_cmp.json,cmp,Campaign Page Order Conversion by Channel (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+last_us_main/last_us_7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+last_us_main/last_us_bestselling.json,-,Best Selling Products (Total),-,해당없음
+main/1_1_scom_da_traffic_app.json,scom,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/1_1_scom_mx_traffic_app.json,scom,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/1_1_scom_vd_traffic_app.json,scom,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (w. CID) (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+main/2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main/2_1_basic_traffic_time_cmp.json,cmp,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,확인필요. json은 cmp이나 패널명에 S.com포함.
+main/2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main/3_1_channel_internal.json,-,Internal Traffic (Web & App),-,해당없음
+main/3_2_channel_external_cmp.json,cmp,External Traffic by Channel - Campaign Page (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+main/3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main/3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV & GNB Clicks on Homepage (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+main/4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page > PD / ATC Page / Campaign Page & S.com Order (Total),Campaign/S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign/S.com포함.
+main/4_2_order_cvr_visit_visitor.json,-,Order Conversion - Visit/Visitor by Login & Non-login (Total),-,해당없음
+main/5_1_campaign_order_cvr.json,campaign,S.com Order Conversion - Campaign Page Order (Total & App),Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
+main/5_1_scom_order_cvr.json,scom,S.com Order Conversion - Order & Revenue (Total & APP),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main/6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+main/6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+main/6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+main/7_1_order_by_channel_cmp.json,cmp,Campaign Page Order Conversion by Channel (Web & App),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+main/7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main/8_1_login_cta.json,-,Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA,-,해당없음
+main/bestselling.json,-,Best Selling Products (Total),-,해당없음
+main/multi_purchase.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+main/nextpage.json,-,Campaign Main Page > Next Page (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+main_prior/1_1_scom_da_traffic_app_prior.json,scom/prior,S.com DA Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/1_1_scom_da_traffic_web_prior.json,scom/prior,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/1_1_scom_mx_traffic_app_prior.json,scom/prior,S.com MX Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/1_1_scom_mx_traffic_web_prior.json,scom/prior,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/1_1_scom_vd_traffic_app_prior.json,scom/prior,S.com VD Traffic & Order (App),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/1_1_scom_vd_traffic_web_prior.json,scom/prior,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/2_1_basic_traffic_scom_prior.json,scom/prior,Basic Traffic - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/2_1_basic_traffic_time_scom_prior.json,scom/prior,Basic Traffic  - S.com Time Spent per Visit (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/3_2_channel_external_scom_prior.json,scom/prior,External Traffic by Channel - S.com (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/6_1_multi_order_cross_sell_prior.json,prior,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
+main_prior/6_2_total_order_cross_sell_prior.json,prior,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
+main_prior/7_1_order_by_channel_scom_prior.json,scom/prior,S.com Order Conversion by Channel (Web & App) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+main_prior/multi_purchase_prior.json,prior,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,"정상. json은 prior, 패널명에 Prior포함."
+us_main/us_1_1_scom_da_traffic_web.json,scom,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_1_1_scom_mx_traffic_web.json,scom,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_1_1_scom_vd_traffic_web.json,scom,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_2_1_basic_traffic_cmp.json,cmp,Basic Traffic - Campaign Page (w. CID) (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_2_1_basic_traffic_scom.json,scom,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_2_1_basic_traffic_time_cmp.json,cmp,Basic Traffic  - Campaign Page Time Spent per Visit (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_2_1_basic_traffic_time_scom.json,scom,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_3_1_channel_internal_web.json,-,Internal Traffic (Web),-,해당없음
+us_main/us_3_2_channel_external_cmp.json,cmp,External Traffic by Channel - Campaign Page (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_3_2_channel_external_scom.json,scom,External Traffic by Channel - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_3_3_homepage_kv_gnb_to_cmp.json,cmp,3-1-2. Campaign KV & GNB Clicks on Homepage (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_4_1_order_cvr_loginout.json,-,Order Conversion - Campaign Page > ATC Page / Campaign Page & S.com Order (Total),Campaign/S.com,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign/S.com포함.
+us_main/us_4_2_order_cvr_visit_visitor.json,-,Order Conversion - Visit/Visitor by Login & Non-login (Total),-,해당없음
+us_main/us_5_1_campaign_order_cvr_total.json,campaign,S.com Order Conversion - S.com Order & Revenue / Campaign Page Order (Total) - BMSM X,Campaign/S.com,"정상. json은 campaign, 패널명에 Campaign포함(+S.com도 있음)."
+us_main/us_6_1_multi_order_cross_sell.json,-,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+us_main/us_6_2_total_order_cross_sell.json,-,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 S.com포함.
+us_main/us_6_3_cmp_order_cross_sell.json,cmp,6-3. Campaign Visit & Order Cross-Sell (Total),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_7_1_order_by_channel_cmp.json,cmp,Campaign Page Order Conversion by Channel (Web),Campaign,"정상. json은 cmp, 패널명에 Campaign포함."
+us_main/us_7_1_order_by_channel_scom.json,scom,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main/us_8_1_login_cta.json,-,Login CTA > Login Success / Marketing Consent CTA > Pop-up CTA - TBD,-,해당없음
+us_main/us_bestselling.json,-,Best Selling Products (Total),-,해당없음
+us_main/us_multi_purchase.json,-,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+us_main/us_nextpage.json,-,Campaign Main Page > Next Page (Total),Campaign,확인필요. json키워드(cmp/scom)없음이나 패널명에 Campaign포함.
+us_main_prior/us_1_1_scom_da_traffic_web_prior.json,scom/prior,S.com DA Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_1_1_scom_mx_traffic_web_prior.json,scom/prior,S.com MX Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_1_1_scom_vd_traffic_web_prior.json,scom/prior,S.com VD Traffic & Order (Web),S.com,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_2_1_basic_traffic_scom_prior.json,scom/prior,Basic Traffic - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_2_1_basic_traffic_time_scom_prior.json,scom/prior,Basic Traffic  - S.com Time Spent per Visit (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_3_2_channel_external_scom_prior.json,scom/prior,External Traffic by Channel - S.com (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_6_1_multi_order_cross_sell_prior.json,prior,6-1. S.com Multi Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
+us_main_prior/us_6_2_total_order_cross_sell_prior.json,prior,6-2. S.com All Order Cross-Sell (Total) [w. Prior Period],S.com/Prior,"정상. json은 prior, 패널명에 Prior포함."
+us_main_prior/us_7_1_order_by_channel_scom_prior.json,scom/prior,S.com Order Conversion by Channel (Web) [w. Prior Period],S.com/Prior,"정상. json은 scom, 패널명에 S.com포함."
+us_main_prior/us_multi_purchase_prior.json,prior,Campaign Multi Order (Total) [w. Prior Period],Campaign/Prior,"정상. json은 prior, 패널명에 Prior포함."

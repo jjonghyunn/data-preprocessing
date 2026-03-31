@@ -1,0 +1,14 @@
+﻿no,json_file,in_json_folder,in_mapping_csv,status
+1,1_1_scom_da_traffic_app_prior.json,O,O,정상
+2,1_1_scom_da_traffic_web_prior.json,O,O,정상
+3,1_1_scom_mx_traffic_app_prior.json,O,O,정상
+4,1_1_scom_mx_traffic_web_prior.json,O,O,정상
+5,1_1_scom_vd_traffic_app_prior.json,O,O,정상
+6,1_1_scom_vd_traffic_web_prior.json,O,O,정상
+7,2_1_basic_traffic_scom_prior.json,O,O,정상
+8,2_1_basic_traffic_time_scom_prior.json,O,O,정상
+9,3_2_channel_external_scom_prior.json,O,O,정상
+10,6_1_multi_order_cross_sell_prior.json,O,O,정상
+11,6_2_total_order_cross_sell_prior.json,O,O,정상
+12,7_1_order_by_channel_scom_prior.json,O,O,정상
+13,multi_purchase_prior.json,O,O,정상

@@ -1,6 +1,6 @@
 # generate_period_notebooks_v2.py
 
-`json/` 폴더의 JSON 파일을 자동 감지하여 **6개 기간별 Jupyter Notebook(.ipynb)** 을 생성하는 스크립트.
+`json/` 서브폴더의 JSON 파일을 자동 감지하여 **6개 기간별 Jupyter Notebook** 을 `launch/` 폴더에 생성하는 스크립트.
 
 ---
 
@@ -10,20 +10,18 @@
 python generate_period_notebooks_v2.py
 ```
 
-실행하면 스크립트와 같은 폴더에 아래 6개 파일이 생성됩니다.
-
 ---
 
-## 생성되는 노트북 파일
+## 생성되는 노트북 파일 (`launch/` 폴더)
 
-| 파일명 | 대상 JSON 패턴 |
-|--------|---------------|
-| `01.26ny_campaign_period.ipynb` | `26_ny_*.json` (`_prior` 제외) |
-| `02.25ny_last_campaign_period.ipynb` | `25_ny_*.json` |
-| `03.26ny_prior_period.ipynb` | `26_ny_*_prior.json` |
-| `04.us_26ny_campaign_period.ipynb` | `us_26_*.json` (`_prior` 제외) |
-| `05.us_25ny_last_campaign_period.ipynb` | `us_25_*.json` |
-| `06.us_26ny_prior_period.ipynb` | `us_26_*_prior.json` |
+| 파일명 | 대상 JSON 서브폴더 | site CSV |
+|--------|-------------------|---------|
+| `campaign_period.ipynb` | `json/main/` | `date/site_code.csv` |
+| `last_campaign_period.ipynb` | `json/last_main/` | `date/last_site_code.csv` |
+| `prior_period.ipynb` | `json/main_prior/` | `date/site_code_prior.csv` |
+| `US_campaign_period.ipynb` | `json/us_main/` | `date/us_site_code.csv` |
+| `US_last_campaign_period.ipynb` | `json/last_us_main/` | `date/us_last_site_code.csv` |
+| `US_prior_period.ipynb` | `json/us_main_prior/` | `date/us_site_code_prior.csv` |
 
 출력 파일명은 코드 상단 `OUT_NAMES` 딕셔너리에서 변경 가능.
 
@@ -35,11 +33,11 @@ python generate_period_notebooks_v2.py
 
 | 항목 | 설명 |
 |------|------|
-| `data_csv` | 사이트 코드 CSV 파일명 (AA Exporter 입력) |
-| `base_default` | 테이블 컬럼 형식 기본값 (`make_tb_columns(base)` 에 전달) |
-| `json_filter` | 해당 기간에 포함할 JSON 파일 판별 함수 |
+| `json_subdir` | JSON 소스 서브폴더 (`json/{subdir}/`) |
+| `data_csv` | site_code CSV 파일명 (`date/{file}`) |
+| `base_default` | 테이블 컬럼 형식 기본값 |
 
-> `raw_multi_purchase`, `bestselling`, `nextpage`, `cc_order`, `cc_revenue`, `cc_visit` 파일은 테이블 컬럼 형식이 불필요하여 `base=""` 로 처리.
+> `raw_multi_purchase`, `bestselling`, `nextpage`, `cc_*` 파일은 `base=""` 로 처리.
 
 ---
 
@@ -48,14 +46,41 @@ python generate_period_notebooks_v2.py
 각 `.ipynb` 는 JSON 파일 1개당 아래 3개 셀 묶음으로 구성:
 
 ```
-[섹션 헤더 셀]      ← 섹션이 바뀔 때만 삽입 (예: ## 1_1~2. S.com Traffic)
-[서브 제목 셀]      ← 파일명 기반 제목 (예: #### DA Traffic Web)
-[데이터 실행 셀]    ← AAExporter 실행 코드
+[섹션 헤더 셀]   ← 섹션이 바뀔 때만 삽입
+[서브 제목 셀]   ← 파일명 기반 제목
+[데이터 실행 셀] ← AAExporter 실행 코드
 ```
 
-맨 앞에 `# !pip install tqdm` 셀, 맨 뒤에 CSV → Excel 후처리 셀 2개가 붙음.
+### 데이터 실행 셀 예시
 
-### 섹션 구분
+```python
+from utils.aa_exporter import ExportConfig, AAExporter
+
+base = "2_1_all_2026_scom"
+json_file_name = "1_1_scom_da_traffic_web.json"
+json_path = Path.cwd().parent / "json" / "main" / json_file_name
+
+cfg = ExportConfig(
+    data_csv=str(Path.cwd().parent / "date" / "site_code.csv"),
+    json_file=str(json_path),
+    out_dir=str(Path.cwd().parent / "aa_exports"),
+    out_prefix=json_path.stem,
+    limit=50000,
+    parallel_sites=True,
+    max_workers=6,
+    log_each_page=False,
+)
+
+out_path = AAExporter(cfg).run()
+df = pd.read_csv(out_path, encoding="utf-8-sig")
+df.head()
+```
+
+> 노트북은 `launch/` 폴더에서 실행되므로 JSON/site CSV 경로는 `Path.cwd().parent` 기준.
+
+---
+
+## 섹션 구분
 
 | 섹션 번호 | 내용 |
 |-----------|------|
@@ -74,46 +99,6 @@ python generate_period_notebooks_v2.py
 
 ---
 
-## 데이터 실행 셀 내용 (data_cell)
-
-각 JSON 파일에 대해 아래 코드가 자동 삽입됨:
-
-```python
-from utils.aa_exporter_jh2 import ExportConfig, AAExporter
-from utils.tb_columns import make_tb_columns
-
-base = "2_1_all_2026_scom"   # 기간별 base_default 값
-tb_cols = make_tb_columns(base)
-
-json_file_name = "26_ny_xxx.json"
-json_path = Path.cwd() / "json" / json_file_name
-
-cfg = ExportConfig(
-    data_csv="26_ny_site_code.csv",
-    json_file=str(json_path),
-    out_dir="aa_exports",
-    out_prefix=json_path.stem,
-    limit=10000,
-    tb_columns=None,
-    parallel_sites=True,
-    max_workers=6,
-    log_each_page=False,
-)
-
-out_path = AAExporter(cfg).run()
-df = pd.read_csv(out_path, encoding="utf-8-sig")
-df.head()
-```
-
----
-
-## 후처리 셀 (CSV → Excel)
-
-`notebook_jh5-campaign_period.ipynb` 의 마지막 2셀을 복사해서 붙임.
-해당 파일이 없으면 플레이스홀더 셀이 대신 삽입됨.
-
----
-
 ## 주요 함수 요약
 
 | 함수 | 역할 |
@@ -125,4 +110,3 @@ df.head()
 | `get_base(fname, default)` | base 값 결정 (특수 키워드 파일은 `""` 반환) |
 | `data_cell(...)` | AAExporter 실행 코드 셀 생성 |
 | `build_notebook(period_key)` | 기간 키 받아 전체 노트북 dict 생성 |
-| `load_postprocess_cells()` | 기존 노트북에서 후처리 셀 2개 로드 |

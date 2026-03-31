@@ -1,130 +1,115 @@
-﻿no,stem,in_json_folder,in_mapping_csv,used_in_nb,used_in_notebooks,status,처리
-1,25_ny_1_1_scom_da_traffic_app,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-2,25_ny_1_1_scom_da_traffic_web,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-3,25_ny_1_1_scom_mx_traffic_app,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-4,25_ny_1_1_scom_mx_traffic_web,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-5,25_ny_1_1_scom_vd_traffic_app,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-6,25_ny_1_1_scom_vd_traffic_web,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-7,25_ny_2_1_basic_traffic_cmp,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-8,25_ny_2_1_basic_traffic_scom,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-9,25_ny_2_1_basic_traffic_time,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-10,25_ny_2_1_basic_traffic_time_cmp,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-11,25_ny_2_1_basic_traffic_time_scom,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-12,25_ny_3_1_channel_internal,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-13,25_ny_3_2_channel_external_cmp,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-14,25_ny_3_2_channel_external_scom,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-15,25_ny_3_2_channel_traffic_external,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-16,25_ny_3_3_homepage_kv_gnb_to_cmp,X,O,O,02.25ny_last_campaign_period,🔴 JSON없음(노트북에있으나파일없음),json생성
-17,25_ny_4_1_order_cvr_loginout,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-18,25_ny_4_1_scom_order_cvr_loginout,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-19,25_ny_4_2_order_cvr_visit_visitor,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-20,25_ny_5_1_campaign_order_cvr,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-21,25_ny_5_1_scom_campaign_order_cvr,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-22,25_ny_5_1_scom_order_cvr,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-23,25_ny_6_1_multi_order_cross_sell,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-24,25_ny_6_2_total_order_cross_sell,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-25,25_ny_6_3_cmp_order_cross_sell,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-26,25_ny_7_1_order_by_channel_cmp,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-27,25_ny_bestselling,O,O,O,02.25ny_last_campaign_period,✅ 정상,
-28,25_ny_cc_order,O,X,X,,❌ 불필요JSON(매핑·노트북 모두없음),json삭제
-29,25_ny_cc_revenue,O,X,X,,❌ 불필요JSON(매핑·노트북 모두없음),json삭제
-30,25_ny_cc_visit,O,X,X,,❌ 불필요JSON(매핑·노트북 모두없음),json삭제
-31,25_ny_nextpage,O,X,X,,❌ 불필요JSON(매핑·노트북 모두없음),json삭제
-32,25_ny_raw_multi_purchase_v41,O,X,O,02.25ny_last_campaign_period,⚠️ 매핑없음→skip될것,매핑생성
-33,26_ny_1_1_scom_da_traffic_app,O,O,O,01.26ny_campaign_period,✅ 정상,
-34,26_ny_1_1_scom_da_traffic_app_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-35,26_ny_1_1_scom_da_traffic_web,O,O,O,01.26ny_campaign_period,✅ 정상,
-36,26_ny_1_1_scom_da_traffic_web_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-37,26_ny_1_1_scom_mx_traffic_app,O,O,O,01.26ny_campaign_period,✅ 정상,
-38,26_ny_1_1_scom_mx_traffic_app_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-39,26_ny_1_1_scom_mx_traffic_web,O,O,O,01.26ny_campaign_period,✅ 정상,
-40,26_ny_1_1_scom_mx_traffic_web_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-41,26_ny_1_1_scom_vd_traffic_app,O,O,O,01.26ny_campaign_period,✅ 정상,
-42,26_ny_1_1_scom_vd_traffic_app_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-43,26_ny_1_1_scom_vd_traffic_web,O,O,O,01.26ny_campaign_period,✅ 정상,
-44,26_ny_1_1_scom_vd_traffic_web_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-45,26_ny_2_1_basic_traffic_cmp,O,O,O,01.26ny_campaign_period,✅ 정상,
-46,26_ny_2_1_basic_traffic_scom,O,O,O,01.26ny_campaign_period,✅ 정상,
-47,26_ny_2_1_basic_traffic_scom_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-48,26_ny_2_1_basic_traffic_time_cmp,O,O,O,01.26ny_campaign_period,✅ 정상,
-49,26_ny_2_1_basic_traffic_time_scom,O,O,O,01.26ny_campaign_period,✅ 정상,
-50,26_ny_2_1_basic_traffic_time_scom_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-51,26_ny_3_1_channel_internal,O,O,O,01.26ny_campaign_period,✅ 정상,
-52,26_ny_3_2_channel_external_cmp,O,O,O,01.26ny_campaign_period,✅ 정상,
-53,26_ny_3_2_channel_external_scom,O,O,O,01.26ny_campaign_period,✅ 정상,
-54,26_ny_3_2_channel_external_scom_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-55,26_ny_3_3_homepage_kv_gnb_to_cmp,O,O,O,01.26ny_campaign_period,✅ 정상,
-56,26_ny_4_1_order_cvr_loginout,O,O,O,01.26ny_campaign_period,✅ 정상,
-57,26_ny_4_2_order_cvr_visit_visitor,O,O,O,01.26ny_campaign_period,✅ 정상,
-58,26_ny_5_1_campaign_order_cvr,O,O,O,01.26ny_campaign_period,✅ 정상,
-59,26_ny_5_1_scom_order_cvr,O,O,O,01.26ny_campaign_period,✅ 정상,
-60,26_ny_6_1_multi_order_cross_sell,O,O,O,01.26ny_campaign_period,✅ 정상,
-61,26_ny_6_1_multi_order_cross_sell_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-62,26_ny_6_2_total_order_cross_sell,O,O,O,01.26ny_campaign_period,✅ 정상,
-63,26_ny_6_2_total_order_cross_sell_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-64,26_ny_6_3_cmp_order_cross_sell,O,O,O,01.26ny_campaign_period,✅ 정상,
-65,26_ny_7_1_order_by_channel_cmp,O,O,O,01.26ny_campaign_period,✅ 정상,
-66,26_ny_7_1_order_by_channel_scom,O,O,O,01.26ny_campaign_period,✅ 정상,
-67,26_ny_7_1_order_by_channel_scom_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-68,26_ny_8_8_cmp_adaptive_banner,X,O,X,,🔴 JSON없음(매핑만있음),json생성
-69,26_ny_bestselling,O,O,O,01.26ny_campaign_period,✅ 정상,
-70,26_ny_cc_order,O,X,O,01.26ny_campaign_period,⚠️ 매핑없음→skip될것,무시
-71,26_ny_cc_revenue,O,X,O,01.26ny_campaign_period,⚠️ 매핑없음→skip될것,무시
-72,26_ny_cc_visit,O,X,O,01.26ny_campaign_period,⚠️ 매핑없음→skip될것,무시
-73,26_ny_nextpage,O,O,O,01.26ny_campaign_period,✅ 정상,
-74,26_ny_raw_multi_purchase_v41,O,O,O,01.26ny_campaign_period,✅ 정상,
-75,26_ny_raw_multi_purchase_v41_prior,O,O,O,03.26ny_prior_period,✅ 정상,
-76,us_25_ny_1_1_scom_da_traffic_web,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-77,us_25_ny_1_1_scom_mx_traffic_web,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-78,us_25_ny_1_1_scom_vd_traffic_web,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-79,us_25_ny_2_1_basic_traffic_cmp,X,O,X,,🔴 JSON없음(매핑만있음),무시
-80,us_25_ny_2_1_basic_traffic_scom,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-81,us_25_ny_2_1_basic_traffic_time,X,O,X,,🔴 JSON없음(매핑만있음),무시
-82,us_25_ny_2_1_basic_traffic_time_scom,O,X,O,05.us_25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-83,us_25_ny_3_1_channel_internal,X,O,X,,🔴 JSON없음(매핑만있음),무시
-84,us_25_ny_3_2_channel_traffic_external,X,O,X,,🔴 JSON없음(매핑만있음),무시
-85,us_25_ny_3_3_homepage_kv_gnb_to_cmp,X,O,X,,🔴 JSON없음(매핑만있음),무시
-86,us_25_ny_4_1_order_cvr_loginout,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-87,us_25_ny_4_1_scom_order_cvr_loginout,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-88,us_25_ny_5_1_campaign_order_cvr_total,X,O,X,,🔴 JSON없음(매핑만있음),무시
-89,us_25_ny_5_1_scom_campaign_order_cvr,O,X,O,05.us_25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-90,us_25_ny_6_1_multi_order_cross_sell,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-91,us_25_ny_6_2_total_order_cross_sell,O,O,O,05.us_25ny_last_campaign_period,✅ 정상,
-92,us_25_ny_6_3_cmp_order_cross_sell,X,O,X,,🔴 JSON없음(매핑만있음),무시
-93,us_25_ny_7_1_order_by_channel_cmp,X,O,X,,🔴 JSON없음(매핑만있음),무시
-94,us_25_ny_7_1_order_by_channel_scom,O,X,O,05.us_25ny_last_campaign_period,⚠️ 매핑없음→skip될것,무시
-95,us_25_ny_bestselling,X,O,X,,🔴 JSON없음(매핑만있음),무시
-96,us_25_ny_raw_multi_purchase_v41,O,X,O,05.us_25ny_last_campaign_period,⚠️ 매핑없음→skip될것,매핑생성
-97,us_26_ny_1_1_scom_da_traffic_web,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-98,us_26_ny_1_1_scom_da_traffic_web_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-99,us_26_ny_1_1_scom_mx_traffic_web,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-100,us_26_ny_1_1_scom_mx_traffic_web_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-101,us_26_ny_1_1_scom_vd_traffic_web,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-102,us_26_ny_1_1_scom_vd_traffic_web_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-103,us_26_ny_2_1_basic_traffic_cmp,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-104,us_26_ny_2_1_basic_traffic_scom,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-105,us_26_ny_2_1_basic_traffic_scom_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-106,us_26_ny_2_1_basic_traffic_time_cmp,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-107,us_26_ny_2_1_basic_traffic_time_scom,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-108,us_26_ny_2_1_basic_traffic_time_scom_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-109,us_26_ny_3_1_channel_internal,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-110,us_26_ny_3_2_channel_external_cmp,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-111,us_26_ny_3_2_channel_external_scom,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-112,us_26_ny_3_2_channel_external_scom_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-113,us_26_ny_3_3_homepage_kv_gnb_to_cmp,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-114,us_26_ny_4_1_order_cvr_loginout,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-115,us_26_ny_4_2_order_cvr_visit_visitor,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-116,us_26_ny_5_1_campaign_order_cvr_total,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-117,us_26_ny_6_1_multi_order_cross_sell,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-118,us_26_ny_6_1_multi_order_cross_sell_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-119,us_26_ny_6_2_total_order_cross_sell,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-120,us_26_ny_6_2_total_order_cross_sell_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-121,us_26_ny_6_3_cmp_order_cross_sell,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-122,us_26_ny_7_1_order_by_channel_cmp,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-123,us_26_ny_7_1_order_by_channel_scom,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-124,us_26_ny_7_1_order_by_channel_scom_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
-125,us_26_ny_8_8_cmp_adaptive_banner,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-126,us_26_ny_bestselling,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-127,us_26_ny_nextpage,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-128,us_26_ny_raw_multi_purchase_v41,O,O,O,04.us_26ny_campaign_period,✅ 정상,
-129,us_26_ny_raw_multi_purchase_v41_prior,O,O,O,06.us_26ny_prior_period,✅ 정상,
+﻿no,stem,in_json_folder,in_mapping_csv,used_in_nb,used_in_notebooks,status
+1,1_1_scom_da_traffic_app,O,O,O,campaign_period,정상
+2,1_1_scom_da_traffic_app_prior,O,O,O,prior_period,정상
+3,1_1_scom_da_traffic_web,O,O,O,campaign_period,정상
+4,1_1_scom_da_traffic_web_prior,O,O,O,prior_period,정상
+5,1_1_scom_mx_traffic_app,O,O,O,campaign_period,정상
+6,1_1_scom_mx_traffic_app_prior,O,O,O,prior_period,정상
+7,1_1_scom_mx_traffic_web,O,O,O,campaign_period,정상
+8,1_1_scom_mx_traffic_web_prior,O,O,O,prior_period,정상
+9,1_1_scom_vd_traffic_app,O,O,O,campaign_period,정상
+10,1_1_scom_vd_traffic_app_prior,O,O,O,prior_period,정상
+11,1_1_scom_vd_traffic_web,O,O,O,campaign_period,정상
+12,1_1_scom_vd_traffic_web_prior,O,O,O,prior_period,정상
+13,2_1_basic_traffic_cmp,O,O,O,campaign_period,정상
+14,2_1_basic_traffic_scom,O,O,O,campaign_period,정상
+15,2_1_basic_traffic_scom_prior,O,O,O,prior_period,정상
+16,2_1_basic_traffic_time_cmp,O,O,O,campaign_period,정상
+17,2_1_basic_traffic_time_scom,O,O,O,campaign_period,정상
+18,2_1_basic_traffic_time_scom_prior,O,O,O,prior_period,정상
+19,3_1_channel_internal,O,O,O,campaign_period,정상
+20,3_2_channel_external_cmp,O,O,O,campaign_period,정상
+21,3_2_channel_external_scom,O,O,O,campaign_period,정상
+22,3_2_channel_external_scom_prior,O,O,O,prior_period,정상
+23,3_3_homepage_kv_gnb_to_cmp,O,O,O,campaign_period,정상
+24,4_1_order_cvr_loginout,O,O,O,campaign_period,정상
+25,4_2_order_cvr_visit_visitor,O,O,O,campaign_period,정상
+26,5_1_campaign_order_cvr,O,O,O,campaign_period,정상
+27,5_1_scom_order_cvr,O,O,O,campaign_period,정상
+28,6_1_multi_order_cross_sell,O,O,O,campaign_period,정상
+29,6_1_multi_order_cross_sell_prior,O,O,O,prior_period,정상
+30,6_2_total_order_cross_sell,O,O,O,campaign_period,정상
+31,6_2_total_order_cross_sell_prior,O,O,O,prior_period,정상
+32,6_3_cmp_order_cross_sell,O,O,O,campaign_period,정상
+33,7_1_order_by_channel_cmp,O,O,O,campaign_period,정상
+34,7_1_order_by_channel_scom,O,O,O,campaign_period,정상
+35,7_1_order_by_channel_scom_prior,O,O,O,prior_period,정상
+36,8_1_login_cta,O,O,O,campaign_period,정상
+37,bestselling,O,O,O,campaign_period,정상
+38,last_1_1_scom_da_traffic_app,O,O,O,last_campaign_period,정상
+39,last_1_1_scom_da_traffic_web,O,O,O,last_campaign_period,정상
+40,last_1_1_scom_mx_traffic_app,O,O,O,last_campaign_period,정상
+41,last_1_1_scom_mx_traffic_web,O,O,O,last_campaign_period,정상
+42,last_1_1_scom_vd_traffic_app,O,O,O,last_campaign_period,정상
+43,last_1_1_scom_vd_traffic_web,O,O,O,last_campaign_period,정상
+44,last_2_1_basic_traffic_cmp,O,O,O,last_campaign_period,정상
+45,last_2_1_basic_traffic_scom,O,O,O,last_campaign_period,정상
+46,last_2_1_basic_traffic_time,O,O,O,last_campaign_period,정상
+47,last_3_1_channel_internal,O,O,O,last_campaign_period,정상
+48,last_3_2_channel_traffic_external,O,O,O,last_campaign_period,정상
+49,last_3_3_homepage_kv_gnb_to_cmp,O,O,O,last_campaign_period,정상
+50,last_4_1_order_cvr_loginout,O,O,O,last_campaign_period,정상
+51,last_4_1_scom_order_cvr_loginout,O,O,O,last_campaign_period,정상
+52,last_5_1_scom_campaign_order_cvr,O,O,O,last_campaign_period,정상
+53,last_6_1_multi_order_cross_sell,O,O,O,last_campaign_period,정상
+54,last_6_2_total_order_cross_sell,O,O,O,last_campaign_period,정상
+55,last_6_3_cmp_order_cross_sell,O,O,O,last_campaign_period,정상
+56,last_7_1_order_by_channel_cmp,O,O,O,last_campaign_period,정상
+57,last_bestselling,O,O,O,last_campaign_period,정상
+58,last_us_1_1_scom_da_traffic_web,O,O,O,US_last_campaign_period,정상
+59,last_us_1_1_scom_mx_traffic_web,O,O,O,US_last_campaign_period,정상
+60,last_us_1_1_scom_vd_traffic_web,O,O,O,US_last_campaign_period,정상
+61,last_us_2_1_basic_traffic_cmp,O,O,O,US_last_campaign_period,정상
+62,last_us_2_1_basic_traffic_scom,O,O,O,US_last_campaign_period,정상
+63,last_us_2_1_basic_traffic_time_scom,O,O,O,US_last_campaign_period,정상
+64,last_us_3_1_channel_internal,X,O,O,US_last_campaign_period,JSON없음(노트북에있으나파일없음)
+65,last_us_3_1_channel_internal_web,O,X,X,,불필요JSON(매핑/노트북 모두없음)
+66,last_us_3_2_channel_external_scom,O,X,X,,불필요JSON(매핑/노트북 모두없음)
+67,last_us_3_2_channel_traffic_external,X,O,O,US_last_campaign_period,JSON없음(노트북에있으나파일없음)
+68,last_us_3_3_homepage_kv_gnb_to_cmp,O,O,O,US_last_campaign_period,정상
+69,last_us_4_1_order_cvr_loginout,O,O,O,US_last_campaign_period,정상
+70,last_us_4_2_order_cvr_visit_visitor,O,O,O,US_last_campaign_period,정상
+71,last_us_5_1_campaign_order_cvr_total,O,O,O,US_last_campaign_period,정상
+72,last_us_6_1_multi_order_cross_sell,O,O,O,US_last_campaign_period,정상
+73,last_us_6_2_total_order_cross_sell,O,O,O,US_last_campaign_period,정상
+74,last_us_6_3_cmp_order_cross_sell,X,O,X,,JSON없음(매핑만있음)
+75,last_us_7_1_order_by_channel_cmp,O,O,O,US_last_campaign_period,정상
+76,last_us_7_1_order_by_channel_scom,O,X,X,,불필요JSON(매핑/노트북 모두없음)
+77,last_us_bestselling,O,O,O,US_last_campaign_period,정상
+78,last_us_raw_multi_purchase_v41,X,O,X,,JSON없음(매핑만있음)
+79,multi_purchase,O,O,O,campaign_period,정상
+80,multi_purchase_prior,O,O,O,prior_period,정상
+81,nextpage,O,O,O,campaign_period,정상
+82,us_1_1_scom_da_traffic_web,O,O,O,US_campaign_period,정상
+83,us_1_1_scom_da_traffic_web_prior,O,O,O,US_prior_period,정상
+84,us_1_1_scom_mx_traffic_web,O,O,O,US_campaign_period,정상
+85,us_1_1_scom_mx_traffic_web_prior,O,O,O,US_prior_period,정상
+86,us_1_1_scom_vd_traffic_web,O,O,O,US_campaign_period,정상
+87,us_1_1_scom_vd_traffic_web_prior,O,O,O,US_prior_period,정상
+88,us_2_1_basic_traffic_cmp,O,O,O,US_campaign_period,정상
+89,us_2_1_basic_traffic_scom,O,O,O,US_campaign_period,정상
+90,us_2_1_basic_traffic_scom_prior,O,O,O,US_prior_period,정상
+91,us_2_1_basic_traffic_time_cmp,O,O,O,US_campaign_period,정상
+92,us_2_1_basic_traffic_time_scom,O,O,O,US_campaign_period,정상
+93,us_2_1_basic_traffic_time_scom_prior,O,O,O,US_prior_period,정상
+94,us_3_1_channel_internal_web,O,O,O,US_campaign_period,정상
+95,us_3_2_channel_external_cmp,O,O,O,US_campaign_period,정상
+96,us_3_2_channel_external_scom,O,O,O,US_campaign_period,정상
+97,us_3_2_channel_external_scom_prior,O,O,O,US_prior_period,정상
+98,us_3_3_homepage_kv_gnb_to_cmp,O,O,O,US_campaign_period,정상
+99,us_4_1_order_cvr_loginout,O,O,O,US_campaign_period,정상
+100,us_4_2_order_cvr_visit_visitor,O,O,O,US_campaign_period,정상
+101,us_5_1_campaign_order_cvr_total,O,O,O,US_campaign_period,정상
+102,us_6_1_multi_order_cross_sell,O,O,O,US_campaign_period,정상
+103,us_6_1_multi_order_cross_sell_prior,O,O,O,US_prior_period,정상
+104,us_6_2_total_order_cross_sell,O,O,O,US_campaign_period,정상
+105,us_6_2_total_order_cross_sell_prior,O,O,O,US_prior_period,정상
+106,us_6_3_cmp_order_cross_sell,O,O,O,US_campaign_period,정상
+107,us_7_1_order_by_channel_cmp,O,O,O,US_campaign_period,정상
+108,us_7_1_order_by_channel_scom,O,O,O,US_campaign_period,정상
+109,us_7_1_order_by_channel_scom_prior,O,O,O,US_prior_period,정상
+110,us_8_1_login_cta,O,O,O,US_campaign_period,정상
+111,us_bestselling,O,O,O,US_campaign_period,정상
+112,us_multi_purchase,O,O,O,US_campaign_period,정상
+113,us_multi_purchase_prior,O,O,O,US_prior_period,정상
+114,us_nextpage,O,O,O,US_campaign_period,정상

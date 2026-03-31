@@ -1,0 +1,51 @@
+﻿cur_file,last_file,seg_type,status,metric_cur,metric_last,only_in_cur,only_in_last
+main/1_1_scom_da_traffic_app.json,last_main/last_1_1_scom_da_traffic_app.json,같아야정상,정상(동일),24,24,,
+main/1_1_scom_da_traffic_web.json,last_main/last_1_1_scom_da_traffic_web.json,같아야정상,정상(동일),16,16,,
+main/1_1_scom_mx_traffic_app.json,last_main/last_1_1_scom_mx_traffic_app.json,같아야정상,정상(동일),24,24,,
+main/1_1_scom_mx_traffic_web.json,last_main/last_1_1_scom_mx_traffic_web.json,같아야정상,정상(동일),16,16,,
+main/1_1_scom_vd_traffic_app.json,last_main/last_1_1_scom_vd_traffic_app.json,같아야정상,정상(동일),24,24,,
+main/1_1_scom_vd_traffic_web.json,last_main/last_1_1_scom_vd_traffic_web.json,같아야정상,정상(동일),16,16,,
+main/2_1_basic_traffic_cmp.json,last_main/last_2_1_basic_traffic_cmp.json,달라야정상,업데이트됨(다름),35,35,s200001591_69705ac097c1fc1c14728f6b / s200001591_69707c8f0469e85076de8e86,s200001591_68940aee43d0937d861a3edd / s200001591_6971600dbb7e344da11563fd
+main/2_1_basic_traffic_scom.json,last_main/last_2_1_basic_traffic_scom.json,특수케이스,동일,30,30,,
+main/2_1_basic_traffic_time_cmp.json,last_main/last_2_1_basic_traffic_time_cmp.json,달라야정상,last파일없음,,,,
+main/2_1_basic_traffic_time_scom.json,last_main/last_2_1_basic_traffic_time_scom.json,특수케이스,last파일없음,,,,
+main/3_1_channel_internal.json,last_main/last_3_1_channel_internal.json,달라야정상,업데이트됨(다름),18,18,s200001591_6971abdc209faa7c9e412a17 / s200001591_6971ac91209faa7c9e412a1c / s200001591_6971ace8209faa7c9e412a1e / s200001591_6971ae71bb7e344da115648e / s200001591_6971af9039770a0fa4576b86 / s200001591_6978736ea6005a2f78052c38,s200001591_6971b7fba6005a2f7805105e / s200001591_6971becadc74af1c9ee8ee48 / s200001591_6971c14ba6005a2f7805107b / s200001591_6971c22ca6005a2f7805107c / s200001591_6971c2b3e3905c382286bb5c / s200001591_697873e8a6005a2f78052c3b
+main/3_2_channel_external_cmp.json,last_main/last_3_2_channel_external_cmp.json,달라야정상,last파일없음,,,,
+main/3_2_channel_external_scom.json,last_main/last_3_2_channel_external_scom.json,특수케이스,last파일없음,,,,
+main/3_3_homepage_kv_gnb_to_cmp.json,last_main/last_3_3_homepage_kv_gnb_to_cmp.json,달라야정상,업데이트됨(다름),9,9,s200001591_6971ac91209faa7c9e412a1c / s200001591_6971b1c03cd6501c9095dbde,s200001591_6971becadc74af1c9ee8ee48 / s200001591_6971da4139770a0fa4576c39
+main/4_1_order_cvr_loginout.json,last_main/last_4_1_order_cvr_loginout.json,달라야정상,업데이트됨(다름),18,10,s200001591_697080618864ef5c3c4f71fc / s200001591_697080a6a6005a2f78050bec / s200001591_697080f2ea80cf08b63b3ccf / s200001591_6970812da6005a2f78050bed / s200001591_6970816757bfa635fe4c1e81,s200001591_628b1aef98f4d21b4afca69d / s200001591_630439ccd573f419827c4948 / s200001591_68940aee43d0937d861a3edd / s200001591_68940b2984012618bbb1748f
+main/4_2_order_cvr_visit_visitor.json,last_main/last_4_2_order_cvr_visit_visitor.json,같아야정상,last파일없음,,,,
+main/5_1_campaign_order_cvr.json,last_main/last_5_1_campaign_order_cvr.json,달라야정상,last파일없음,,,,
+main/5_1_scom_order_cvr.json,last_main/last_5_1_scom_order_cvr.json,같아야정상,last파일없음,,,,
+main/6_1_multi_order_cross_sell.json,last_main/last_6_1_multi_order_cross_sell.json,같아야정상,정상(동일),16,16,,
+main/6_2_total_order_cross_sell.json,last_main/last_6_2_total_order_cross_sell.json,같아야정상,정상(동일),16,16,,
+main/6_3_cmp_order_cross_sell.json,last_main/last_6_3_cmp_order_cross_sell.json,달라야정상,업데이트됨(다름),16,16,s200001591_6970816757bfa635fe4c1e81,s200001591_68940b2984012618bbb1748f
+main/7_1_order_by_channel_cmp.json,last_main/last_7_1_order_by_channel_cmp.json,달라야정상,업데이트됨(다름),15,3,All_Visits / android_activity / ios_activity / s200001591_5e7c491a23424c0a67fc3e16 / s200001591_5e7c493cb66c3a1b0f78eab5 / s200001591_628b1aef98f4d21b4afca69d / s200001591_630439ccd573f419827c4948 / s200001591_69705ac097c1fc1c14728f6b / s200001591_6970816757bfa635fe4c1e81,s200001591_68940aee43d0937d861a3edd / s200001591_68940b2984012618bbb1748f
+main/7_1_order_by_channel_scom.json,last_main/last_7_1_order_by_channel_scom.json,특수케이스,last파일없음,,,,
+main/8_1_login_cta.json,last_main/last_8_1_login_cta.json,특수케이스,last파일없음,,,,
+main/bestselling.json,last_main/last_bestselling.json,달라야정상,업데이트됨(다름),4,4,s200001591_6970816757bfa635fe4c1e81,s200001591_68940b2984012618bbb1748f
+main/multi_purchase.json,last_main/last_multi_purchase.json,특수케이스,last파일없음,,,,
+main/nextpage.json,last_main/last_nextpage.json,특수케이스,last파일없음,,,,
+us_main/us_1_1_scom_da_traffic_web.json,last_us_main/last_us_1_1_scom_da_traffic_web.json,같아야정상,정상(동일),16,16,,
+us_main/us_1_1_scom_mx_traffic_web.json,last_us_main/last_us_1_1_scom_mx_traffic_web.json,같아야정상,정상(동일),16,16,,
+us_main/us_1_1_scom_vd_traffic_web.json,last_us_main/last_us_1_1_scom_vd_traffic_web.json,같아야정상,정상(동일),16,16,,
+us_main/us_2_1_basic_traffic_cmp.json,last_us_main/last_us_2_1_basic_traffic_cmp.json,달라야정상,미업데이트(last용세그갱신필요),12,12,,
+us_main/us_2_1_basic_traffic_scom.json,last_us_main/last_us_2_1_basic_traffic_scom.json,특수케이스,동일,12,12,,
+us_main/us_2_1_basic_traffic_time_cmp.json,last_us_main/last_us_2_1_basic_traffic_time_cmp.json,달라야정상,last파일없음,,,,
+us_main/us_2_1_basic_traffic_time_scom.json,last_us_main/last_us_2_1_basic_traffic_time_scom.json,특수케이스,동일,3,3,,
+us_main/us_3_1_channel_internal_web.json,last_us_main/last_us_3_1_channel_internal_web.json,달라야정상,미업데이트(last용세그갱신필요),8,8,,
+us_main/us_3_2_channel_external_cmp.json,last_us_main/last_us_3_2_channel_external_cmp.json,달라야정상,last파일없음,,,,
+us_main/us_3_2_channel_external_scom.json,last_us_main/last_us_3_2_channel_external_scom.json,특수케이스,동일,2,2,,
+us_main/us_3_3_homepage_kv_gnb_to_cmp.json,last_us_main/last_us_3_3_homepage_kv_gnb_to_cmp.json,달라야정상,미업데이트(last용세그갱신필요),6,6,,
+us_main/us_4_1_order_cvr_loginout.json,last_us_main/last_us_4_1_order_cvr_loginout.json,달라야정상,미업데이트(last용세그갱신필요),17,17,,
+us_main/us_4_2_order_cvr_visit_visitor.json,last_us_main/last_us_4_2_order_cvr_visit_visitor.json,같아야정상,문제(달라짐),6,8,s200001591_69706d4ebb7e344da115609e / s200001591_69708bd9a6005a2f78050bf9 / s200001591_69708d0424f1325050c70cb3,All_Visits
+us_main/us_5_1_campaign_order_cvr_total.json,last_us_main/last_us_5_1_campaign_order_cvr_total.json,달라야정상,업데이트됨(다름),7,4,s200001591_62902bcc0ecc150af8d46c01 / s200001591_6970838c0469e85076de8e9e / s200001591_697083c581c6a66dcbe3d744 / s200001591_697090d2a6005a2f78050c01,All_Visits / s200001591_5c6d01f39c6d5908e3a5c7fa
+us_main/us_6_1_multi_order_cross_sell.json,last_us_main/last_us_6_1_multi_order_cross_sell.json,같아야정상,정상(동일),16,16,,
+us_main/us_6_2_total_order_cross_sell.json,last_us_main/last_us_6_2_total_order_cross_sell.json,같아야정상,정상(동일),16,16,,
+us_main/us_6_3_cmp_order_cross_sell.json,last_us_main/last_us_6_3_cmp_order_cross_sell.json,달라야정상,last파일없음,,,,
+us_main/us_7_1_order_by_channel_cmp.json,last_us_main/last_us_7_1_order_by_channel_cmp.json,달라야정상,미업데이트(last용세그갱신필요),6,6,,
+us_main/us_7_1_order_by_channel_scom.json,last_us_main/last_us_7_1_order_by_channel_scom.json,특수케이스,동일,3,3,,
+us_main/us_8_1_login_cta.json,last_us_main/last_us_8_1_login_cta.json,특수케이스,last파일없음,,,,
+us_main/us_bestselling.json,last_us_main/last_us_bestselling.json,달라야정상,미업데이트(last용세그갱신필요),4,4,,
+us_main/us_multi_purchase.json,last_us_main/last_us_multi_purchase.json,특수케이스,last파일없음,,,,
+us_main/us_nextpage.json,last_us_main/last_us_nextpage.json,특수케이스,last파일없음,,,,

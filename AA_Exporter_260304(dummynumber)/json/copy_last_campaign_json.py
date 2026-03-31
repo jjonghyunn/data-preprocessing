@@ -1,45 +1,52 @@
 import os
 import shutil
 
-# ──────────────────────────────────────────────
-# ▶ 연도 설정 (매년 여기만 수정)
-#   FROM_YEAR : 현재 캠페인 연도 (복사 원본 기준)
-#   TO_YEAR   : 자동 계산됨 (FROM_YEAR - 1)
-# ──────────────────────────────────────────────
-FROM_YEAR = 26   # 내년에 27_파일 생길 경우 → 27로 변경
-TO_YEAR   = FROM_YEAR - 1
+# ──────────────────────────────────────────────────────────────
+# ▶ 현재 캠페인 json을 last year용으로 복사
+#   main/X.json        → last_main/last_X.json
+#   us_main/us_X.json  → last_us_main/last_us_X.json
+#
+# ※ prior 파일은 copy_prior_json.py 에서 처리
+# ──────────────────────────────────────────────────────────────
 
-FROM_PREFIX    = f"{FROM_YEAR}_"
-TO_PREFIX      = f"{TO_YEAR}_"
-FROM_PREFIX_US = f"us_{FROM_YEAR}_"
-TO_PREFIX_US   = f"us_{TO_YEAR}_"
+script_dir  = os.path.dirname(os.path.abspath(__file__))
+main_dir    = os.path.join(script_dir, "main")
+last_dir    = os.path.join(script_dir, "last_main")
+us_dir      = os.path.join(script_dir, "us_main")
+last_us_dir = os.path.join(script_dir, "last_us_main")
 
-# ──────────────────────────────────────────────
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
-print(f"복사 방향: {FROM_PREFIX}* → {TO_PREFIX}*  /  {FROM_PREFIX_US}* → {TO_PREFIX_US}*")
-print(f"{'─'*50}")
+print("복사 방향: main/* → last_main/last_*  /  us_main/* → last_us_main/last_us_*")
+print("─" * 60)
 
 cnt = 0
-for filename in sorted(os.listdir(script_dir)):
+
+# ── 글로벌: main/ → last_main/ ───────────────────────────────
+for filename in sorted(os.listdir(main_dir)):
     if not filename.endswith(".json"):
         continue
     if "_prior" in filename:
         continue  # prior 파일은 copy_prior_json.py 에서 처리
 
-    if filename.startswith(FROM_PREFIX_US):
-        dst_name = TO_PREFIX_US + filename[len(FROM_PREFIX_US):]
-    elif filename.startswith(FROM_PREFIX):
-        dst_name = TO_PREFIX + filename[len(FROM_PREFIX):]
-    else:
-        continue  # 대상 연도 파일 아님 → 건드리지 않음
-
-    src = os.path.join(script_dir, filename)
-    dst = os.path.join(script_dir, dst_name)
+    dst_name = "last_" + filename
+    src = os.path.join(main_dir, filename)
+    dst = os.path.join(last_dir, dst_name)
     shutil.copy2(src, dst)
-    print(f"  복사: {filename} → {dst_name}")
+    print(f"  복사: main/{filename} → last_main/{dst_name}")
     cnt += 1
 
-print(f"{'─'*50}")
+# ── US: us_main/ → last_us_main/ ────────────────────────────
+for filename in sorted(os.listdir(us_dir)):
+    if not filename.endswith(".json"):
+        continue
+    if "_prior" in filename:
+        continue
+
+    dst_name = "last_" + filename   # us_X.json → last_us_X.json
+    src = os.path.join(us_dir, filename)
+    dst = os.path.join(last_us_dir, dst_name)
+    shutil.copy2(src, dst)
+    print(f"  복사: us_main/{filename} → last_us_main/{dst_name}")
+    cnt += 1
+
+print("─" * 60)
 print(f"완료: {cnt}개 복사됨")

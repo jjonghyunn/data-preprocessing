@@ -25,7 +25,7 @@ import pandas as pd
 
 BASE_DIR     = Path(__file__).parent
 EXPORTS_DIR  = BASE_DIR / "aa_exports"
-MAPPING_CSV  = BASE_DIR / "tb_column_name_mapping.csv"
+MAPPING_CSV  = BASE_DIR / "ref" / "tb_column_name_mapping_corrected.csv"
 OUT_DIR      = BASE_DIR / "mapping_match_report"
 
 # aa_exports 하위 날짜폴더(260224 등)까지 포함해서 검색

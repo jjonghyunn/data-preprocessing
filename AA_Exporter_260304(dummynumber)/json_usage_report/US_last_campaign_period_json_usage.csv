@@ -1,0 +1,17 @@
+﻿no,json_file,in_json_folder,in_mapping_csv,status
+1,last_us_1_1_scom_da_traffic_web.json,O,O,정상
+2,last_us_1_1_scom_mx_traffic_web.json,O,O,정상
+3,last_us_1_1_scom_vd_traffic_web.json,O,O,정상
+4,last_us_2_1_basic_traffic_cmp.json,O,O,정상
+5,last_us_2_1_basic_traffic_scom.json,O,O,정상
+6,last_us_2_1_basic_traffic_time_scom.json,O,O,정상
+7,last_us_3_1_channel_internal.json,X,O,JSON없음(노트북에있으나파일없음)
+8,last_us_3_2_channel_traffic_external.json,X,O,JSON없음(노트북에있으나파일없음)
+9,last_us_3_3_homepage_kv_gnb_to_cmp.json,O,O,정상
+10,last_us_4_1_order_cvr_loginout.json,O,O,정상
+11,last_us_4_2_order_cvr_visit_visitor.json,O,O,정상
+12,last_us_5_1_campaign_order_cvr_total.json,O,O,정상
+13,last_us_6_1_multi_order_cross_sell.json,O,O,정상
+14,last_us_6_2_total_order_cross_sell.json,O,O,정상
+15,last_us_7_1_order_by_channel_cmp.json,O,O,정상
+16,last_us_bestselling.json,O,O,정상
