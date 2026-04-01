@@ -143,9 +143,9 @@ Master site code reference list.
 |---|---|
 | `update_schedule.py` | Reads latest client schedule xlsx → updates 고객법인일정파일 sheet |
 | `check_mail_attachment.py` | Checks Outlook inbox → saves new attachments to local folder |
-| `run_update_schedule.bat` | Batch runner for update_schedule.py |
-| `run_check_mail.bat` | Batch runner for check_mail_attachment.py |
+| `run_schedule_update.bat` | Batch runner for update_schedule.py |
+| `run_mail_check.bat` | Batch runner for check_mail_attachment.py |
 
-**Scheduled task:** both scripts run hourly via Windows Task Scheduler (`/it` — only when logged on).
+**Scheduled task:** both scripts run every 20 minutes via Windows Task Scheduler (`/it` — only when logged on).
 
 See `update_schedule.md` for script details.

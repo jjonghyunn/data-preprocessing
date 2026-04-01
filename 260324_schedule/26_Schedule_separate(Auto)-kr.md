@@ -143,9 +143,9 @@ site_code별 티어 자동 생성 조회 테이블.
 |---|---|
 | `update_schedule.py` | 최신 클라이언트 일정 xlsx 읽기 → 고객법인일정파일 시트 업데이트 |
 | `check_mail_attachment.py` | Outlook 수신함 확인 → 신규 첨부파일 로컬 폴더에 저장 |
-| `run_update_schedule.bat` | update_schedule.py 배치 실행 파일 |
-| `run_check_mail.bat` | check_mail_attachment.py 배치 실행 파일 |
+| `run_schedule_update.bat` | update_schedule.py 배치 실행 파일 |
+| `run_mail_check.bat` | check_mail_attachment.py 배치 실행 파일 |
 
-**예약 작업:** 두 스크립트 모두 Windows 작업 스케줄러를 통해 매 시간 실행 (`/it` — 로그온 시에만 실행).
+**예약 작업:** 두 스크립트 모두 Windows 작업 스케줄러를 통해 매 20분마다 실행 (`/it` — 로그온 시에만 실행).
 
 스크립트 상세 내용은 `update_schedule.md` 참고.
