@@ -56,3 +56,53 @@ run_md_schedule_update.bat
 - 시작: 10:00
 - 기간: ~ 2026-05-15
 - 조건: 로그온 중일 때만 실행 (`/it`)
+
+## 작업 스케줄러에 vbs로 등록하기
+
+bat 파일을 작업 스케줄러에 직접 등록하면 실행 시 CMD 창이 잠깐 뜨는 문제가 있음.  
+vbs 래퍼를 통해 창 없이 백그라운드 실행 가능.
+
+> ⚠️ **경로에 공백이 있으면 작업 스케줄러 실행 시 오류가 발생할 수 있음.**  
+> OneDrive, 바탕화면 등 경로에 공백이 포함된 폴더는 피하고,  
+> `C:\Users\user_name\Documents\` (내 문서) 또는 `C:\scripts\` 같은 공백 없는 경로에 bat/vbs 파일을 보관할 것.
+
+### 1. vbs 파일 작성 (`Documents\run_md_schedule_update.vbs`)
+
+```vbscript
+CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedule_update.bat""", 0, False
+```
+
+- 두 번째 인수 `0` = 창 숨김
+- 세 번째 인수 `False` = 완료 대기 안 함 (비동기)
+
+### 2. 작업 스케줄러 등록 (GUI)
+
+1. `taskschd.msc` 실행
+2. **작업 만들기** (일반 탭: 이름 입력, "사용자가 로그온할 때만 실행" 선택)
+3. **트리거** 탭 → 새로 만들기 → 반복 주기 설정 (예: 20분마다)
+4. **동작** 탭 → 새로 만들기:
+   - 프로그램/스크립트: `wscript.exe`
+   - 인수 추가: `"C:\Users\user_name\Documents\run_md_schedule_update.vbs"`
+
+### 3. 작업 스케줄러 등록 (CLI)
+
+```bat
+schtasks /create /tn "md_schedule_update_v2" ^
+  /tr "wscript.exe \"C:\Users\user_name\Documents\run_md_schedule_update.vbs\"" ^
+  /sc minute /mo 20 /st 10:00 /it /f
+```
+
+| 옵션 | 설명 |
+|---|---|
+| `/sc minute /mo 20` | 20분마다 실행 |
+| `/st 10:00` | 10:00부터 시작 |
+| `/it` | 로그온 중일 때만 실행 |
+| `/f` | 동일 이름 작업 덮어쓰기 |
+
+### 4. vbs 파일 목록
+
+| vbs 파일 | 연결된 bat | 용도 |
+|---|---|---|
+| `run_md_schedule_update.vbs` | `run_md_schedule_update.bat` | 스케줄 업데이트 |
+| `run_md_mail_check.vbs` | `run_md_mail_check.bat` | 메일 첨부 확인 |
+| `run_md_mail_check_to_my_folder.vbs` | `run_md_mail_check_to_my_folder.bat` | 메일 → 내 폴더 저장 |
