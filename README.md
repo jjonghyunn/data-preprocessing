@@ -31,3 +31,4 @@ preprocessing data
 ipynb_json_usage_mapper.py  
 json파일 따온 걸 api추출용 주피터파일(위3개)에서 다 사용한게 맞는지 확인하는 코드입니다. (json열심히 따놓고 누락된 게 있는지 확인용)
 결과는 json_usage_report폴더에 저장됩니다. _all_json_mapping.csv파일을 보시면 되겠습니다.
+
