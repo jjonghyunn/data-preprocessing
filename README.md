@@ -32,3 +32,38 @@ ipynb_json_usage_mapper.py
 json파일 따온 걸 api추출용 주피터파일(위3개)에서 다 사용한게 맞는지 확인하는 코드입니다. (json열심히 따놓고 누락된 게 있는지 확인용)
 결과는 json_usage_report폴더에 저장됩니다. _all_json_mapping.csv파일을 보시면 되겠습니다.
 
+
+---
+
+## **260324_schedule**
+
+캠페인 법인별 일정 파일을 자동 정제 Excel에 반영하고, Outlook 수신함에서 첨부파일을 감지해 저장하는 자동화 스크립트 모음.
+
+### 주요 스크립트
+
+| 파일 | 역할 |
+|---|---|
+| `update_schedule.py` | 최신 고객 일정 xlsx → Auto 정제 파일 업데이트 |
+| `check_mail_attachment.py` | Outlook 수신함 → 신규 첨부 xlsx 로컬 저장 |
+
+### 작업 스케줄러 자동 실행 구조
+
+bat 파일을 작업 스케줄러에 직접 등록하면 실행 시 CMD 창이 뜨는 문제가 있어,  
+**vbs 래퍼**를 통해 창 없이 백그라운드 실행하는 방식을 사용.
+
+```
+작업 스케줄러
+└── 프로그램/스크립트: wscript.exe
+    └── 인수 추가: "C:\Users\user_name\Documents\run_xx_xxxx.vbs"
+                       ↓
+                   .vbs  →  .bat  →  python 코드 실행
+```
+
+**vbs 파일 내용 (예시):**
+```vbscript
+CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedule_update.bat""", 0, False
+```
+- 두 번째 인수 `0` = 창 숨김
+- 세 번째 인수 `False` = 비동기 실행
+
+> 등록 방법 및 vbs 파일 목록 상세는 `260324_schedule/update_schedule.md` 참고.
