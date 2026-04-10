@@ -3,8 +3,26 @@
 AA 추출 후 정제·통합하는 메인 노트북.
 
 ```
-stack_n_currency_n_chnl_n_seaprate_(by종현과장님)v3.1.ipynb
+stack_n_currency_n_chnl_n_seaprate_(by종현과장님)v3.2.ipynb
 ```
+
+---
+
+## v3.1 → v3.2 변경사항 (2026-04-10, Jonghyun Park)
+
+### [FIX-11] `_is_channel_table` — 리포트 번호 하드코딩 제거, 매핑 CSV 기반 자동 판별
+
+- **문제**: `3_2_order_cvr_smartthings_cmp`처럼 파일명에 `3_2`가 포함되면 channel 테이블로 오판 → value 컬럼(Mobile Application)이 ITEM으로 들어감 (의도: ITEM = `smartthings`)
+- **근본 원인**: `(?:3_2_channel|7_1|3_1_channel_external)` 패턴이 리포트 번호에 의존 → 번호가 바뀌거나 예외 케이스 발생 시 대응 불가
+- **수정**: 매핑 column명 중 하나라도 `_`로 끝나면 channel 테이블로 판별
+  ```python
+  def _is_channel_table(tb_key, mapping_df):
+      tb_map = mapping_df[mapping_df["tb"] == tb_key]
+      if tb_map.empty:
+          tb_map = mapping_df[mapping_df["tb"] == re.sub(r"_prior$", "", tb_key)]
+      return bool(tb_map["column"].str.endswith("_").any())
+  ```
+- **효과**: 리포트 번호 무관하게 매핑 CSV 기준으로 자동 판별 → `3_2_order_cvr_smartthings_cmp` ITEM = `smartthings` 정상 출력
 
 ---
 
