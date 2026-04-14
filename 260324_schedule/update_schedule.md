@@ -47,7 +47,7 @@ _v0.45_260325            → (260325, 0.45,  0)  ← 최신
 단, Windows의 `Path.glob()`이 알파벳 순으로 파일을 반환하고  
 YYYYMMDD + `_vN` 패턴은 알파벳 순 = 시간 순이므로 결과적으로 올바른 파일이 선택됨.
 
-예시 (company_name AI Week 2026):
+예시:
 ```
 [파일명 앞부분]···20260401.xlsx       → 해당일 초기 수신본
 [파일명 앞부분]···20260407_v2.xlsx    → 수정본 (v1 없이 v2로 수신되기도 함)
@@ -84,7 +84,7 @@ YYYYMMDD + `_vN` 패턴은 알파벳 순 = 시간 순이므로 결과적으로 �
 ```bash
 python update_schedule.py
 # 또는
-run_md_schedule_update.bat
+run_schedule_update.bat
 ```
 
 ## 스케줄 작업
@@ -103,10 +103,10 @@ vbs 래퍼를 통해 창 없이 백그라운드 실행 가능.
 > OneDrive, 바탕화면 등 경로에 공백이 포함된 폴더는 피하고,  
 > `C:\Users\user_name\Documents\` (내 문서) 또는 `C:\scripts\` 같은 공백 없는 경로에 bat/vbs 파일을 보관할 것.
 
-### 1. vbs 파일 작성 (`Documents\run_md_schedule_update.vbs`)
+### 1. vbs 파일 작성 (`Documents\run_schedule_update.vbs`)
 
 ```vbscript
-CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedule_update.bat""", 0, False
+CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_schedule_update.bat""", 0, False
 ```
 
 - 두 번째 인수 `0` = 창 숨김
@@ -119,13 +119,13 @@ CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedul
 3. **트리거** 탭 → 새로 만들기 → 반복 주기 설정 (예: 20분마다)
 4. **동작** 탭 → 새로 만들기:
    - 프로그램/스크립트: `wscript.exe`
-   - 인수 추가: `"C:\Users\user_name\Documents\run_md_schedule_update.vbs"`
+   - 인수 추가: `"C:\Users\user_name\Documents\run_schedule_update.vbs"`
 
 ### 3. 작업 스케줄러 등록 (CLI)
 
 ```bat
 schtasks /create /tn "md_schedule_update_v2" ^
-  /tr "wscript.exe \"C:\Users\user_name\Documents\run_md_schedule_update.vbs\"" ^
+  /tr "wscript.exe \"C:\Users\user_name\Documents\run_schedule_update.vbs\"" ^
   /sc minute /mo 20 /st 10:00 /it /f
 ```
 
@@ -140,6 +140,15 @@ schtasks /create /tn "md_schedule_update_v2" ^
 
 | vbs 파일 | 연결된 bat | 용도 |
 |---|---|---|
-| `run_md_schedule_update.vbs` | `run_md_schedule_update.bat` | 스케줄 업데이트 |
-| `run_md_mail_check.vbs` | `run_md_mail_check.bat` | 메일 첨부 확인 |
-| `run_md_mail_check_to_my_folder.vbs` | `run_md_mail_check_to_my_folder.bat` | 메일 → 내 폴더 저장 |
+| `run_schedule_update.vbs` | `run_schedule_update.bat` | 스케줄 업데이트 (`update_schedule.py`) |
+| `run_mail_check.vbs` | `run_mail_check.bat` | Outlook 수신함 확인 → 첨부파일 로컬 저장 (`check_mail_attachment.py`) |
+| `run_mail_check_to_my_folder.vbs` | `run_mail_check_to_my_folder.bat` | 메일 첨부파일을 내 폴더로 저장 |
+
+## check_mail_attachment.py 개요
+
+`run_mail_check.bat` / `run_mail_check_to_my_folder.bat`이 호출하는 메일 수신 스크립트.
+
+- Outlook 수신함에서 미처리 첨부파일을 탐색
+- 지정된 로컬 폴더에 자동 저장
+- `update_schedule.py`와 함께 작업 스케줄러에 등록해 주기적으로 실행
+- 새 소스 파일이 도착하면 다음 `update_schedule.py` 실행 시 자동 반영됨
