@@ -95,55 +95,49 @@ run_schedule_update.bat
 - 기간: ~ 2026-05-15
 - 조건: 로그온 중일 때만 실행 (`/it`)
 
-## 작업 스케줄러에 vbs로 등록하기
+## 작업 스케줄러 등록
 
-bat 파일을 작업 스케줄러에 직접 등록하면 실행 시 CMD 창이 잠깐 뜨는 문제가 있음.  
-vbs 래퍼를 통해 창 없이 백그라운드 실행 가능.
+Python 스크립트를 작업 스케줄러에 직접 등록. bat/vbs 래퍼 불필요.
 
-> ⚠️ **경로에 공백이 있으면 작업 스케줄러 실행 시 오류가 발생할 수 있음.**  
-> OneDrive, 바탕화면 등 경로에 공백이 포함된 폴더는 피하고,  
-> `C:\Users\user_name\Documents\` (내 문서) 또는 `C:\scripts\` 같은 공백 없는 경로에 bat/vbs 파일을 보관할 것.
+> ⚠️ `/tr` 경로에 공백이 있으면 schtasks가 경로를 잘라 오류 발생 (0x80070005).  
+> python.exe 경로와 py 파일 경로를 각각 `\"...\"` 로 감싸야 공백이 포함된 경로도 처리 가능.
 
-### 1. vbs 파일 작성 (`Documents\run_schedule_update.vbs`)
-
-```vbscript
-CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_schedule_update.bat""", 0, False
-```
-
-- 두 번째 인수 `0` = 창 숨김
-- 세 번째 인수 `False` = 완료 대기 안 함 (비동기)
-
-### 2. 작업 스케줄러 등록 (GUI)
-
-1. `taskschd.msc` 실행
-2. **작업 만들기** (일반 탭: 이름 입력, "사용자가 로그온할 때만 실행" 선택)
-3. **트리거** 탭 → 새로 만들기 → 반복 주기 설정 (예: 20분마다)
-4. **동작** 탭 → 새로 만들기:
-   - 프로그램/스크립트: `wscript.exe`
-   - 인수 추가: `"C:\Users\user_name\Documents\run_schedule_update.vbs"`
-
-### 3. 작업 스케줄러 등록 (CLI)
+### CLI 등록 명령어
 
 ```bat
-schtasks /create /tn "md_schedule_update_v2" ^
-  /tr "wscript.exe \"C:\Users\user_name\Documents\run_schedule_update.vbs\"" ^
-  /sc minute /mo 20 /st 10:00 /it /f
+schtasks /create /tn md_mail_check_v2 ^
+  /tr "\"C:\Python3xx\python.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\...\check_mail_attachment.py\"" ^
+  /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
+
+schtasks /create /tn md_schedule_update_v2 ^
+  /tr "\"C:\Python3xx\python.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\...\update_schedule.py\"" ^
+  /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
 ```
+
+전체 경로가 포함된 명령어는 `create_schtasks_v2.txt` 참고.
 
 | 옵션 | 설명 |
 |---|---|
 | `/sc minute /mo 20` | 20분마다 실행 |
-| `/st 10:00` | 10:00부터 시작 |
+| `/st 09:55 / 10:00` | 각 스크립트 시작 시각 |
 | `/it` | 로그온 중일 때만 실행 |
 | `/f` | 동일 이름 작업 덮어쓰기 |
 
-### 4. vbs 파일 목록
+### Python 경로 확인
 
-| vbs 파일 | 연결된 bat | 용도 |
-|---|---|---|
-| `run_schedule_update.vbs` | `run_schedule_update.bat` | 스케줄 업데이트 (`update_schedule.py`) |
-| `run_mail_check.vbs` | `run_mail_check.bat` | Outlook 수신함 확인 → 첨부파일 로컬 저장 (`check_mail_attachment.py`) |
-| `run_mail_check_to_my_folder.vbs` | `run_mail_check_to_my_folder.bat` | 메일 첨부파일을 내 폴더로 저장 |
+```bat
+where python
+:: 예) C:\Python314\python.exe
+```
+
+### GUI 등록
+
+1. `taskschd.msc` 실행
+2. **작업 만들기** → 일반 탭: 이름 입력, "사용자가 로그온할 때만 실행" 선택
+3. **트리거** 탭 → 새로 만들기 → 반복 주기 설정
+4. **동작** 탭 → 새로 만들기:
+   - 프로그램/스크립트: `C:\Python3xx\python.exe`
+   - 인수 추가: `"C:\Users\user_name\OneDrive - company_name\...\update_schedule.py"`
 
 ## check_mail_attachment.py 개요
 
