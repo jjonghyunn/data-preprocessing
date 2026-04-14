@@ -1,21 +1,38 @@
 """
 check_mail_attachment.py
 
-team_name 받은편함에서 CAMPAIGN NAME 법인별 일정 첨부파일을 감지해 저장.
-이미 같은 파일명이 있으면 스킵.
+[mailbox] 받은편함에서 CAMPAIGN NAME 법인별 일정 첨부파일을 감지해 저장.
+- 이미 처리한 메일은 EntryID로 기록해 재처리 방지
+- 같은 파일명이 있으면 수신일(_yymmdd) 붙여 저장
+- SaveAsFile은 MAX_PATH 제한으로 임시폴더에 저장 후 shutil.move로 이동
 """
 
 import win32com.client
+import shutil
+import tempfile
 from pathlib import Path
+from datetime import datetime
 
-SAVE_FOLDER = Path(
+SAVE_FOLDER  = Path(
     r"C:\Users\user_name\OneDrive - company_name"
     r"\Project_team_name - 1 company_name - 02 part_name"
-    r"\part_name\2026\# CAMPAIGN_PROJECTS\02. CAMPAIGN NAME"
+    r"\part_name\2026\# CAMPAIGN_PROJECTS\03. CAMPAIGN NAME"
     r"\02. SCHEDULE\1.고객 법인 일정 파일"
 )
-STORE_NAME   = "team_name"
+STORE_NAME   = "part_name mailbox"
 SUBJECT_KEYS = ["campaign name", "법인별"]  # 모두 포함된 메일만
+MARKER_FILE  = Path(r"C:\Users\user_name\Documents\sw_mail_processed_ids.txt")
+
+# ── 긴 경로 존재 확인 (\\?\ 접두사 사용) ──────────────────────
+def long_path_exists(p: Path) -> bool:
+    lp = Path("\\\\?\\" + str(p.resolve()))
+    return lp.exists()
+
+# ── 처리된 EntryID 로드 ───────────────────────────────────────
+if MARKER_FILE.exists():
+    processed_ids = set(MARKER_FILE.read_text(encoding="utf-8").splitlines())
+else:
+    processed_ids = set()
 
 # ── Outlook 연결 ──────────────────────────────────────────────
 outlook = win32com.client.Dispatch("Outlook.Application")
@@ -36,15 +53,24 @@ print(f"[메일함] {target_store.DisplayName} / 받은편함 ({inbox.Items.Coun
 # ── 메일 순회 ────────────────────────────────────────────────
 saved = 0
 skipped = 0
+new_ids = []
 
 for mail in inbox.Items:
     try:
-        subject = mail.Subject.lower()
+        subject  = mail.Subject.lower()
+        entry_id = mail.EntryID
     except Exception:
         continue
 
     if not all(k in subject for k in SUBJECT_KEYS):
         continue
+
+    if entry_id in processed_ids:
+        skipped += 1
+        continue
+
+    mail_saved = False
+    received = datetime.strftime(mail.ReceivedTime, "%y%m%d")
 
     for att in mail.Attachments:
         name = att.FileName
@@ -52,12 +78,45 @@ for mail in inbox.Items:
             continue
 
         dest = SAVE_FOLDER / name
-        if dest.exists():
-            print(f"[스킵] 이미 존재: {name}")
-            skipped += 1
+
+        # 이미 같은 파일명 존재 → 날짜 붙인 이름으로
+        if long_path_exists(dest):
+            stem     = Path(name).stem
+            suffix   = Path(name).suffix
+            new_name = f"{stem}_{received}{suffix}"
+            dest     = SAVE_FOLDER / new_name
+
+            # 날짜 붙인 파일도 이미 존재 → 완전 스킵
+            if long_path_exists(dest):
+                print(f"[스킵] 이미 처리됨: {new_name}")
+                skipped += 1
+                mail_saved = True   # 이미 저장된 것으로 간주 → EntryID 기록
+                continue
+
+            # 임시폴더 저장 후 이동
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                tmp_path = Path(tmp.name)
+            att.SaveAsFile(str(tmp_path))
+            shutil.move(str(tmp_path), str(dest))
+            print(f"[저장-중복] {name} → {new_name} (수신일: {received})")
         else:
-            att.SaveAsFile(str(dest))
+            # 임시폴더 저장 후 이동
+            suffix = Path(name).suffix
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                tmp_path = Path(tmp.name)
+            att.SaveAsFile(str(tmp_path))
+            shutil.move(str(tmp_path), str(dest))
             print(f"[저장] {name}")
-            saved += 1
+
+        saved += 1
+        mail_saved = True
+
+    if mail_saved:
+        new_ids.append(entry_id)
+
+# ── 처리된 EntryID 저장 ───────────────────────────────────────
+if new_ids:
+    with MARKER_FILE.open("a", encoding="utf-8") as f:
+        f.write("\n".join(new_ids) + "\n")
 
 print(f"\n완료 - 저장 {saved}개 / 스킵 {skipped}개")

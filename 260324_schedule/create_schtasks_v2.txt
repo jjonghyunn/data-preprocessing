@@ -7,6 +7,6 @@
 :: → py 파일 경로는 bat 안에서 따옴표로 감싸면 공백 있어도 무관
 :: → 작업명(/tn)에도 공백 넣지 말 것 (공백 있으면 따옴표 필요, 오류 가능성 있음)
 
-schtasks /create /tn md_mail_check_v2 /tr C:\Users\user_name\Documents\run_md_mail_check.bat /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
+schtasks /create /tn md_mail_check_v2 /tr C:\Users\user_name\Documents\run_mail_check.bat /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
 
-schtasks /create /tn md_schedule_update_v2 /tr C:\Users\user_name\Documents\run_md_schedule_update.bat /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
+schtasks /create /tn md_schedule_update_v2 /tr C:\Users\user_name\Documents\run_schedule_update.bat /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
