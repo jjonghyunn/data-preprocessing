@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260331`
+기준 문서 업데이트일: `260414`
 
 ---
 
@@ -12,7 +12,7 @@
 
 ```
 AA_Exporter/
-├── generate_period_notebooks_v2.py   # 노트북 자동 생성
+├── generate_period_notebooks_v3.py   # 노트북 자동 생성
 ├── ipynb_json_usage_mapper.py        # JSON 참조 검수
 ├── check_failed_status_260313.py     # FAILED 점검
 ├── check_mapping_match_260313.py     # 컬럼 매핑 검수
@@ -52,8 +52,8 @@ AA_Exporter/
 │   ├── US_campaign_period.ipynb      # 26 US campaign 추출
 │   ├── US_last_campaign_period.ipynb # 25 US last campaign 추출
 │   ├── US_prior_period.ipynb         # 26 US prior 추출
-│   ├── stack_n_currency_n_chnl_n_seaprate_260331.ipynb  # 정제/포맷팅
-│   ├── stack_n_currency_n_chnl_n_seaprate_260331.md     # 정제 가이드
+│   ├── stack_n_currency_n_chnl_n_seaprate_260410.ipynb  # 정제/포맷팅
+│   ├── stack_n_currency_n_chnl_n_seaprate_260410.md     # 정제 가이드
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타
@@ -79,10 +79,10 @@ AA_Exporter/
 
 실제 기준 스크립트는 아래 4개입니다.
 
-- `generate_period_notebooks_v2.py`
+- `generate_period_notebooks_v3.py`
 - `ipynb_json_usage_mapper.py`
 - `check_mapping_match_260313.py`
-- `launch/stack_n_currency_n_chnl_n_seaprate_260331.ipynb`
+- `launch/stack_n_currency_n_chnl_n_seaprate_260410.ipynb`
 
 ---
 
@@ -172,7 +172,7 @@ site code 계열 CSV (`date/` 폴더):
 
 ## STEP 3. Notebook Generation
 
-실행 스크립트: `generate_period_notebooks_v2.py`
+실행 스크립트: `generate_period_notebooks_v3.py`
 
 각 JSON 서브폴더를 자동 감지해서 `launch/` 에 아래 6개 노트북을 생성합니다.
 
@@ -241,10 +241,10 @@ site code 계열 CSV (`date/` 폴더):
 
 ## STEP 7. Post-Processing
 
-기준 파일: `launch/stack_n_currency_n_chnl_n_seaprate_260331.ipynb`
-참고 문서: `launch/stack_n_currency_n_chnl_n_seaprate_260331.md`
+기준 파일: `launch/stack_n_currency_n_chnl_n_seaprate_260410.ipynb`
+참고 문서: `launch/stack_n_currency_n_chnl_n_seaprate_260410.md`
 
-### 처리 순서 (260331 기준)
+### 처리 순서 (260410 기준)
 
 1. tb_key별 최신 파일 선택 (타임스탬프 기준, `_stacked` / `_long` / `union_` 제외)
 2. Pre-scan: 전체 site_code 수집 (US/글로벌 분리, 중복 검증)
@@ -275,3 +275,5 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `check_mapping_match_260313.py` | tb_column_name_mapping ↔ CSV 컬럼 매핑 검수 |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
+| `best_selling_refine_260413.py` | Best Selling 데이터 정제 (→ `best_selling_refine_notes.md` 참고) |
+| `foldering_move_png_251126_26campaign_name.py` | 캠페인별 PNG 파일 폴더 분류 이동 |
