@@ -3,15 +3,16 @@
 ::
 :: ⚠ 경로 주의사항
 :: - /tr 경로에 공백이 있으면 schtasks가 잘라서 오류 (0x80070005)
-:: - python.exe 경로와 py 파일 경로를 각각 \"...\" 로 감싸야 공백 처리 가능
+:: - pythonw.exe 경로와 py 파일 경로를 각각 \"...\" 로 감싸야 공백 처리 가능
+:: - python.exe 대신 pythonw.exe 사용 → 실행 시 cmd 창이 뜨지 않음
 :: - 작업명(/tn)에는 공백 넣지 말 것
 
-schtasks /create /tn md_mail_check_v2 /tr "\"C:\Python3xx\python.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\2.data\99.PY,SQL-250429\00.py_notebook\260324_schedule\check_mail_attachment.py\"" /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
+schtasks /create /tn md_mail_check_v2 /tr "\"C:\Python3xx\pythonw.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\2.data\99.PY,SQL-250429\00.py_notebook\260324_schedule\check_mail_attachment.py\"" /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
 
-schtasks /create /tn md_schedule_update_v2 /tr "\"C:\Python3xx\python.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\2.data\99.PY,SQL-250429\00.py_notebook\260324_schedule\update_schedule.py\"" /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
+schtasks /create /tn md_schedule_update_v2 /tr "\"C:\Python3xx\pythonw.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\2.data\99.PY,SQL-250429\00.py_notebook\260324_schedule\update_schedule.py\"" /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
 
-:: Python 경로 확인 방법: cmd에서 → where python
-:: 예) C:\Python314\python.exe  또는  C:\Users\user_name\AppData\Local\Programs\Python\Python312\python.exe
+:: Python 경로 확인 방법: cmd에서 → where pythonw
+:: 예) C:\Python314\pythonw.exe  또는  C:\Users\user_name\AppData\Local\Programs\Python\Python312\pythonw.exe
 
 :: ─── 배터리 모드 허용 (위 schtasks 등록 후 PowerShell에서 실행) ───
 :: schtasks는 배터리 조건을 직접 설정할 수 없으므로 별도 적용 필요
