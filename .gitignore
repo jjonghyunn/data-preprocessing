@@ -1,0 +1,32 @@
+# AA exports (추출 결과물 CSV)
+aa_exports/
+*_stacked_separate.csv
+*_stacked.csv
+union_*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Auth / secrets
+*_auth.json
+*.key
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Excel / temp outputs
+~$*.xlsx
+~$*.xls
