@@ -106,6 +106,7 @@ run_schedule_update.bat
 - 시작: 10:00
 - 기간: ~ 2026-05-15
 - 조건: 로그온 중일 때만 실행 (`/it`)
+- 배터리: 배터리 전원에서도 실행 (schtasks 등록 후 PowerShell 추가 설정 필요 → 아래 참고)
 
 ## 작업 스케줄러 등록
 
@@ -135,6 +136,20 @@ schtasks /create /tn md_schedule_update_v2 ^
 | `/it` | 로그온 중일 때만 실행 |
 | `/f` | 동일 이름 작업 덮어쓰기 |
 
+### 배터리 모드 허용 (등록 후 PowerShell에서 추가 실행)
+
+`schtasks`는 배터리 조건을 직접 지정할 수 없으므로, 등록 후 아래 PowerShell 명령어를 별도로 실행:
+
+```powershell
+$names = "md_mail_check_v2", "md_schedule_update_v2"
+foreach ($n in $names) {
+    $t = Get-ScheduledTask -TaskName $n
+    $t.Settings.DisallowStartIfOnBatteries = $false
+    $t.Settings.StopIfGoingOnBatteries = $false
+    Set-ScheduledTask -InputObject $t
+}
+```
+
 ### Python 경로 확인
 
 ```bat
@@ -150,6 +165,7 @@ where python
 4. **동작** 탭 → 새로 만들기:
    - 프로그램/스크립트: `C:\Python3xx\python.exe`
    - 인수 추가: `"C:\Users\user_name\OneDrive - company_name\...\update_schedule.py"`
+5. **조건** 탭 → 전원 섹션 → **"AC 전원이 연결된 경우에만 작업 시작" 체크 해제**
 
 ## check_mail_attachment.py 개요
 
