@@ -12,3 +12,9 @@ schtasks /create /tn md_schedule_update_v2 /tr "\"C:\Python3xx\python.exe\" \"C:
 
 :: Python 경로 확인 방법: cmd에서 → where python
 :: 예) C:\Python314\python.exe  또는  C:\Users\user_name\AppData\Local\Programs\Python\Python312\python.exe
+
+:: ─── 배터리 모드 허용 (위 schtasks 등록 후 PowerShell에서 실행) ───
+:: schtasks는 배터리 조건을 직접 설정할 수 없으므로 별도 적용 필요
+:: PowerShell 창을 열고 아래 명령어 실행:
+
+powershell -Command "$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }"
