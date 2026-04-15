@@ -1,5 +1,6 @@
 """
 update_schedule.py
+2026-04-15  Jonghyun Park w/ Claude
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
    - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등)
@@ -22,14 +23,22 @@ NO_FILL      = PatternFill(fill_type=None)
 
 # ── 최신 파일 정렬 키 ────────────────────────────────────────
 def latest_file_key(f: Path):
-    """파일명에서 (날짜, 버전, 끝번호) 추출해 정렬 키로 반환.
-    예) _v0.441_260325_2.xlsx → (260325, 0.441, 2)
+    """파일명에서 (날짜, 시간, 버전, 끝번호) 추출해 정렬 키로 반환.
+    예1) _v0.441_260325_2.xlsx  → (260325,    0, 0.441, 2)
+    예2) 법인별일정20260415_1543.xlsx → (20260415, 1543, 0.0,  0)
     """
     name = f.stem
+
+    # YYYYMMDD_HHMM 형식 (버전 없이 날짜+시간만 있는 경우)
+    m8 = re.search(r'(?<!\d)(\d{8})_(\d{4})(?!\d)', name)
+    if m8:
+        return (int(m8.group(1)), int(m8.group(2)), 0.0, 0)
+
+    # 기존 형식: 6자리 날짜(YYMMDD) + 버전(_vX.XX) + 끝번호(_N)
     date    = int(m.group()) if (m := re.search(r'(?<!\d)\d{6}(?!\d)', name)) else 0
     version = float(m.group(1)) if (m := re.search(r'_v(\d+\.\d+)', name)) else 0.0
     suffix  = int(m.group(1)) if (m := re.search(r'_(\d{1,5})$', name)) else 0
-    return (date, version, suffix)
+    return (date, 0, version, suffix)
 
 
 # ── 경로 설정 ────────────────────────────────────────────────
