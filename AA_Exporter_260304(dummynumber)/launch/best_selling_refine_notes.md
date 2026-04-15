@@ -80,28 +80,4 @@ aa_exports/{tb_key}_{YYYYMMDD}_{HHMM}.csv  (타임스탬프 최신 파일 자동
 | `ref/currency.csv`에 해당 연도 컬럼 없음 | `KeyError` 발생 → TB_KEYS 환율 연도 또는 currency.csv 컬럼명 확인 필요 |
 | SITE CODE가 currency.csv에 없음 | REVENUE가 `NaN`으로 출력 → currency.csv에 해당 사이트 코드 추가 필요 |
 
----
 
-## foldering_move_png_251126_26campaign_name.py
-
-### 개요
-캠페인 모니터링 캡처 폴더의 PNG·MHTML 파일을 파일명 앞부분(PC/MO 이전)을 폴더명으로 삼아 자동 분류 이동.
-
-### 실행 전 주의
-- **MO 파일 먼저 수동 이동 후 실행**
-- 스크립트 상단 `folder_path` 변수를 실제 경로로 수정 필요
-
-```python
-# 예시
-folder_path = r"C:\Users\user_name\OneDrive\campaign_name\monitoring"
-```
-
-### 동작 예시
-
-```
-입력: 20260407_homepage_PC_AE.png
-출력: 20260407_homepage/20260407_homepage_PC_AE.png
-
-입력: 20260407_homepage_MO_AE.mhtml
-출력: 20260407_homepage/20260407_homepage_MO_AE.mhtml
-```
