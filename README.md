@@ -1,8 +1,31 @@
 # data-preprocessing
 preprocessing data
 
-## **AA_Exporter_260304(dummynumber)**
+## 폴더 구조
+
+```
+data-preprocessing/
+├── AA_Exporter_260304/
+│   ├── date/                    ← site_code CSV (더미 데이터, 하단 참고)
+│   ├── json/                    ← API 추출 설정 JSON
+│   ├── json_segment_report/     ← 세그먼트 패널 점검 결과
+│   ├── json_usage_report/       ← JSON 사용 여부 점검 결과
+│   ├── launch/                  ← 주피터 노트북 (API 추출 실행 파일)
+│   │   └── utils/               ← 공통 유틸 (aa_exporter, site_registry 등)
+│   └── ref/                     ← 참조 CSV (currency, app_O_X 등)
+├── 260324_schedule/
+│   ├── update_schedule.py       ← 고객 일정 xlsx → Auto 정제 파일 업데이트
+│   └── check_mail_attachment.py ← Outlook 신규 첨부 xlsx 감지·저장
+├── campaign_mapping_key_separator_260109v3.py
+├── campaign_main_value_mapping_251224_add_date.py
+└── campaign_default_value_splitter_251217.py
+```
+
+---
+
+## **AA_Exporter_260304**
 * 보안을 위해 추출된 value#칼럼들의 숫자값들은 모두 dummy화 했습니다.
+* `date/` 폴더의 CSV 파일(`site_code.csv`, `us_site_code.csv` 등)도 더미 데이터입니다.
 
 아래 3개 주피터파일로 api추출.
 1. 26ny_campaign_period.ipynb
