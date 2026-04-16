@@ -1,0 +1,182 @@
+{
+    "rsid": "sscompany_name4br",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "세그먼트_아이디_넘버"
+        },
+        {
+            "type": "segment",
+            "segmentId": "세그먼트_아이디_넘버"
+        },
+        {
+            "type": "segment",
+            "segmentId": "세그먼트_아이디_넘버"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2025-02-01T00:00:00.000/2025-03-17T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "2",
+                "id": "metrics/visits",
+                "filters": [
+                    "0",
+                    "1"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/visits",
+                "filters": [
+                    "2"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/orders",
+                "filters": [
+                    "3"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/revenue",
+                "filters": [
+                    "4"
+                ]
+            },
+            {
+                "columnId": "8",
+                "id": "metrics/orders",
+                "filters": [
+                    "5"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "metrics/orders",
+                "filters": [
+                    "6"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/orders",
+                "filters": [
+                    "7"
+                ]
+            },
+            {
+                "columnId": "12",
+                "id": "metrics/orders",
+                "filters": [
+                    "8"
+                ]
+            },
+            {
+                "columnId": "14",
+                "id": "metrics/orders",
+                "filters": [
+                    "9",
+                    "10"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "세그먼트_아이디_넘버"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "YOUR_ID"
+            },
+            {
+                "name": "projectName",
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "S.com Order & Revenue / Campaign Page Order (Total)"
+            }
+        ]
+    }
+}
