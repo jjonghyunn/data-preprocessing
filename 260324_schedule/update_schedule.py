@@ -1,9 +1,10 @@
 """
 update_schedule.py
 2026-04-15  Jonghyun Park w/ Claude
+2026-04-21  Jonghyun Park w/ Claude
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
-   - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등)
+   - 정렬 기준: 문서날짜(YYYYMMDD/YYMMDD) → 시간/버전/메일수신일 순
 2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기
    - datetime → yyyy-mm-dd 문자열 변환
    - WEEKNUM 수식 셀 → W01 형식 변환
@@ -23,22 +24,45 @@ NO_FILL      = PatternFill(fill_type=None)
 
 # ── 최신 파일 정렬 키 ────────────────────────────────────────
 def latest_file_key(f: Path):
-    """파일명에서 (날짜, 시간, 버전, 끝번호) 추출해 정렬 키로 반환.
-    예1) _v0.441_260325_2.xlsx  → (260325,    0, 0.441, 2)
-    예2) 법인별일정20260415_1543.xlsx → (20260415, 1543, 0.0,  0)
+    """파일명에서 정렬 키 (문서날짜, HHMM, 버전float, 버전int, 메일수신일) 반환.
+
+    SW형 (8자리 날짜):
+      YYYYMMDD_HHMM[_YYMMDD]  → (doc_date, hhmm, 0, 0, mail)
+      YYYYMMDD_vN[_YYMMDD]    → (doc_date, 0, 0, ver_int, mail)
+      YYYYMMDD_YYMMDD         → (doc_date, 0, 0, 0, mail)
+      YYYYMMDD                → (doc_date, 0, 0, 0, 0)
+
+    MD형 (6자리 날짜 + vX.XX 버전):
+      _vX.XX_YYMMDD           → (mail_date, 0, ver_float, 0, 0)
     """
     name = f.stem
 
-    # YYYYMMDD_HHMM 형식 (버전 없이 날짜+시간만 있는 경우)
-    m8 = re.search(r'(?<!\d)(\d{8})_(\d{4})(?!\d)', name)
+    m8 = re.search(r'(?<!\d)(\d{8})(?!\d)', name)
     if m8:
-        return (int(m8.group(1)), int(m8.group(2)), 0.0, 0)
+        doc_date = int(m8.group(1))
 
-    # 기존 형식: 6자리 날짜(YYMMDD) + 버전(_vX.XX) + 끝번호(_N)
-    date    = int(m.group()) if (m := re.search(r'(?<!\d)\d{6}(?!\d)', name)) else 0
+        # YYYYMMDD_HHMM[_YYMMDD]
+        m = re.search(r'(?<!\d)\d{8}_(\d{4})(?:_(\d{6}))?(?!\d)', name)
+        if m:
+            return (doc_date, int(m.group(1)), 0.0, 0, int(m.group(2) or 0))
+
+        # YYYYMMDD_vN[_YYMMDD]
+        m = re.search(r'(?<!\d)\d{8}_v(\d+)(?:_(\d{6}))?', name)
+        if m:
+            return (doc_date, 0, 0.0, int(m.group(1)), int(m.group(2) or 0))
+
+        # YYYYMMDD_YYMMDD
+        m = re.search(r'(?<!\d)\d{8}_(\d{6})(?!\d)', name)
+        if m:
+            return (doc_date, 0, 0.0, 0, int(m.group(1)))
+
+        return (doc_date, 0, 0.0, 0, 0)
+
+    # MD형: _vX.XX_YYMMDD
+    date6   = int(m.group()) if (m := re.search(r'(?<!\d)\d{6}(?!\d)', name)) else 0
     version = float(m.group(1)) if (m := re.search(r'_v(\d+\.\d+)', name)) else 0.0
     suffix  = int(m.group(1)) if (m := re.search(r'_(\d{1,5})$', name)) else 0
-    return (date, 0, version, suffix)
+    return (date6, 0, version, suffix, 0)
 
 
 # ── 경로 설정 ────────────────────────────────────────────────
@@ -67,8 +91,10 @@ if not xlsx_files:
 source_file = xlsx_files[-1]
 print(f"[소스 파일] {source_file.name}")
 
-# 소스 파일이 이전과 동일하면 업데이트 불필요 → 스킵 (로컬 마커 파일 기준)
-if LAST_SOURCE_FILE.exists() and LAST_SOURCE_FILE.read_text(encoding="utf-8").strip() == source_file.name:
+# 소스 파일이 이전과 동일하면 업데이트 불필요 → 스킵 (파일명 + mtime 기준)
+src_mtime = int(source_file.stat().st_mtime)
+current_marker = f"{source_file.name}|{src_mtime}"
+if LAST_SOURCE_FILE.exists() and LAST_SOURCE_FILE.read_text(encoding="utf-8").strip() == current_marker:
     print(f"[SKIP] 소스 파일 변경 없음 ({source_file.name}), 업데이트 생략")
     exit(0)
 
@@ -207,7 +233,7 @@ try:
     excel.CalculateFull()
     wb_com.Save()
     wb_com.Close()
-    LAST_SOURCE_FILE.write_text(source_file.name, encoding="utf-8")
+    LAST_SOURCE_FILE.write_text(current_marker, encoding="utf-8")
     print(f"[완료] {output_file.name} 저장 완료")
 finally:
     excel.Quit()
