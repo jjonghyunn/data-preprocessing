@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260414`
+기준 문서 업데이트일: `260422`
 
 ---
 
@@ -52,8 +52,8 @@ AA_Exporter/
 │   ├── US_campaign_period.ipynb      # 26 US campaign 추출
 │   ├── US_last_campaign_period.ipynb # 25 US last campaign 추출
 │   ├── US_prior_period.ipynb         # 26 US prior 추출
-│   ├── stack_n_currency_n_chnl_n_seaprate_260410.ipynb  # 정제/포맷팅
-│   ├── stack_n_currency_n_chnl_n_seaprate_260410.md     # 정제 가이드
+│   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅
+│   ├── RESHAPE_main_raw_v4.1.md             # 정제 가이드
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타
@@ -70,11 +70,11 @@ AA_Exporter/
 
 1. 마스터 CSV 최신화 (`ref/`, `date/` 폴더)
 2. JSON 생성 및 세그 검수 (`json/` 폴더 내 유틸 활용)
-3. `generate_period_notebooks_v2.py` 실행 → `launch/` 에 노트북 6개 생성
+3. `generate_period_notebooks_v3.py` 실행 → `launch/` 에 노트북 6개 생성
 4. `launch/` 의 노트북 6개 실행 (3가지 기간 global/us)
 5. `check_failed_status_260313.py` 실행 후 수기 보정
 6. `check_mapping_match_260313.py` 실행
-7. `launch/stack_n_currency_n_chnl_n_seaprate_260331.ipynb` 실행
+7. `launch/RESHAPE_main_raw_v4.1.ipynb` 실행
 8. `aa_exports/union_{timestamp}.csv` 최종본 확인
 
 실제 기준 스크립트는 아래 4개입니다.
@@ -82,7 +82,7 @@ AA_Exporter/
 - `generate_period_notebooks_v3.py`
 - `ipynb_json_usage_mapper.py`
 - `check_mapping_match_260313.py`
-- `launch/stack_n_currency_n_chnl_n_seaprate_260410.ipynb`
+- `launch/RESHAPE_main_raw_v4.1.ipynb`
 
 ---
 
@@ -241,8 +241,8 @@ site code 계열 CSV (`date/` 폴더):
 
 ## STEP 7. Post-Processing
 
-기준 파일: `launch/stack_n_currency_n_chnl_n_seaprate_260410.ipynb`
-참고 문서: `launch/stack_n_currency_n_chnl_n_seaprate_260410.md`
+기준 파일: `launch/RESHAPE_main_raw_v4.1.ipynb`
+참고 문서: `launch/RESHAPE_main_raw_v4.1.md`
 
 ### 처리 순서 (260410 기준)
 

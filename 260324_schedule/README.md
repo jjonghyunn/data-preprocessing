@@ -156,14 +156,27 @@ where pythonw
    - 인수 추가: `"C:\Users\user_name\OneDrive - company_name\...\update_schedule.py"`
 5. **조건** 탭 → 전원 섹션 → **"AC 전원이 연결된 경우에만 작업 시작" 체크 해제**
 
-## check_mail_attachment.py 개요
+## check_mail_attachment.py
 
-`run_mail_check.bat` / `run_mail_check_to_my_folder.bat`이 호출하는 메일 수신 스크립트.
+Outlook 수신함을 폴링해 일정 파일 첨부를 자동으로 로컬에 저장하는 스크립트.  
+`update_schedule.py`와 쌍으로 작업 스케줄러에 등록해 주기적으로 실행합니다.  
+새 소스 파일이 도착하면 다음 `update_schedule.py` 실행 시 자동 반영됩니다.
 
-- Outlook 수신함에서 미처리 첨부파일을 탐색
-- 지정된 로컬 폴더에 자동 저장
-- `update_schedule.py`와 함께 작업 스케줄러에 등록해 주기적으로 실행
-- 새 소스 파일이 도착하면 다음 `update_schedule.py` 실행 시 자동 반영됨
+### 동작 순서
+
+1. `win32com.client`로 Outlook 수신함 접근
+2. 제목 필터 조건에 맞는 메일만 선별 (스크립트 상단 `SUBJECT_KEYWORDS` 참고)
+3. 처리 이력(`sw_mail_processed_ids.txt`)에 없는 메일만 처리
+4. `.xlsx` 첨부파일을 지정 폴더에 저장
+5. 처리한 메일의 EntryID를 이력 파일에 추가
+
+### 실행 방법
+
+```bash
+python check_mail_attachment.py
+```
+
+작업 스케줄러 등록 방법은 위의 **작업 스케줄러 등록** 섹션 참고 (`md_mail_check_v2` 작업).
 
 ### 재처리 방지 (EntryID 마커)
 
