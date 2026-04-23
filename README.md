@@ -89,4 +89,4 @@ CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedul
 - 두 번째 인수 `0` = 창 숨김
 - 세 번째 인수 `False` = 비동기 실행
 
-> 등록 방법 및 vbs 파일 목록 상세는 `260324_schedule/update_schedule.md` 참고.
+> 등록 방법 및 vbs 파일 목록 상세는 `260324_schedule/README.md` 참고.

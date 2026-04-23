@@ -275,5 +275,4 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `check_mapping_match_260313.py` | tb_column_name_mapping ↔ CSV 컬럼 매핑 검수 |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
-| `best_selling_refine_260413.py` | Best Selling 데이터 정제 (→ `best_selling_refine_notes.md` 참고) |
-| `foldering_move_png_251126_26campaign_name.py` | 캠페인별 PNG 파일 폴더 분류 이동 |
+| `best_selling_refine_260413.py` | Best Selling 데이터 정제 — 로컬 전용, 미커밋 (→ `best_selling_refine_notes.md` 참고) |
