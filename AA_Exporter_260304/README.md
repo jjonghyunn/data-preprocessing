@@ -14,8 +14,9 @@
 AA_Exporter/
 ├── generate_period_notebooks_v3.py   # 노트북 자동 생성
 ├── ipynb_json_usage_mapper.py        # JSON 참조 검수
-├── check_failed_status.py     # FAILED 점검
+├── check_failed_status.py            # FAILED 점검
 ├── check_mapping_match_260313.py     # 컬럼 매핑 검수
+├── cleanup_old_exports.py            # aa_exports 내 동일 base_key 오래된 CSV 정리
 ├── metric_value_with_dummy.py        # 공유용 더미 데이터 생성
 │
 ├── date/                             # site code CSV (기간별)
@@ -280,6 +281,7 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 |----------|------|
 | `check_failed_status.py` | FAILED 건수 확인 + OK 행 0개 경고 (US/non-US 공통), 루트·`launch/` 양쪽 실행 가능 |
 | `check_mapping_match_260313.py` | tb_column_name_mapping ↔ CSV 컬럼 매핑 검수 |
+| `cleanup_old_exports.py` | aa_exports 내 동일 base_key 파일 중 최신 1개만 남기고 나머지 삭제 (union·타임스탬프 없는 파일 보존, y/N 확인 후 삭제) |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
 | `best_selling_refine_260413.py` | Best Selling 데이터 정제 — 로컬 전용, 미커밋 (→ `best_selling_refine_notes.md` 참고) |
