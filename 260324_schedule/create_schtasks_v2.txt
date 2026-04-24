@@ -14,8 +14,15 @@ schtasks /create /tn md_schedule_update_v2 /tr "\"C:\Python3xx\pythonw.exe\" \"C
 :: Python 경로 확인 방법: cmd에서 → where pythonw
 :: 예) C:\Python314\pythonw.exe  또는  C:\Users\user_name\AppData\Local\Programs\Python\Python312\pythonw.exe
 
-:: ─── 배터리 모드 허용 (위 schtasks 등록 후 PowerShell에서 실행) ───
+:: ─── 배터리 모드 허용 (위 schtasks 등록 후 실행) ───
 :: schtasks는 배터리 조건을 직접 설정할 수 없으므로 별도 적용 필요
-:: PowerShell 창을 열고 아래 명령어 실행:
+
+:: [cmd/bat에서 실행] powershell.exe 래퍼 사용
 
 powershell -Command "$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }"
+
+:: [PowerShell 창에서 직접 실행] 래퍼 없이 한 줄 (더 빠름, 권장)
+:: ⚠ PS 창에서 위 `powershell -Command "..."` 형태를 쓰면 바깥 PS가 $names·$n·$t를
+::   자기 변수로 먼저 치환(빈 값)해버려 "foreach 뒤에 변수 이름이 없습니다" 오류 발생
+
+$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }

@@ -125,12 +125,20 @@ schtasks /create /tn md_schedule_update_v2 ^
 | `/it` | 로그온 중일 때만 실행 |
 | `/f` | 동일 이름 작업 덮어쓰기 |
 
-### 배터리 모드 허용 (등록 후 PowerShell에서 추가 실행)
+### 배터리 모드 허용 (등록 후 추가 실행)
 
-`schtasks`는 배터리 조건을 직접 지정할 수 없으므로, 등록 후 아래 PowerShell 명령어를 별도로 실행:
+`schtasks`는 배터리 조건을 직접 지정할 수 없으므로, 등록 후 아래 명령어를 별도로 실행.
+
+**[권장] PowerShell 창에서 직접 실행** — 래퍼 없이 한 줄, 빠름:
 
 ```powershell
-$names = "md_mail_check_v2", "md_schedule_update_v2"
+$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }
+```
+
+또는 가독성 버전:
+
+```powershell
+$names = 'md_mail_check_v2', 'md_schedule_update_v2'
 foreach ($n in $names) {
     $t = Get-ScheduledTask -TaskName $n
     $t.Settings.DisallowStartIfOnBatteries = $false
@@ -138,6 +146,14 @@ foreach ($n in $names) {
     Set-ScheduledTask -InputObject $t
 }
 ```
+
+**[cmd/bat에서 실행할 때만] `powershell -Command` 래퍼 사용**:
+
+```bat
+powershell -Command "$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }"
+```
+
+⚠ **PowerShell 창에서 래퍼 형태를 쓰지 말 것** — 바깥 PS가 `$names`, `$n`, `$t`를 자기 변수로 먼저 치환(빈 값)해버려 `foreach 뒤에 변수 이름이 없습니다` 오류가 발생합니다.
 
 ### Python 경로 확인
 
