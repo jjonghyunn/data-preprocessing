@@ -1,15 +1,58 @@
+# check_failed_status_260313.py
+# 2026-04-24  Jonghyun Park w/ Claude
+
 import os
 import csv
+import re
+from datetime import datetime
 
 TARGET_DIR = os.path.join(os.path.dirname(__file__), "aa_exports")
 
+DT_PATTERNS = [
+    (r"(\d{8})_(\d{6})", "%Y%m%d%H%M%S"),  # YYYYMMDD_HHMMSS
+    (r"(\d{8})_(\d{4})",  "%Y%m%d%H%M"),    # YYYYMMDD_HHMM
+]
+
+def extract_dt(fname):
+    for pattern, fmt in DT_PATTERNS:
+        m = re.search(pattern, fname)
+        if m:
+            try:
+                return datetime.strptime(m.group(1) + m.group(2), fmt)
+            except ValueError:
+                pass
+    return None
+
+def base_key(fname):
+    key = re.sub(r"_\d{8}_\d{6}", "", fname)
+    key = re.sub(r"_\d{8}_\d{4}", "", key)
+    return key
+
+def pick_latest(files):
+    """datetime 패턴 있는 파일은 base_key 별 최신 1개만, 없는 파일은 그대로."""
+    dated, undated = [], []
+    for f in files:
+        if extract_dt(f) is not None:
+            dated.append(f)
+        else:
+            undated.append(f)
+
+    groups = {}
+    for f in dated:
+        k = base_key(f)
+        dt = extract_dt(f)
+        if k not in groups or dt > groups[k][1]:
+            groups[k] = (f, dt)
+
+    return undated + [v[0] for v in groups.values()]
+
 def check_failed():
-    failed_report = []   # (파일명, FAILED 행 수)
-    us_empty_report = [] # (파일명) US 파일인데 OK 데이터 행 0개
+    failed_report = []
+    us_empty_report = []
     skipped = []
     no_status = []
 
-    files = [
+    all_files = [
         f for f in os.listdir(TARGET_DIR)
         if f.endswith(".csv")
         and f != "separate.csv"
@@ -18,9 +61,10 @@ def check_failed():
         and not f.lower().startswith("_stacked")
     ]
 
-    print(f"검사 대상 파일 수: {len(files)}\n")
+    files = sorted(pick_latest(all_files))
+    print(f"검사 대상 파일 수: {len(files)}  (전체 {len(all_files)}개 중 최신만)\n")
 
-    for fname in sorted(files):
+    for fname in files:
         fpath = os.path.join(TARGET_DIR, fname)
         is_us = fname.lower().startswith("us_") or fname.lower().startswith("last_us_")
 
@@ -55,7 +99,6 @@ def check_failed():
         except Exception as e:
             skipped.append((fname, str(e)))
 
-    # 결과 출력
     print("=" * 60)
 
     if failed_report:
