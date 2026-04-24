@@ -9,7 +9,7 @@ from datetime import datetime
 def _resolve_target():
     here = os.path.dirname(os.path.abspath(__file__))
     local = os.path.join(here, "aa_exports")
-    if os.path.isdir(local):
+    if os.path.isdir(local) and any(f.lower().endswith(".csv") for f in os.listdir(local)):
         return local
     return os.path.join(here, "..", "aa_exports")
 
