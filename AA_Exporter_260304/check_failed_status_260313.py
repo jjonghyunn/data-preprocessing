@@ -48,7 +48,7 @@ def pick_latest(files):
 
 def check_failed():
     failed_report = []
-    us_empty_report = []
+    empty_report = []
     skipped = []
     no_status = []
 
@@ -66,7 +66,6 @@ def check_failed():
 
     for fname in files:
         fpath = os.path.join(TARGET_DIR, fname)
-        is_us = fname.lower().startswith("us_") or fname.lower().startswith("last_us_")
 
         try:
             with open(fpath, encoding="utf-8-sig", newline="") as f:
@@ -93,8 +92,8 @@ def check_failed():
                 if failed_count > 0:
                     failed_report.append((fname, failed_count))
 
-                if is_us and ok_count == 0:
-                    us_empty_report.append((fname, failed_count))
+                if ok_count == 0:
+                    empty_report.append((fname, failed_count))
 
         except Exception as e:
             skipped.append((fname, str(e)))
@@ -108,15 +107,11 @@ def check_failed():
     else:
         print("[OK] FAILED 상태인 파일 없음")
 
-    if us_empty_report:
-        print(f"\n[US 데이터 없음] {len(us_empty_report)}개 파일 (OK 행 0개):")
-        for fname, failed_cnt in us_empty_report:
+    if empty_report:
+        print(f"\n[데이터 없음] {len(empty_report)}개 파일 (OK 행 0개):")
+        for fname, failed_cnt in empty_report:
             note = f"FAILED {failed_cnt}건" if failed_cnt > 0 else "추출 값 없음"
             print(f"  ⚠️  {fname}  ({note})")
-    else:
-        us_files = [f for f in files if f.lower().startswith("us_") or f.lower().startswith("last_us_")]
-        if us_files:
-            print(f"\n[US OK] US 파일 {len(us_files)}개 모두 데이터 있음")
 
     if no_status:
         print(f"\n[참고] status 컬럼 없는 파일 ({len(no_status)}개):")
