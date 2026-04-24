@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260422`
+기준 문서 업데이트일: `260424`
 
 ---
 
@@ -52,8 +52,13 @@ AA_Exporter/
 │   ├── US_campaign_period.ipynb      # 26 US campaign 추출
 │   ├── US_last_campaign_period.ipynb # 25 US last campaign 추출
 │   ├── US_prior_period.ipynb         # 26 US prior 추출
-│   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅
-│   ├── RESHAPE_main_raw_v4.1.md             # 정제 가이드
+│   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅 (이전 버전)
+│   ├── RESHAPE_main_raw_v4.1.md              # 정제 가이드
+│   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
+│   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (최신)
+│   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
+│   ├── RESHAPE_best_selling_260413_v1.py     # Best Selling 정제
+│   ├── RESHAPE_best_selling_260413_v1.md     # Best Selling 정제 가이드
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타
@@ -74,7 +79,7 @@ AA_Exporter/
 4. `launch/` 의 노트북 6개 실행 (3가지 기간 global/us)
 5. `check_failed_status_260313.py` 실행 후 수기 보정
 6. `check_mapping_match_260313.py` 실행
-7. `launch/RESHAPE_main_raw_v4.1.ipynb` 실행
+7. `launch/RESHAPE_main_raw_v4.2.ipynb` 실행
 8. `aa_exports/union_{timestamp}.csv` 최종본 확인
 
 실제 기준 스크립트는 아래 4개입니다.
@@ -82,7 +87,7 @@ AA_Exporter/
 - `generate_period_notebooks_v3.py`
 - `ipynb_json_usage_mapper.py`
 - `check_mapping_match_260313.py`
-- `launch/RESHAPE_main_raw_v4.1.ipynb`
+- `launch/RESHAPE_main_raw_v4.2.ipynb`
 
 ---
 
@@ -216,7 +221,7 @@ site code 계열 CSV (`date/` 폴더):
 
 `check_failed_status_260313.py`
 
-- `aa_exports/` 루트 원본 CSV만 검사 (`union*`, `*_stacked*` 제외)
+- 검사 대상 폴더의 원본 CSV만 검사 (`union*`, `*_stacked*` 제외)
 - `status=FAILED` 건수가 있는 파일만 출력
 - **OK 행이 0개인 파일도 경고** (`⚠️ 추출 값 없음`) — US/non-US 구분 없음
 - **최신 파일만 검사**: 파일명 타임스탬프(`YYYYMMDD_HHMMSS` / `YYYYMMDD_HHMM`) 기준으로 `base_key`별 최신 1개만 남기고 과거 파일은 skip
@@ -243,8 +248,8 @@ site code 계열 CSV (`date/` 폴더):
 
 ## STEP 7. Post-Processing
 
-기준 파일: `launch/RESHAPE_main_raw_v4.1.ipynb`
-참고 문서: `launch/RESHAPE_main_raw_v4.1.md`
+기준 파일: `launch/RESHAPE_main_raw_v4.2.ipynb`
+참고 문서: `launch/RESHAPE_main_raw_v4.2.md`
 
 ### 처리 순서 (260410 기준)
 
