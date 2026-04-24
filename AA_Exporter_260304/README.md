@@ -219,6 +219,7 @@ site code 계열 CSV (`date/` 폴더):
 - `aa_exports/` 루트 원본 CSV만 검사 (`union*`, `*_stacked*` 제외)
 - `status=FAILED` 건수가 있는 파일만 출력
 - US 파일: FAILED 외 **OK 행이 0개인 경우도 경고** (`⚠️ 추출 값 없음`)
+- **최신 파일만 검사**: 파일명 타임스탬프(`YYYYMMDD_HHMMSS` / `YYYYMMDD_HHMM`) 기준으로 `base_key`별 최신 1개만 남기고 과거 파일은 skip
 
 ---
 
