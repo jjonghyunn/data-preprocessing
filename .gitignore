@@ -4,6 +4,11 @@ aa_exports/
 *_stacked.csv
 union_*.csv
 
+# Auto-generated segment / usage reports (실제 세그먼트 ID 포함 — 커밋 금지)
+json_segment_report/
+json_usage_report/
+mapping_match_report/
+
 # Python
 __pycache__/
 *.py[cod]

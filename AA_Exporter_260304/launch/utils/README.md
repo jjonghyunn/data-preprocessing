@@ -11,7 +11,6 @@
 |---|---|
 | `aa_exporter.py` | AA API 호출 / 페이지네이션 / CSV 저장 코어 |
 | `site_registry.py` | site code → RSID / 국가 메타 조회 |
-| `check_failed_status.py` | `aa_exports/` CSV에서 FAILED 행 집계 |
 
 ---
 
@@ -69,26 +68,6 @@ site code 문자열을 받아 `SiteInfo`를 반환하는 단일 함수 모듈.
 
 > RS ID가 변경된 경우(VRS 교체, US 특이 케이스 등) `_SITE_MASTER` 딕셔너리를 직접 수정해야 합니다.  
 > 관련 안내: 상위 폴더 `README.md` → STEP 1 참고.
-
----
-
-### `check_failed_status.py`
-
-`aa_exports/` 폴더의 추출 결과 CSV를 스캔해 FAILED 건수를 리포트하는 진단 도구.
-
-**검사 대상 파일**  
-- `aa_exports/*.csv` 중 `union*`, `*separate*` 제외한 원본 추출 파일만 검사
-
-**출력 분류**
-
-| 표시 | 의미 |
-|---|---|
-| `❌` | FAILED 행이 있는 파일 (건수 표시) |
-| `-` | status 컬럼 없음 |
-| `!` | 파일 읽기 오류 |
-
-> 이 모듈은 노트북에서 import해서 쓰는 버전입니다.  
-> 루트 폴더의 `check_failed_status_260313.py`는 단독 실행용 버전으로, US 파일에서 OK 행이 0개인 경우 추가 경고(`⚠️ 추출 값 없음`)를 출력합니다.
 
 ---
 

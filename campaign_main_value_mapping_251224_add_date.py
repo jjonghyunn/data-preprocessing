@@ -1,11 +1,12 @@
 import os
 import re
 import pandas as pd
+from pathlib import Path
 from openpyxl import load_workbook
 from collections import defaultdict
 
-# 📁 경로 설정
-base_dir = r'C:\Users\user_name\Downloads'
+# 📁 경로 설정 (사용자 홈의 Downloads 자동 탐색)
+base_dir = str(Path.home() / "Downloads")
 
 # 📄 파일명 지정
 csv_filename = 'hd_qry_260108v2_us_convert.csv'

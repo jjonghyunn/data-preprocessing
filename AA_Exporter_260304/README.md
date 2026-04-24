@@ -65,8 +65,8 @@ AA_Exporter/
 │       ├── site_registry.py          # RSID / 사이트 메타
 │       └── check_failed_status.py    # FAILED 점검 (노트북용)
 │
-├── json_segment_report/              # JSON 세그 검수 결과
-├── json_usage_report/                # JSON 참조 검수 결과
+├── json_segment_report/              # JSON 세그 검수 결과 (로컬 전용, repo 미포함)
+├── json_usage_report/                # JSON 참조 검수 결과 (로컬 전용, repo 미포함)
 └── aa_exports/                       # 추출 CSV 출력 (로컬 전용, repo 미포함)
 ```
 
