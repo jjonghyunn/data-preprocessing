@@ -15,6 +15,7 @@ AA Workspace에서 추출한 JSON 파일을 관리하는 보조 스크립트 모
 | `mark_empty_json.py` | STEP 2-5 | 비어 있는 JSON에 `-EMPTY` 접미사 부여 |
 | `rename_empty.py` | 수시 (롤백용) | `-EMPTY` 접미사 일괄 제거 |
 | `json_segment_checker.py` | STEP 2-6 | 세그먼트 구조 검수 → CSV 리포트 출력 |
+| `insert_segment.py` | 수시 | 모든 서브폴더 JSON의 `"type": "dateRange"` 엔트리 앞에 segment 엔트리 삽입 (중복 방지 포함) |
 
 ---
 
@@ -66,6 +67,17 @@ US는 `us_main/` → `last_us_main/`으로 동일하게 처리.
 `mark_empty_json.py`의 반대 동작. `-EMPTY.json` 파일명에서 `-EMPTY`를 제거해 원래 이름으로 복원.  
 AA에서 payload를 다시 채워 넣은 뒤 일괄 롤백할 때 사용합니다.
 
+### `insert_segment.py`
+
+`json/` 하위 모든 서브폴더를 재귀 탐색해서, `"type": "dateRange",` 엔트리 앞에 지정한 segmentId의 `"type": "segment"` 엔트리를 삽입합니다.
+
+- 이미 해당 segmentId가 파일 본문에 있으면 중복 처리 방지를 위해 건너뜀
+- 파일명에 `test` 포함된 것은 기본 제외 (`--include-test`로 포함 가능)
+- `--dry-run`으로 수정 전 대상 미리 확인
+- 실제 수정 직전 y/N 확인 프롬프트
+
+스크립트 상단 `SEGMENT_ID` 상수를 실제 값(`s + 9자리숫자 + _ + 24자리 hex` 형태)으로 교체한 뒤 실행.
+
 ### `json_segment_checker.py`
 
 세 가지 검수를 수행하고 결과를 `json_segment_report/`에 CSV로 저장합니다.
@@ -87,10 +99,10 @@ AA에서 payload를 다시 채워 넣은 뒤 일괄 롤백할 때 사용합니�
 
 ```
 json/
-├── main/           # 26 NY campaign
-├── main_prior/     # 26 NY prior
-├── us_main/        # 26 US campaign
-├── us_main_prior/  # 26 US prior
-├── last_main/      # 25 NY last campaign
-└── last_us_main/   # 25 US last campaign
+├── main/           # This Year Campaign
+├── main_prior/     # This Year Prior
+├── us_main/        # This Year US Campaign
+├── us_main_prior/  # This Year US Prior
+├── last_main/      # Last Year Campaign
+└── last_us_main/   # Last Year US Campaign
 ```
