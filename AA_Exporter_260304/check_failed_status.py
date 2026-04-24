@@ -1,4 +1,4 @@
-# check_failed_status_260313.py
+# check_failed_status.py
 # 2026-04-24  Jonghyun Park w/ Claude
 
 import os

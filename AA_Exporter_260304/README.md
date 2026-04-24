@@ -14,17 +14,17 @@
 AA_Exporter/
 ├── generate_period_notebooks_v3.py   # 노트북 자동 생성
 ├── ipynb_json_usage_mapper.py        # JSON 참조 검수
-├── check_failed_status_260313.py     # FAILED 점검
+├── check_failed_status.py     # FAILED 점검
 ├── check_mapping_match_260313.py     # 컬럼 매핑 검수
 ├── metric_value_with_dummy.py        # 공유용 더미 데이터 생성
 │
 ├── date/                             # site code CSV (기간별)
-│   ├── site_code.csv                 # 26 NY campaign
-│   ├── site_code_prior.csv           # 26 NY prior
-│   ├── last_site_code.csv            # 25 NY last campaign
-│   ├── us_site_code.csv              # 26 US campaign
-│   ├── us_site_code_prior.csv        # 26 US prior
-│   └── us_last_site_code.csv         # 25 US last campaign
+│   ├── site_code.csv                 # This Year Campaign
+│   ├── site_code_prior.csv           # This Year Prior
+│   ├── last_site_code.csv            # Last Year Campaign
+│   ├── us_site_code.csv              # This Year US Campaign
+│   ├── us_site_code_prior.csv        # This Year US Prior
+│   └── us_last_site_code.csv         # Last Year US Campaign
 │
 ├── ref/                              # 마스터 파일
 │   ├── currency.csv                  # 환율 기준표
@@ -32,12 +32,12 @@ AA_Exporter/
 │   └── app_O_X.csv                   # site별 App 유무 (O/X)
 │
 ├── json/                             # AA Workspace JSON (기간별 서브폴더)
-│   ├── main/                         # 26 NY campaign
-│   ├── main_prior/                   # 26 NY prior
-│   ├── us_main/                      # 26 US campaign
-│   ├── us_main_prior/                # 26 US prior
-│   ├── last_main/                    # 25 NY last campaign
-│   ├── last_us_main/                 # 25 US last campaign
+│   ├── main/                         # This Year Campaign
+│   ├── main_prior/                   # This Year Prior
+│   ├── us_main/                      # This Year US Campaign
+│   ├── us_main_prior/                # This Year US Prior
+│   ├── last_main/                    # Last Year Campaign
+│   ├── last_us_main/                 # Last Year US Campaign
 │   ├── copy_prior_json.py
 │   ├── copy_last_campaign_json.py
 │   ├── empty_json_maker_by_input_tb_name.py
@@ -46,12 +46,12 @@ AA_Exporter/
 │   └── rename_empty.py
 │
 ├── launch/                           # 실행 노트북 + 정제 스크립트
-│   ├── campaign_period.ipynb         # 26 NY campaign 추출
-│   ├── last_campaign_period.ipynb    # 25 NY last campaign 추출
-│   ├── prior_period.ipynb            # 26 NY prior 추출
-│   ├── US_campaign_period.ipynb      # 26 US campaign 추출
-│   ├── US_last_campaign_period.ipynb # 25 US last campaign 추출
-│   ├── US_prior_period.ipynb         # 26 US prior 추출
+│   ├── campaign_period.ipynb         # This Year Campaign 추출
+│   ├── last_campaign_period.ipynb    # Last Year Campaign 추출
+│   ├── prior_period.ipynb            # This Year Prior 추출
+│   ├── US_campaign_period.ipynb      # This Year US Campaign 추출
+│   ├── US_last_campaign_period.ipynb # Last Year US Campaign 추출
+│   ├── US_prior_period.ipynb         # This Year US Prior 추출
 │   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅 (이전 버전)
 │   ├── RESHAPE_main_raw_v4.1.md              # 정제 가이드
 │   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
@@ -77,7 +77,7 @@ AA_Exporter/
 2. JSON 생성 및 세그 검수 (`json/` 폴더 내 유틸 활용)
 3. `generate_period_notebooks_v3.py` 실행 → `launch/` 에 노트북 6개 생성
 4. `launch/` 의 노트북 6개 실행 (3가지 기간 global/us)
-5. `check_failed_status_260313.py` 실행 후 수기 보정
+5. `check_failed_status.py` 실행 후 수기 보정
 6. `check_mapping_match_260313.py` 실행
 7. `launch/RESHAPE_main_raw_v4.2.ipynb` 실행
 8. `aa_exports/union_{timestamp}.csv` 최종본 확인
@@ -108,12 +108,12 @@ site code 계열 CSV (`date/` 폴더):
 
 | 파일 | 대상 기간 |
 |------|-----------|
-| `site_code.csv` | 26 NY campaign |
-| `site_code_prior.csv` | 26 NY prior |
-| `last_site_code.csv` | 25 NY last campaign |
-| `us_site_code.csv` | 26 US campaign |
-| `us_site_code_prior.csv` | 26 US prior |
-| `us_last_site_code.csv` | 25 US last campaign |
+| `site_code.csv` | This Year Campaign |
+| `site_code_prior.csv` | This Year Prior |
+| `last_site_code.csv` | Last Year Campaign |
+| `us_site_code.csv` | This Year US Campaign |
+| `us_site_code_prior.csv` | This Year US Prior |
+| `us_last_site_code.csv` | Last Year US Campaign |
 
 ---
 
@@ -123,7 +123,7 @@ site code 계열 CSV (`date/` 폴더):
 
 - 기준은 당해 캠페인 JSON입니다.
 - prior 기간과 세그 구성이 겹치는 테이블은 `json/main_prior/` 에 `*_prior.json`으로 먼저 저장합니다.
-- US는 별도 Report Suite를 쓰므로 NY와 분리해서 `json/us_main/`, `json/us_main_prior/` 에 저장합니다.
+- US는 별도 Report Suite를 쓰므로 non-US와 분리해서 `json/us_main/`, `json/us_main_prior/` 에 저장합니다.
 
 ### 2-2. prior JSON을 기준으로 non-prior / last campaign JSON 복사
 
@@ -134,9 +134,9 @@ site code 계열 CSV (`date/` 폴더):
 
 `json/copy_last_campaign_json.py`
 
-- `json/main/`의 `26_ny_*.json`을 `json/last_main/`에 `25_ny_*.json`으로 복사합니다.
-- 스크립트 상단 `FROM_YEAR = 26`을 기준으로 동작하므로 연도 전환 시 먼저 수정해야 합니다.
-- 복사 후 `_cmp_`, `campaign`, `bestselling` 같은 캠페인 종속 세그는 25년용 세그 ID로 수동 교체가 필요합니다.
+- `json/main/`의 `{YY}_*.json` (this year prefix) 을 `json/last_main/`에 이전 연도(`{YY-1}_*.json`) prefix로 복사합니다.
+- 스크립트 상단 `FROM_YEAR` 값을 현재 연도 뒤 두자리(YY)로 설정해 동작시킵니다 (연도 전환 시 먼저 수정).
+- 복사 후 `_cmp_`, `campaign`, `bestselling` 같은 캠페인 종속 세그는 이전 연도용 세그 ID로 수동 교체가 필요합니다.
 
 ### 2-3. 빈 JSON 플레이스홀더 생성
 
@@ -183,12 +183,12 @@ site code 계열 CSV (`date/` 폴더):
 
 | 노트북 | 기간 | data_csv | JSON 서브폴더 |
 |--------|------|----------|--------------|
-| `campaign_period.ipynb` | 26 NY campaign | `date/site_code.csv` | `json/main/` |
-| `last_campaign_period.ipynb` | 25 NY last campaign | `date/last_site_code.csv` | `json/last_main/` |
-| `prior_period.ipynb` | 26 NY prior | `date/site_code_prior.csv` | `json/main_prior/` |
-| `US_campaign_period.ipynb` | 26 US campaign | `date/us_site_code.csv` | `json/us_main/` |
-| `US_last_campaign_period.ipynb` | 25 US last campaign | `date/us_last_site_code.csv` | `json/last_us_main/` |
-| `US_prior_period.ipynb` | 26 US prior | `date/us_site_code_prior.csv` | `json/us_main_prior/` |
+| `campaign_period.ipynb` | This Year Campaign | `date/site_code.csv` | `json/main/` |
+| `last_campaign_period.ipynb` | Last Year Campaign | `date/last_site_code.csv` | `json/last_main/` |
+| `prior_period.ipynb` | This Year Prior | `date/site_code_prior.csv` | `json/main_prior/` |
+| `US_campaign_period.ipynb` | This Year US Campaign | `date/us_site_code.csv` | `json/us_main/` |
+| `US_last_campaign_period.ipynb` | Last Year US Campaign | `date/us_last_site_code.csv` | `json/last_us_main/` |
+| `US_prior_period.ipynb` | This Year US Prior | `date/us_site_code_prior.csv` | `json/us_main_prior/` |
 
 ---
 
@@ -219,7 +219,7 @@ site code 계열 CSV (`date/` 폴더):
 
 ### 추출 후 FAILED 점검
 
-`check_failed_status_260313.py`
+`check_failed_status.py`
 
 - 검사 대상 폴더의 원본 CSV만 검사 (`union*`, `*_stacked*` 제외)
 - `status=FAILED` 건수가 있는 파일만 출력
@@ -278,7 +278,7 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 
 | 스크립트 | 용도 |
 |----------|------|
-| `check_failed_status_260313.py` | FAILED 건수 확인 + OK 행 0개 경고 (US/non-US 공통), 루트·`launch/` 양쪽 실행 가능 |
+| `check_failed_status.py` | FAILED 건수 확인 + OK 행 0개 경고 (US/non-US 공통), 루트·`launch/` 양쪽 실행 가능 |
 | `check_mapping_match_260313.py` | tb_column_name_mapping ↔ CSV 컬럼 매핑 검수 |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
