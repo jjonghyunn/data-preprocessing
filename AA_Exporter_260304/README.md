@@ -273,7 +273,7 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 
 | 스크립트 | 용도 |
 |----------|------|
-| `check_failed_status_260313.py` | FAILED 건수 확인 + US OK 행 0개 경고 |
+| `check_failed_status_260313.py` | FAILED 건수 확인 + OK 행 0개 경고 (US/non-US 공통), 루트·`launch/` 양쪽 실행 가능 |
 | `check_mapping_match_260313.py` | tb_column_name_mapping ↔ CSV 컬럼 매핑 검수 |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
