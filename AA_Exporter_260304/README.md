@@ -220,6 +220,7 @@ site code 계열 CSV (`date/` 폴더):
 - `status=FAILED` 건수가 있는 파일만 출력
 - **OK 행이 0개인 파일도 경고** (`⚠️ 추출 값 없음`) — US/non-US 구분 없음
 - **최신 파일만 검사**: 파일명 타임스탬프(`YYYYMMDD_HHMMSS` / `YYYYMMDD_HHMM`) 기준으로 `base_key`별 최신 1개만 남기고 과거 파일은 skip
+- **경로 자동 탐색**: 스크립트 옆에 `aa_exports/`가 있으면 그것을, 없으면 `../aa_exports/`를 검사 → 루트 또는 `launch/` 어디에 두어도 동작
 
 ---
 

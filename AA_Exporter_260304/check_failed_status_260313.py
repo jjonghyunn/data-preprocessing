@@ -6,7 +6,14 @@ import csv
 import re
 from datetime import datetime
 
-TARGET_DIR = os.path.join(os.path.dirname(__file__), "aa_exports")
+def _resolve_target():
+    here = os.path.dirname(os.path.abspath(__file__))
+    local = os.path.join(here, "aa_exports")
+    if os.path.isdir(local):
+        return local
+    return os.path.join(here, "..", "aa_exports")
+
+TARGET_DIR = _resolve_target()
 
 DT_PATTERNS = [
     (r"(\d{8})_(\d{6})", "%Y%m%d%H%M%S"),  # YYYYMMDD_HHMMSS
