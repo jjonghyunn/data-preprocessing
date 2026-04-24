@@ -31,6 +31,11 @@ uk_epp
 """.split())
 
 # ===============================
+# 브랜드 상수 (repo 커밋용 placeholder — 실행 전 실제 브랜드명으로 교체)
+# ===============================
+BRAND = "company_name"  # 예: "company_name"
+
+# ===============================
 # us 채널 매핑
 # ===============================
 us_mapping = {
@@ -61,7 +66,7 @@ us_mapping = {
     "Social (Retired)":"Social Network Referrals",
     "Other External CampaignSegments":"Mobile Application",
     "Other External CampaignUS_Smartthings":"Mobile Application - Smartthings",
-    "Other External CampaignUS_company_name Members":"Mobile Application - company_name Members",
+    f"Other External CampaignUS_{BRAND} Members": f"Mobile Application - {BRAND} Members",
     "SMS":"SMS",
     "Gen AI Search":"Gen AI (Organic)"
 }
@@ -93,7 +98,7 @@ global_paid_mapping = {
     "None":"Non-Paid",
     "Owned Social":"Non-Paid",
     "QR code (Owned)":"Non-Paid",
-    "company_name Web":"Non-Paid",
+    f"{BRAND} Web":"Non-Paid",
     "Gen AI (Organic)":"Non-Paid",
     "Owned Others":"Non-Paid"
 }

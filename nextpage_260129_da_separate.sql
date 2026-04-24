@@ -1,4 +1,8 @@
-with 
+-- ⚠ 실행 전: 'www.company_name.com/us' 부분을 실제 홈페이지 도메인으로 교체
+--    (이 SQL은 breakdown 컬럼의 실제 URL과 exact match로 홈페이지를 판별하므로
+--     placeholder 그대로 실행하면 'home' 카테고리로 분류되는 건이 0건)
+
+with
 origin as (
   select org.site_code, org.breakdown, total, mx, vd, od.da
   from table_name_nextpage_excl_da org
