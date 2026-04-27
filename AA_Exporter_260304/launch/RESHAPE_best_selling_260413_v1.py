@@ -320,11 +320,15 @@ def get_category(v: str) -> str:
 
 # ── 최신 파일 선택 ─────────────────────────────────────────────────
 def find_latest(tb_key: str) -> Path | None:
-    """tb_key에 해당하는 타임스탬프 파일 중 가장 최신 1개 반환"""
+    """tb_key에 해당하는 타임스탬프 파일 중 가장 최신 1개 반환.
+
+    glob prefix 매칭만으로는 best_selling_product → best_selling_product_prior도
+    잡히므로, 정규식 fullmatch로 tb_key 직후가 _YYYYMMDD_HHMM 인지 확인.
+    """
+    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4}}$")
     candidates = [
         f for f in EXPORTS_DIR.glob(f"{tb_key}_*.csv")
-        if _TS_PAT.search(f.stem)
-        and "_stacked" not in f.name
+        if pat.match(f.stem)
     ]
     if not candidates:
         return None
