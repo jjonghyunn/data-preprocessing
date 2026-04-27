@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260424`
+기준 문서 업데이트일: `260427`
 
 ---
 
@@ -284,4 +284,4 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `cleanup_old_exports.py` | aa_exports 내 동일 base_key 파일 중 최신 1개만 남기고 나머지 삭제 (union·타임스탬프 없는 파일 보존, y/N 확인 후 삭제) |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
-| `best_selling_refine_260413.py` | Best Selling 데이터 정제 — 로컬 전용, 미커밋 (→ `best_selling_refine_notes.md` 참고) |
+| `launch/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 (구 파일명: `best_selling_refine_260413.py`) — 가이드: `launch/RESHAPE_best_selling_260413_v1.md` |

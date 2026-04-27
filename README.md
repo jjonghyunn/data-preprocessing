@@ -1,21 +1,34 @@
 # data-preprocessing
-preprocessing data
+<!-- 2026-04-27  Jonghyun Park w/ Claude -->
+
+preprocessing data — AA(Adobe Analytics) 추출·정제, 캠페인 매핑, 일정 자동화 스크립트 모음.
+
+> 각 모듈 상세는 해당 폴더의 README를 참고하세요.  
+> - AA Export 워크플로우: [`AA_Exporter_260304/README.md`](AA_Exporter_260304/README.md)  
+> - 일정 자동화: [`260324_schedule/README.md`](260324_schedule/README.md)
 
 ## 폴더 구조
 
 ```
 data-preprocessing/
-├── AA_Exporter_260304/
-│   ├── date/                    ← site_code CSV (더미 데이터, 하단 참고)
-│   ├── json/                    ← API 추출 설정 JSON
-│   ├── json_segment_report/     ← 세그먼트 패널 점검 결과
-│   ├── json_usage_report/       ← JSON 사용 여부 점검 결과
-│   ├── launch/                  ← 주피터 노트북 (API 추출 실행 파일)
-│   │   └── utils/               ← 공통 유틸 (aa_exporter, site_registry 등)
-│   └── ref/                     ← 참조 CSV (currency, app_O_X 등)
+├── AA_Exporter_260304/                ← AA 추출·후처리 메인 워크플로우
+│   ├── date/                          ← site_code CSV (더미 데이터, 하단 참고)
+│   ├── ref/                           ← 마스터 CSV (currency, app_O_X, tb_column_name_mapping)
+│   ├── json/                          ← AA Workspace JSON + 유틸리티 스크립트
+│   ├── json_segment_report/           ← 세그먼트 패널 점검 결과 (로컬 전용)
+│   ├── json_usage_report/             ← JSON 사용 여부 점검 결과 (로컬 전용)
+│   ├── launch/                        ← 추출 노트북 6종 + 후처리 스크립트
+│   │   ├── utils/                     ← 공통 유틸 (aa_exporter, site_registry)
+│   │   └── old/                       ← 구버전 정제 노트북 아카이브
+│   ├── generate_period_notebooks_v3.py
+│   ├── ipynb_json_usage_mapper.py
+│   ├── check_failed_status.py
+│   ├── check_mapping_match_260313.py
+│   ├── cleanup_old_exports.py
+│   └── metric_value_with_dummy.py
 ├── 260324_schedule/
-│   ├── update_schedule.py       ← 고객 일정 xlsx → Auto 정제 파일 업데이트
-│   └── check_mail_attachment.py ← Outlook 신규 첨부 xlsx 감지·저장
+│   ├── update_schedule.py             ← 고객 일정 xlsx → Auto 정제 파일 업데이트
+│   └── check_mail_attachment.py       ← Outlook 신규 첨부 xlsx 감지·저장
 ├── campaign_mapping_key_separator_260109v3.py
 ├── campaign_main_value_mapping_251224_add_date.py
 └── campaign_default_value_splitter_251217.py
@@ -24,37 +37,49 @@ data-preprocessing/
 ---
 
 ## **AA_Exporter_260304**
-* 보안을 위해 추출된 value#칼럼들의 숫자값들은 모두 dummy화 했습니다.
+
+* 보안을 위해 추출된 `value#` 칼럼들의 숫자값들은 모두 dummy화 했습니다.
 * `date/` 폴더의 CSV 파일(`site_code.csv`, `us_site_code.csv` 등)도 더미 데이터입니다.
 
-아래 3개 주피터파일로 api추출.
-1. 26ny_campaign_period.ipynb
-2. 26ny_prior_period.ipynb
-3. 25ny_last_campaign_period.ipynb  
-(현재 작업 중이던 프로젝트 최종업데이트 us가 없어서 다 돌릴 경우 us용 주피터파일까지 3개정도 더 만들 수 있을 거 같습니다. 그러면 총 6개.) * 이 프로젝트 US는 AA Report Suite 따로 있음.
-* 보조작업 파일 1:  
-   이 과정에서 failed가 어떤 파일마다 한번에 있는지 보면 편하다는 생각에 check_failed_status.py도 추가 했습니다.  
-   (돌리면 어떤 csv파일에 몇건의 failed가 있는지 확인 가능. UK 등 VRS가 이런 문제가 있었는데요, 
-   수기로 AA들어가서 넣는 경우를 고려하고 만들었습니다.)
+### 추출 노트북 (`launch/`)
 
-* 추출 후 작업
-1. VRS site 등 빠진 site의 value#값까지 csv에서 채운다. 
-2. stack_n_currency_n_chnl_n_seaprate_260304.ipynb 파일을 실행한다.
-3. aa_exports폴더 내 union_{연월일}_{시분초}.csv파일을 확인한다.
+기간별로 6개 노트북을 사용. `generate_period_notebooks_v3.py`로 자동 생성됩니다.
 
-* 추출 후 작업 흐름
-1. 고객 전달 엑셀 양식처럼 value#를 1줄(1개 칼럼)로 만드는 파일을 생성하고 파일명_stacked_separate.csv (뒤 날짜,시간은 제거됨)
-2. us 채널을 글로벌 채널로 정제한 뒤 (US는 RS가 달라서 channel명도 다르게 쌓이는 상태.)
-3. 피봇 때 같은 채널 개수가 되도록 더미 채널을 전체 추가한 후 (나라마다 channel 개수가 다름)
-4. union_날짜_시간.csv파일을 생성해서 전달 엑셀 양식 raw와 같은 칼럼명,순서로 뽑아내는 걸 만들었습니다. (테이블별로 수정할일 생길까봐 각각도 만듦.)
-4-1. union만드는 과정에서 ITEM칼럼에 visit이나 home_gnb_tocmp 등 과 같은 값이 잘 안 나오던 점과 
-추출되었던 bestselling이나 multi-order 등도 union시킨 케이스를 다시 제외시키는 점까지 개선했습니다.
+| 노트북 | 기간 |
+|---|---|
+| `campaign_period.ipynb` | This Year Campaign |
+| `prior_period.ipynb` | This Year Prior |
+| `last_campaign_period.ipynb` | Last Year Campaign |
+| `US_campaign_period.ipynb` | This Year US Campaign |
+| `US_prior_period.ipynb` | This Year US Prior |
+| `US_last_campaign_period.ipynb` | Last Year US Campaign |
 
-* 보조작업 파일 2:  
-ipynb_json_usage_mapper.py  
-json파일 따온 걸 api추출용 주피터파일(위3개)에서 다 사용한게 맞는지 확인하는 코드입니다. (json열심히 따놓고 누락된 게 있는지 확인용)
-결과는 json_usage_report폴더에 저장됩니다. _all_json_mapping.csv파일을 보시면 되겠습니다.
+US는 별도 Report Suite를 쓰므로 non-US와 분리해서 추출합니다.
 
+### 보조작업 — FAILED 점검
+
+`check_failed_status.py`  
+어떤 csv 파일에 몇 건의 `status=FAILED`가 있는지 일괄 확인. UK 등 VRS site에서 추출 누락 시 수기 보완용.
+
+### 추출 후 작업 (후처리)
+
+기준 노트북: `launch/RESHAPE_main_raw_v4.2.ipynb` (가이드: `RESHAPE_main_raw_v4.2.md`)
+
+처리 흐름:
+1. AA 추출 raw CSV에서 `value#` → 실제 컬럼명 rename, `wide → long` 변환
+2. `ref/currency.csv` 환율 적용 (revenue 컬럼, End_Date 연도 기준)
+3. `ref/app_O_X.csv` 기준 App 없는 site의 app/android/ios 행 0처리
+4. 파일 내 실제 site 기준 dummy 0행 삽입 (FIX-9)
+5. US 채널 매핑 + PAID/NONPAID 부여
+6. union 생성 → `aa_exports/union_{YYYYMMDD_HHMMSS}.csv`
+7. union 후 누락 조합 보완 (FIX-10), 추출 0행 fallback dummy (FIX-11)
+
+> 구버전 정제 노트북(`stack_n_currency_n_chnl_n_seaprate_*.ipynb`)은 `launch/old/`로 아카이브.
+
+### 보조작업 — JSON 참조 검수
+
+`ipynb_json_usage_mapper.py`  
+JSON 파일을 추출 노트북에서 누락 없이 다 사용했는지 3축(JSON 폴더 / 매핑 CSV / 노트북 코드)으로 검수. 결과는 `json_usage_report/`에 저장됩니다.
 
 ---
 
@@ -69,24 +94,7 @@ json파일 따온 걸 api추출용 주피터파일(위3개)에서 다 사용한�
 | `update_schedule.py` | 최신 고객 일정 xlsx → Auto 정제 파일 업데이트 |
 | `check_mail_attachment.py` | Outlook 수신함 → 신규 첨부 xlsx 로컬 저장 |
 
-### 작업 스케줄러 자동 실행 구조
+### 작업 스케줄러 자동 실행
 
-bat 파일을 작업 스케줄러에 직접 등록하면 실행 시 CMD 창이 뜨는 문제가 있어,  
-**vbs 래퍼**를 통해 창 없이 백그라운드 실행하는 방식을 사용.
-
-```
-작업 스케줄러
-└── 프로그램/스크립트: wscript.exe
-    └── 인수 추가: "C:\Users\user_name\Documents\run_xx_xxxx.vbs"
-                       ↓
-                   .vbs  →  .bat  →  python 코드 실행
-```
-
-**vbs 파일 내용 (예시):**
-```vbscript
-CreateObject("WScript.Shell").Run """C:\Users\user_name\Documents\run_md_schedule_update.bat""", 0, False
-```
-- 두 번째 인수 `0` = 창 숨김
-- 세 번째 인수 `False` = 비동기 실행
-
-> 등록 방법 및 vbs 파일 목록 상세는 `260324_schedule/README.md` 참고.
+`pythonw.exe`로 직접 호출하는 방식과 bat/vbs 래퍼 방식 두 가지를 지원.  
+등록 명령어, 배터리 모드 허용, 트러블슈팅 등 상세는 `260324_schedule/README.md` 참고.

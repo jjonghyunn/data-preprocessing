@@ -1,4 +1,6 @@
-# best_selling_refine_260413.py
+# RESHAPE_best_selling_260413_v1.py
+# 2026-04-27  Jonghyun Park w/ Claude
+# 이름 변경: best_selling_refine_260413.py → RESHAPE_best_selling_260413_v1.py
 # best_selling_product_cmp raw CSV → 정제 CSV (stacked_separate)
 # SQL: best selling product_260212(카테고리displayname스페인어보완).sql 기준
 # 각 tb_key별 최신 파일 자동 선택 후 개별 _stacked_separate.csv 생성

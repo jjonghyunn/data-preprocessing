@@ -1,15 +1,17 @@
 # best selling product 정제 스크립트 노트
+<!-- 2026-04-27  Jonghyun Park w/ Claude -->
 
 ## 파일 목록
 
 | 파일 | 역할 |
 |---|---|
-| `best_selling_refine_260413.py` | AA Exporter raw CSV → stacked_separate CSV 정제 |
-| `foldering_move_png_251126_26campaign_name.py` | 모니터링 캡처 파일(PNG/MHTML)을 날짜·디바이스 기준 폴더로 이동 |
+| `RESHAPE_best_selling_260413_v1.py` | AA Exporter raw CSV → stacked_separate CSV 정제 |
+
+> 이름 변경 이력: `best_selling_refine_260413.py` → `RESHAPE_best_selling_260413_v1.py` (RESHAPE_* 네이밍 컨벤션 통일).
 
 ---
 
-## best_selling_refine_260413.py
+## RESHAPE_best_selling_260413_v1.py
 
 ### 개요
 AA Exporter에서 추출한 `best_selling_product` raw CSV를 읽어
