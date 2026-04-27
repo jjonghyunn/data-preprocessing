@@ -58,8 +58,10 @@ AA_Exporter/
 │   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
 │   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (최신)
 │   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
-│   ├── RESHAPE_best_selling_260413_v1.py     # Best Selling 정제
-│   ├── RESHAPE_best_selling_260413_v1.md     # Best Selling 정제 가이드
+│   ├── RESHAPE_best_selling_260413_v1.py     # Best Selling 정제 v1 (value1~4, 11컬럼)
+│   ├── RESHAPE_best_selling_260413_v1.md     # v1 가이드
+│   ├── RESHAPE_best_selling_260427_v2.py     # Best Selling 정제 v2 (value1~8 Web/App 분리, 12컬럼)
+│   ├── RESHAPE_best_selling_260427_v2.md     # v2 가이드
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타
