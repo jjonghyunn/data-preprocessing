@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260427`
+기준 문서 업데이트일: `260428`
 
 ---
 
@@ -60,8 +60,14 @@ AA_Exporter/
 │   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
 │   ├── RESHAPE_best_selling_260413_v1.py     # Best Selling 정제 v1 (value1~4, 11컬럼)
 │   ├── RESHAPE_best_selling_260413_v1.md     # v1 가이드
+│   ├── RESHAPE_best_selling_260413_v1.1.py   # v1.1 (NaN→ETC, ORDER=0 제거)
+│   ├── RESHAPE_best_selling_260413_v1.1.md   # v1.1 가이드
+│   ├── RESHAPE_best_selling_260413_v1.2.py   # v1.2 (PRICE RANGE 컬럼 추가, 12컬럼)
+│   ├── RESHAPE_best_selling_260413_v1.2.md   # v1.2 가이드
 │   ├── RESHAPE_best_selling_260427_v2.py     # Best Selling 정제 v2 (value1~8 Web/App 분리, 12컬럼)
 │   ├── RESHAPE_best_selling_260427_v2.md     # v2 가이드
+│   ├── RESHAPE_nextpage_260428.py            # nextpage 정제 (COMBINED/SEPARATE 자동 감지)
+│   ├── RESHAPE_nextpage_260428.md            # nextpage 가이드
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타
