@@ -39,8 +39,14 @@ TB_KEYS = [
     ("last_best_selling_product",  "2025 Campaign Period", "2025"),
 ]
 
-# ── 타임스탬프 패턴 ────────────────────────────────────────────────
-_TS_PAT = re.compile(r"_(\d{8}_\d{4})$")
+# ── 타임스탬프 패턴 (HHMM 4자리 또는 HHMMSS 6자리 모두 지원) ───────
+_TS_PAT = re.compile(r"_(\d{8})_(\d{4,6})$")
+
+
+def _ts_sort_key(path):
+    """타임스탬프 정렬 키. HHMM은 6자리로 zero-pad해서 HHMMSS와 섞여도 정상 정렬."""
+    m = _TS_PAT.search(path.stem)
+    return m.group(1) + m.group(2).ljust(6, "0")
 
 
 # ── SITE CODE 정규화 (SQL: before_last CTE) ────────────────────────
@@ -360,14 +366,14 @@ def find_latest(tb_key: str) -> Path | None:
     glob prefix 매칭만으로는 best_selling_product → best_selling_product_prior도
     잡히므로, 정규식 fullmatch로 tb_key 직후가 _YYYYMMDD_HHMM 인지 확인.
     """
-    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4}}$")
+    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4,6}}$")
     candidates = [
         f for f in EXPORTS_DIR.glob(f"{tb_key}_*.csv")
         if pat.match(f.stem)
     ]
     if not candidates:
         return None
-    return max(candidates, key=lambda f: _TS_PAT.search(f.stem).group(1))
+    return max(candidates, key=_ts_sort_key)
 
 
 # ── 단일 파일 정제 ─────────────────────────────────────────────────
