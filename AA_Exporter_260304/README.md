@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260428`
+기준 문서 업데이트일: `260428` (오후 — 정제 스크립트 카테고리별 폴더 분리)
 
 ---
 
@@ -58,16 +58,24 @@ AA_Exporter/
 │   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
 │   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (최신)
 │   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
-│   ├── RESHAPE_best_selling_260413_v1.py     # Best Selling 정제 v1 (value1~4, 11컬럼)
-│   ├── RESHAPE_best_selling_260413_v1.md     # v1 가이드
-│   ├── RESHAPE_best_selling_260413_v1.1.py   # v1.1 (NaN→ETC, ORDER=0 제거)
-│   ├── RESHAPE_best_selling_260413_v1.1.md   # v1.1 가이드
-│   ├── RESHAPE_best_selling_260413_v1.2.py   # v1.2 (PRICE RANGE 컬럼 추가, 12컬럼)
-│   ├── RESHAPE_best_selling_260413_v1.2.md   # v1.2 가이드
-│   ├── RESHAPE_best_selling_260427_v2.py     # Best Selling 정제 v2 (value1~8 Web/App 분리, 12컬럼)
-│   ├── RESHAPE_best_selling_260427_v2.md     # v2 가이드
-│   ├── RESHAPE_nextpage_260428.py            # nextpage 정제 (COMBINED/SEPARATE 자동 감지)
-│   ├── RESHAPE_nextpage_260428.md            # nextpage 가이드
+│   ├── best_selling_product/                 # Best Selling 정제 (v1, v1.1, v1.2, v2)
+│   │   ├── RESHAPE_best_selling_260413_v1.py     # v1 (value1~4, 11컬럼)
+│   │   ├── RESHAPE_best_selling_260413_v1.md
+│   │   ├── RESHAPE_best_selling_260413_v1.1.py   # v1.1 (NaN→ETC, ORDER=0 제거)
+│   │   ├── RESHAPE_best_selling_260413_v1.1.md
+│   │   ├── RESHAPE_best_selling_260413_v1.2.py   # v1.2 (PRICE RANGE 추가, 12컬럼)
+│   │   ├── RESHAPE_best_selling_260413_v1.2.md
+│   │   ├── RESHAPE_best_selling_260427_v2.py     # v2 (value1~8 Web/App 분리, 12컬럼)
+│   │   └── RESHAPE_best_selling_260427_v2.md
+│   ├── nextpage/                             # nextpage 정제 + 원본 SQL
+│   │   ├── RESHAPE_nextpage_260428.py            # COMBINED/SEPARATE 자동 감지
+│   │   ├── RESHAPE_nextpage_260428.md
+│   │   └── nextpage_260129_da_separate.sql
+│   ├── multipurchase/                        # multipurchase 정제 + 원본 SQL
+│   │   ├── RESHAPE_multipurchase_260428.py       # 3기간 동시 처리(this year/prior/last)
+│   │   ├── RESHAPE_multipurchase_260428.md
+│   │   ├── multipurchase_260212 this year(offer예외추가).sql
+│   │   └── multipurchase_260212 this year prior(offer예외추가).sql
 │   └── utils/
 │       ├── aa_exporter.py            # AA API 추출 코어
 │       ├── site_registry.py          # RSID / 사이트 메타

@@ -1,10 +1,6 @@
-# RESHAPE_best_selling_260413_v1.1.py
-# 2026-04-28  Jonghyun Park w/ Claude
-# v1 → v1.1 변경:
-#   1) PRODUCT(value) 공란/NaN 시 CATEGORY/DIVISION = "ETC" 강제
-#      (기존엔 NaN→str("nan")→"NA" prefix로 Cooking 오분류되던 문제)
-#   2) ORDER == 0 행은 결과에서 제거
-#
+# RESHAPE_best_selling_260413_v1.py
+# 2026-04-27  Jonghyun Park w/ Claude
+# 이름 변경: best_selling_refine_260413.py → RESHAPE_best_selling_260413_v1.py
 # best_selling_product_cmp raw CSV → 정제 CSV (stacked_separate)
 # SQL: best selling product_260212(카테고리displayname스페인어보완).sql 기준
 # 각 tb_key별 최신 파일 자동 선택 후 개별 _stacked_separate.csv 생성
@@ -14,8 +10,9 @@ import re
 import pandas as pd
 
 # ── 경로 설정 ──────────────────────────────────────────────────────
-LAUNCH_DIR   = Path(__file__).parent
-ROOT_DIR     = LAUNCH_DIR.parent
+SCRIPT_DIR   = Path(__file__).parent       # launch/best_selling_product/
+LAUNCH_DIR   = SCRIPT_DIR.parent           # launch/
+ROOT_DIR     = LAUNCH_DIR.parent           # AA_Exporter_260304/
 
 EXPORTS_DIR  = ROOT_DIR / "aa_exports"
 CURRENCY_CSV = ROOT_DIR / "ref" / "currency.csv"
@@ -31,14 +28,8 @@ TB_KEYS = [
     ("last_best_selling_product",  "2025 Campaign Period", "2025"),
 ]
 
-# ── 타임스탬프 패턴 (HHMM 4자리 또는 HHMMSS 6자리 모두 지원) ───────
-_TS_PAT = re.compile(r"_(\d{8})_(\d{4,6})$")
-
-
-def _ts_sort_key(path):
-    """타임스탬프 정렬 키. HHMM은 6자리로 zero-pad해서 HHMMSS와 섞여도 정상 정렬."""
-    m = _TS_PAT.search(path.stem)
-    return m.group(1) + m.group(2).ljust(6, "0")
+# ── 타임스탬프 패턴 ────────────────────────────────────────────────
+_TS_PAT = re.compile(r"_(\d{8}_\d{4})$")
 
 
 # ── SITE CODE 정규화 (SQL: before_last CTE) ────────────────────────
@@ -53,11 +44,7 @@ def normalize_site_code(sc: str) -> str:
 
 # ── DIVISION 분류 (SQL: cmp_n_scom CTE) ────────────────────────────
 def get_division(v: str) -> str:
-    if pd.isna(v):
-        return "ETC"
     u = str(v).upper().strip()
-    if not u or u == "NAN":
-        return "ETC"
 
     # exceptions → ETC
     if u.startswith("LUMAFUSION") or u.startswith("ARCSITE") or u.startswith("UNSPECIFIED"):
@@ -87,8 +74,8 @@ def get_division(v: str) -> str:
             u.startswith("32T") or u.startswith("43D") or u.startswith("43Q") or
             u.startswith("43T") or u.startswith("50D") or u.startswith("50Q") or
             u.startswith("55D") or u.startswith("55LS") or u.startswith("55Q") or
-            u.startswith("75D") or u.startswith("75Q") or u.startswith("SP-LFF") or
             u.startswith("55S") or u.startswith("65D") or u.startswith("65Q") or
+            u.startswith("75D") or u.startswith("75Q") or u.startswith("SP-LFF") or
             u.startswith("LS") or u.startswith("LF") or u.startswith("LT") or
             u.startswith("LU") or u.startswith("LV") or u.startswith("LC") or
             u.startswith("HW-Q") or u.startswith("HW-S") or u.startswith("HW-A") or
@@ -142,12 +129,7 @@ def get_division(v: str) -> str:
 
 # ── CATEGORY 분류 (SQL: plus_category CTE) ─────────────────────────
 def get_category(v: str) -> str:
-    # PRODUCT 공란/NaN/None → ETC (NaN이 "NA" prefix로 Cooking 오분류되던 문제 차단)
-    if pd.isna(v):
-        return "ETC"
     u = str(v).upper().strip()
-    if not u or u == "NAN":
-        return "ETC"
 
     # 예외 → X
     if (u == "SM-M1000QW" or u.startswith("RS-CN") or u.startswith("LUMAFU") or
@@ -344,14 +326,14 @@ def find_latest(tb_key: str) -> Path | None:
     glob prefix 매칭만으로는 best_selling_product → best_selling_product_prior도
     잡히므로, 정규식 fullmatch로 tb_key 직후가 _YYYYMMDD_HHMM 인지 확인.
     """
-    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4,6}}$")
+    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4}}$")
     candidates = [
         f for f in EXPORTS_DIR.glob(f"{tb_key}_*.csv")
         if pat.match(f.stem)
     ]
     if not candidates:
         return None
-    return max(candidates, key=_ts_sort_key)
+    return max(candidates, key=lambda f: _TS_PAT.search(f.stem).group(1))
 
 
 # ── 단일 파일 정제 ─────────────────────────────────────────────────
@@ -398,11 +380,6 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
     )[final_cols]
 
     result = pd.concat([scom, camp], ignore_index=True)
-
-    # ORDER == 0 행 제거 (v1.1 신규)
-    before = len(result)
-    result = result[result["ORDER"] != 0].copy()
-    print(f"  ORDER=0 제거: {before - len(result):,}행 → {len(result):,}행")
 
     out_path = EXPORTS_DIR / f"{tb_key}_stacked_separate.csv"
     result.to_csv(out_path, index=False, encoding="utf-8-sig", float_format="%.6f")

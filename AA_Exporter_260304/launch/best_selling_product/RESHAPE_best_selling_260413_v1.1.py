@@ -1,16 +1,8 @@
-# RESHAPE_best_selling_260413_v1.2.py
+# RESHAPE_best_selling_260413_v1.1.py
 # 2026-04-28  Jonghyun Park w/ Claude
-# v1.1 → v1.2 변경:
-#   1) PRICE RANGE 컬럼 추가 (PRODUCT와 ORDER 사이)
-#      단가(REVENUE/ORDER) 기준 5구간 분류:
-#        Under $300   : price < 300
-#        Under $500   : 300 ≤ price < 500
-#        Under $800   : 500 ≤ price < 800
-#        Under $1000  : 800 ≤ price < 1000
-#        Over $1000   : price ≥ 1000
-#
 # v1 → v1.1 변경:
 #   1) PRODUCT(value) 공란/NaN 시 CATEGORY/DIVISION = "ETC" 강제
+#      (기존엔 NaN→str("nan")→"NA" prefix로 Cooking 오분류되던 문제)
 #   2) ORDER == 0 행은 결과에서 제거
 #
 # best_selling_product_cmp raw CSV → 정제 CSV (stacked_separate)
@@ -22,8 +14,9 @@ import re
 import pandas as pd
 
 # ── 경로 설정 ──────────────────────────────────────────────────────
-LAUNCH_DIR   = Path(__file__).parent
-ROOT_DIR     = LAUNCH_DIR.parent
+SCRIPT_DIR   = Path(__file__).parent       # launch/best_selling_product/
+LAUNCH_DIR   = SCRIPT_DIR.parent           # launch/
+ROOT_DIR     = LAUNCH_DIR.parent           # AA_Exporter_260304/
 
 EXPORTS_DIR  = ROOT_DIR / "aa_exports"
 CURRENCY_CSV = ROOT_DIR / "ref" / "currency.csv"
@@ -345,20 +338,6 @@ def get_category(v: str) -> str:
     return "ETC"
 
 
-# ── PRICE RANGE 분류 (v1.2 신규) ───────────────────────────────────
-# 단가 = REVENUE / ORDER 기준 5구간
-def get_price_range(price: float) -> str:
-    if price < 300:
-        return "Under $300"
-    if price < 500:
-        return "Under $500"
-    if price < 800:
-        return "Under $800"
-    if price < 1000:
-        return "Under $1000"
-    return "Over $1000"
-
-
 # ── 최신 파일 선택 ─────────────────────────────────────────────────
 def find_latest(tb_key: str) -> Path | None:
     """tb_key에 해당하는 타임스탬프 파일 중 가장 최신 1개 반환.
@@ -405,33 +384,26 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
     df["_rate"]     = df["Site_Code"].str.strip().str.lower().map(cur_map).fillna(1.0)
 
     final_cols = ["PERIOD", "STANDARD", "TIER", "SUBS", "COUNTRY",
-                  "SITE CODE", "DIVISION", "PRODUCT", "CATEGORY",
-                  "PRICE RANGE", "ORDER", "REVENUE"]
+                  "SITE CODE", "DIVISION", "PRODUCT", "CATEGORY", "ORDER", "REVENUE"]
 
     scom = df.assign(
         PERIOD=period, STANDARD="S.com", TIER="",
         SUBS=df["Subsidiary"], COUNTRY=df["Country"], PRODUCT=df["value"],
         ORDER=df["value1"], REVENUE=(df["value2"] * df["_rate"]).round(6),
-    )
+    )[final_cols]
 
     camp = df.assign(
         PERIOD=period, STANDARD="Campaign", TIER="",
         SUBS=df["Subsidiary"], COUNTRY=df["Country"], PRODUCT=df["value"],
         ORDER=df["value3"], REVENUE=(df["value4"] * df["_rate"]).round(6),
-    )
+    )[final_cols]
 
     result = pd.concat([scom, camp], ignore_index=True)
 
-    # ORDER == 0 행 제거 (v1.1)
+    # ORDER == 0 행 제거 (v1.1 신규)
     before = len(result)
     result = result[result["ORDER"] != 0].copy()
     print(f"  ORDER=0 제거: {before - len(result):,}행 → {len(result):,}행")
-
-    # PRICE RANGE 부여 (v1.2 신규) — 단가(REVENUE/ORDER) 기준
-    unit_price = result["REVENUE"] / result["ORDER"]
-    result["PRICE RANGE"] = unit_price.apply(get_price_range)
-
-    result = result[final_cols]
 
     out_path = EXPORTS_DIR / f"{tb_key}_stacked_separate.csv"
     result.to_csv(out_path, index=False, encoding="utf-8-sig", float_format="%.6f")

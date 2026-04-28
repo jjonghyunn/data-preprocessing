@@ -1,6 +1,12 @@
-# RESHAPE_best_selling_260413_v1.py
+# RESHAPE_best_selling_260427_v2.py
 # 2026-04-27  Jonghyun Park w/ Claude
-# 이름 변경: best_selling_refine_260413.py → RESHAPE_best_selling_260413_v1.py
+# v1 → v2 변경:
+#   1) 출력 컬럼에 WEB/APP 추가 (SITE CODE 다음)
+#   2) value 컬럼 4개 → 8개 확장 (value1~4 = Web, value5~8 = App)
+#   3) 한 raw 행 → 4줄 출력 (S.com Web, Campaign Web, S.com App, Campaign App)
+#   4) PRODUCT(value) 공란/NaN 시 CATEGORY=ETC 강제
+#      (기존엔 NaN→str("nan")→"NA"로 시작해 Cooking 오분류되던 문제)
+#
 # best_selling_product_cmp raw CSV → 정제 CSV (stacked_separate)
 # SQL: best selling product_260212(카테고리displayname스페인어보완).sql 기준
 # 각 tb_key별 최신 파일 자동 선택 후 개별 _stacked_separate.csv 생성
@@ -10,17 +16,14 @@ import re
 import pandas as pd
 
 # ── 경로 설정 ──────────────────────────────────────────────────────
-LAUNCH_DIR   = Path(__file__).parent
-ROOT_DIR     = LAUNCH_DIR.parent
+SCRIPT_DIR   = Path(__file__).parent       # launch/best_selling_product/
+LAUNCH_DIR   = SCRIPT_DIR.parent           # launch/
+ROOT_DIR     = LAUNCH_DIR.parent           # AA_Exporter_260304/
 
 EXPORTS_DIR  = ROOT_DIR / "aa_exports"
 CURRENCY_CSV = ROOT_DIR / "ref" / "currency.csv"
 
-# ── 처리할 tb_key 목록: (파일명 prefix, PERIOD, 환율 날짜 컬럼) ────
-# 세 번째 값은 환율 적용 연도 → currency.csv에서 해당 연도로 시작하는 컬럼 자동 선택
-#   best_selling_product       → 2026 Campaign Period  → 2026 환율
-#   best_selling_product_prior → 2026 Prior Period     → 2026 환율 (같은 해)
-#   last_best_selling_product  → 2025 Campaign Period  → 2025 환율
+# ── 처리할 tb_key 목록: (파일명 prefix, PERIOD, 환율 적용 연도) ────
 TB_KEYS = [
     ("best_selling_product",       "2026 Campaign Period", "2026"),
     ("best_selling_product_prior", "2026 Prior Period",    "2026"),
@@ -43,7 +46,11 @@ def normalize_site_code(sc: str) -> str:
 
 # ── DIVISION 분류 (SQL: cmp_n_scom CTE) ────────────────────────────
 def get_division(v: str) -> str:
+    if pd.isna(v):
+        return "ETC"
     u = str(v).upper().strip()
+    if not u or u == "NAN":
+        return "ETC"
 
     # exceptions → ETC
     if u.startswith("LUMAFUSION") or u.startswith("ARCSITE") or u.startswith("UNSPECIFIED"):
@@ -128,7 +135,12 @@ def get_division(v: str) -> str:
 
 # ── CATEGORY 분류 (SQL: plus_category CTE) ─────────────────────────
 def get_category(v: str) -> str:
+    # PRODUCT 공란/NaN/None → ETC (NaN이 "NA" prefix로 Cooking 오분류되던 문제 차단)
+    if pd.isna(v):
+        return "ETC"
     u = str(v).upper().strip()
+    if not u or u == "NAN":
+        return "ETC"
 
     # 예외 → X
     if (u == "SM-M1000QW" or u.startswith("RS-CN") or u.startswith("LUMAFU") or
@@ -342,7 +354,7 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
     year_cols = [c for c in date_cols if c.startswith(currency_year)]
     if not year_cols:
         raise ValueError(f"currency.csv에서 {currency_year}년 컬럼 없음. 사용 가능: {date_cols}")
-    currency_col = year_cols[0]   # 해당 연도 컬럼이 여러 개면 첫 번째 사용
+    currency_col = year_cols[0]
 
     print(f"\n▶ {tb_key}")
     print(f"  파일: {raw_csv.name}  / 환율: {currency_col}")
@@ -355,7 +367,9 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
     df = df[df["status"] == "OK"].copy()
     print(f"  status=OK 후: {len(df)}")
 
-    for col in ["value1", "value2", "value3", "value4"]:
+    # value1~8 숫자화
+    value_cols = [f"value{i}" for i in range(1, 9)]
+    for col in value_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
 
     df["DIVISION"]  = df["value"].apply(get_division)
@@ -364,21 +378,43 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
     df["_rate"]     = df["Site_Code"].str.strip().str.lower().map(cur_map).fillna(1.0)
 
     final_cols = ["PERIOD", "STANDARD", "TIER", "SUBS", "COUNTRY",
-                  "SITE CODE", "DIVISION", "PRODUCT", "CATEGORY", "ORDER", "REVENUE"]
+                  "SITE CODE", "WEB/APP", "DIVISION", "PRODUCT", "CATEGORY",
+                  "ORDER", "REVENUE"]
 
-    scom = df.assign(
-        PERIOD=period, STANDARD="S.com", TIER="",
+    base = dict(
+        PERIOD=period, TIER="",
         SUBS=df["Subsidiary"], COUNTRY=df["Country"], PRODUCT=df["value"],
+    )
+
+    # Web S.com (value1=ORDER, value2=REVENUE)
+    web_scom = df.assign(
+        STANDARD="S.com",
         ORDER=df["value1"], REVENUE=(df["value2"] * df["_rate"]).round(6),
+        **{"WEB/APP": "WEB"}, **base,
     )[final_cols]
 
-    camp = df.assign(
-        PERIOD=period, STANDARD="Campaign", TIER="",
-        SUBS=df["Subsidiary"], COUNTRY=df["Country"], PRODUCT=df["value"],
+    # Web Campaign (value3=ORDER, value4=REVENUE)
+    web_camp = df.assign(
+        STANDARD="Campaign",
         ORDER=df["value3"], REVENUE=(df["value4"] * df["_rate"]).round(6),
+        **{"WEB/APP": "WEB"}, **base,
     )[final_cols]
 
-    result = pd.concat([scom, camp], ignore_index=True)
+    # App S.com (value5=ORDER, value6=REVENUE)
+    app_scom = df.assign(
+        STANDARD="S.com",
+        ORDER=df["value5"], REVENUE=(df["value6"] * df["_rate"]).round(6),
+        **{"WEB/APP": "APP"}, **base,
+    )[final_cols]
+
+    # App Campaign (value7=ORDER, value8=REVENUE)
+    app_camp = df.assign(
+        STANDARD="Campaign",
+        ORDER=df["value7"], REVENUE=(df["value8"] * df["_rate"]).round(6),
+        **{"WEB/APP": "APP"}, **base,
+    )[final_cols]
+
+    result = pd.concat([web_scom, web_camp, app_scom, app_camp], ignore_index=True)
 
     out_path = EXPORTS_DIR / f"{tb_key}_stacked_separate.csv"
     result.to_csv(out_path, index=False, encoding="utf-8-sig", float_format="%.6f")
@@ -387,11 +423,9 @@ def process(raw_csv: Path, tb_key: str, period: str, cur_df: pd.DataFrame, curre
 
 # ── 메인 ───────────────────────────────────────────────────────────
 def main():
-    # 환율 CSV 로드 (공통 — 날짜 컬럼 선택은 tb_key별로)
     cur_df = pd.read_csv(CURRENCY_CSV, encoding="utf-8-sig")
     cur_df["site_code"] = cur_df["site_code"].str.strip().str.lower()
 
-    # tb_key별 최신 파일 선택 → 정제
     for tb_key, period, currency_year in TB_KEYS:
         raw_csv = find_latest(tb_key)
         if raw_csv is None:

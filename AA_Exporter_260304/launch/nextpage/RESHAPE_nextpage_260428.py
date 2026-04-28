@@ -17,8 +17,9 @@ import re
 import pandas as pd
 
 # ── 경로 설정 ──────────────────────────────────────────────────────
-LAUNCH_DIR  = Path(__file__).parent
-ROOT_DIR    = LAUNCH_DIR.parent
+SCRIPT_DIR  = Path(__file__).parent        # launch/nextpage/
+LAUNCH_DIR  = SCRIPT_DIR.parent            # launch/
+ROOT_DIR    = LAUNCH_DIR.parent            # AA_Exporter_260304/
 EXPORTS_DIR = ROOT_DIR / "aa_exports"
 
 # ── 파일 prefix 설정 (실제 파일명 확정되면 여기만 수정) ────────────

@@ -18,6 +18,9 @@ data-preprocessing/
 │   ├── json_segment_report/           ← 세그먼트 패널 점검 결과 (로컬 전용)
 │   ├── json_usage_report/             ← JSON 사용 여부 점검 결과 (로컬 전용)
 │   ├── launch/                        ← 추출 노트북 6종 + 후처리 스크립트
+│   │   ├── best_selling_product/      ← Best Selling 정제 (v1, v1.1, v1.2, v2)
+│   │   ├── nextpage/                  ← nextpage 정제 + 원본 SQL
+│   │   ├── multipurchase/             ← multipurchase 정제 + 원본 SQL (this year/prior)
 │   │   ├── utils/                     ← 공통 유틸 (aa_exporter, site_registry)
 │   │   └── old/                       ← 구버전 정제 노트북 아카이브
 │   ├── generate_period_notebooks_v3.py
