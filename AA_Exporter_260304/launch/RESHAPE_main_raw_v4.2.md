@@ -196,6 +196,7 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 | 동일 tb_key 중복 추출 | 타임스탬프 기준 최신 파일만 사용 |
 | FAILED 데이터 | 수기 보완 전 실행하면 해당 site가 dummy 0으로 들어감 |
 | `_TB_KEY_REMAP` | 파일명과 매핑 CSV tb명이 다를 때 보정 딕셔너리 |
+| `_TS_PAT` 타임스탬프 정규식 | `\d{4,6}` — HHMM·HHMMSS 모두 처리 가능 |
 
 ---
 

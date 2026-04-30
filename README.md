@@ -1,11 +1,12 @@
 # data-preprocessing
-<!-- 2026-04-27  Jonghyun Park w/ Claude -->
+<!-- 2026-04-30  Jonghyun Park w/ Claude -->
 
 preprocessing data — AA(Adobe Analytics) 추출·정제, 캠페인 매핑, 일정 자동화 스크립트 모음.
 
 > 각 모듈 상세는 해당 폴더의 README를 참고하세요.  
 > - AA Export 워크플로우: [`AA_Exporter_260304/README.md`](AA_Exporter_260304/README.md)  
-> - 일정 자동화: [`260324_schedule/README.md`](260324_schedule/README.md)
+> - 일정 자동화: [`260324_schedule/README.md`](260324_schedule/README.md)  
+> - 일정 파일 정제 함수(Excel): [`260427_schedule_refine/README.md`](260427_schedule_refine/README.md)
 
 ## 폴더 구조
 
@@ -20,7 +21,7 @@ data-preprocessing/
 │   ├── launch/                        ← 추출 노트북 6종 + 후처리 스크립트
 │   │   ├── best_selling_product/      ← Best Selling 정제 (v1, v1.1, v1.2, v2)
 │   │   ├── nextpage/                  ← nextpage 정제 + 원본 SQL
-│   │   ├── multipurchase/             ← multipurchase 정제 + 원본 SQL (this year/prior)
+│   │   ├── multipurchase/             ← multipurchase 정제 + 원본 SQL (this year/prior/last year)
 │   │   ├── utils/                     ← 공통 유틸 (aa_exporter, site_registry)
 │   │   └── old/                       ← 구버전 정제 노트북 아카이브
 │   ├── generate_period_notebooks_v3.py
@@ -32,6 +33,7 @@ data-preprocessing/
 ├── 260324_schedule/
 │   ├── update_schedule.py             ← 고객 일정 xlsx → Auto 정제 파일 업데이트
 │   └── check_mail_attachment.py       ← Outlook 신규 첨부 xlsx 감지·저장
+├── 260427_schedule_refine/            ← 캠페인 일정 원본 xlsx 정제용 Excel 함수 모음
 ├── campaign_mapping_key_separator_260109v3.py
 ├── campaign_main_value_mapping_251224_add_date.py
 └── campaign_default_value_splitter_251217.py

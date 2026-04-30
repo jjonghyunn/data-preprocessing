@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260428` (오후 — 정제 스크립트 카테고리별 폴더 분리)
+기준 문서 업데이트일: `260430` (insert_segment.py 폴더 트리 반영, best_selling 보조 스크립트 경로 수정)
 
 ---
 
@@ -42,6 +42,7 @@ AA_Exporter/
 │   ├── copy_prior_json.py
 │   ├── copy_last_campaign_json.py
 │   ├── empty_json_maker_by_input_tb_name.py
+│   ├── insert_segment.py
 │   ├── json_segment_checker.py
 │   ├── mark_empty_json.py
 │   └── rename_empty.py
@@ -300,5 +301,7 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `cleanup_old_exports.py` | aa_exports 내 동일 base_key 파일 중 최신 1개만 남기고 나머지 삭제 (union·타임스탬프 없는 파일 보존, y/N 확인 후 삭제) |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
-| `launch/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 v1 — value1~4, 출력 11컬럼. 가이드: `launch/RESHAPE_best_selling_260413_v1.md` (구 파일명: `best_selling_refine_260413.py`) |
-| `launch/RESHAPE_best_selling_260427_v2.py` | Best Selling 데이터 정제 v2 — value1~8 (Web/App 분리), 출력 12컬럼(`WEB/APP` 추가), PRODUCT 공란 ETC 강제. 가이드: `launch/RESHAPE_best_selling_260427_v2.md` |
+| `launch/best_selling_product/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 v1 — value1~4, 출력 11컬럼. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260413_v1.md` (구 파일명: `best_selling_refine_260413.py`) |
+| `launch/best_selling_product/RESHAPE_best_selling_260427_v2.py` | Best Selling 데이터 정제 v2 — value1~8 (Web/App 분리), 출력 12컬럼(`WEB/APP` 추가), PRODUCT 공란 ETC 강제. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260427_v2.md` |
+| `launch/nextpage/RESHAPE_nextpage_260428.py` | nextpage 정제 (단일/분리 파일 자동 감지). 가이드: `launch/nextpage/RESHAPE_nextpage_260428.md` |
+| `launch/multipurchase/RESHAPE_multipurchase_260428.py` | 멀티오더 정제 (this year/prior/last year 동시 처리). 가이드: `launch/multipurchase/RESHAPE_multipurchase_260428.md` |
