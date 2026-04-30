@@ -1,6 +1,6 @@
 # AA Export Workflow
 
-기준 문서 업데이트일: `260430` (insert_segment.py 폴더 트리 반영, best_selling 보조 스크립트 경로 수정)
+기준 문서 업데이트일: `260430` (best_selling for_modelcode v1.2.1 추가)
 
 ---
 
@@ -59,7 +59,7 @@ AA_Exporter/
 │   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
 │   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (최신)
 │   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
-│   ├── best_selling_product/                 # Best Selling 정제 (v1, v1.1, v1.2, v2)
+│   ├── best_selling_product/                 # Best Selling 정제 (v1, v1.1, v1.2, v2, for_modelcode v1.2.1)
 │   │   ├── RESHAPE_best_selling_260413_v1.py     # v1 (value1~4, 11컬럼)
 │   │   ├── RESHAPE_best_selling_260413_v1.md
 │   │   ├── RESHAPE_best_selling_260413_v1.1.py   # v1.1 (NaN→ETC, ORDER=0 제거)
@@ -67,7 +67,9 @@ AA_Exporter/
 │   │   ├── RESHAPE_best_selling_260413_v1.2.py   # v1.2 (PRICE RANGE 추가, 12컬럼)
 │   │   ├── RESHAPE_best_selling_260413_v1.2.md
 │   │   ├── RESHAPE_best_selling_260427_v2.py     # v2 (value1~8 Web/App 분리, 12컬럼)
-│   │   └── RESHAPE_best_selling_260427_v2.md
+│   │   ├── RESHAPE_best_selling_260427_v2.md
+│   │   ├── RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py   # for_modelcode (다중 모델 dimension, DIVISION/CATEGORY ORIGIN 추가)
+│   │   └── RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md
 │   ├── nextpage/                             # nextpage 정제 + 원본 SQL
 │   │   ├── RESHAPE_nextpage_260428.py            # COMBINED/SEPARATE 자동 감지
 │   │   ├── RESHAPE_nextpage_260428.md
@@ -303,5 +305,6 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
 | `launch/best_selling_product/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 v1 — value1~4, 출력 11컬럼. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260413_v1.md` (구 파일명: `best_selling_refine_260413.py`) |
 | `launch/best_selling_product/RESHAPE_best_selling_260427_v2.py` | Best Selling 데이터 정제 v2 — value1~8 (Web/App 분리), 출력 12컬럼(`WEB/APP` 추가), PRODUCT 공란 ETC 강제. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260427_v2.md` |
+| `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py` | for_modelcode 버전 — 다중 모델 코드(쉼표 구분) dimension. DIVISION/CATEGORY 각각 ORIGIN 컬럼(`DIVISION ORIGIN`, `CATEGORIES ORIGIN`) 우측 끝에 추가. DIVISION 고정 순서 `MX→VD→DA(→ETC)`. 가이드: `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md` |
 | `launch/nextpage/RESHAPE_nextpage_260428.py` | nextpage 정제 (단일/분리 파일 자동 감지). 가이드: `launch/nextpage/RESHAPE_nextpage_260428.md` |
 | `launch/multipurchase/RESHAPE_multipurchase_260428.py` | 멀티오더 정제 (this year/prior/last year 동시 처리). 가이드: `launch/multipurchase/RESHAPE_multipurchase_260428.md` |
