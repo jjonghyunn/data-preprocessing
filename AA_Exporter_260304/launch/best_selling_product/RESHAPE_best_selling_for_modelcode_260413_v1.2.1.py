@@ -39,9 +39,9 @@ TB_KEYS = [
     ("best_selling_modelcode",               "2026 Campaign Period",    "2026"),
     ("best_selling_modelcode_prior",         "2026 Prior Period",       "2026"),
     ("last_raw_best_selling_modelcode",      "2025 Campaign Period",    "2025"),
-    ("us_best_selling_modelcode",            "2026 US Campaign Period", "2026"),
-    ("us_best_selling_modelcode_prior",      "2026 US Prior Period",    "2026"),
-    ("us_last_raw_best_selling_modelcode",   "2025 US Campaign Period", "2025"),
+    ("us_best_selling_modelcode",            "2026 Campaign Period", "2026"),
+    ("us_best_selling_modelcode_prior",      "2026 Prior Period",    "2026"),
+    ("us_last_raw_best_selling_modelcode",   "2025 Campaign Period", "2025"),
 ]
 
 # ── 타임스탬프 패턴 ────────────────────────────────────────────────

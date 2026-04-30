@@ -86,9 +86,9 @@ non-US 3종 + US 3종. 파일 없는 tb_key는 자동 skip.
 | `best_selling_modelcode` | 2026 Campaign Period | 2026 |
 | `best_selling_modelcode_prior` | 2026 Prior Period | 2026 |
 | `last_raw_best_selling_modelcode` | 2025 Campaign Period | 2025 |
-| `us_best_selling_modelcode` | 2026 US Campaign Period | 2026 |
-| `us_best_selling_modelcode_prior` | 2026 US Prior Period | 2026 |
-| `us_last_raw_best_selling_modelcode` | 2025 US Campaign Period | 2025 |
+| `us_best_selling_modelcode` | 2026 Campaign Period | 2026 |
+| `us_best_selling_modelcode_prior` | 2026 Prior Period | 2026 |
+| `us_last_raw_best_selling_modelcode` | 2025 Campaign Period | 2025 |
 
 환율 연도는 `currency.csv`에서 해당 연도로 시작하는 컬럼을 자동 선택.  
 동일 연도 컬럼이 여러 개면 첫 번째 사용.
