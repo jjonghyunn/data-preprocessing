@@ -6,8 +6,7 @@ preprocessing data — AA(Adobe Analytics) 추출·정제, 캠페인 매핑, 일
 > 각 모듈 상세는 해당 폴더의 README를 참고하세요.  
 > - AA Export 워크플로우: [`AA_Exporter_260304/README.md`](AA_Exporter_260304/README.md)  
 > - 일정 자동화: [`260324_schedule/README.md`](260324_schedule/README.md)  
-> - 일정 파일 정제 함수(Excel): [`260427_schedule_refine/README.md`](260427_schedule_refine/README.md)  
-> - 메일 키워드 검색·msg 다운로드: [`260430_mail_search/mail_search_to_msg.md`](260430_mail_search/mail_search_to_msg.md)
+> - 일정 파일 정제 함수(Excel): [`260427_schedule_refine/README.md`](260427_schedule_refine/README.md)
 
 ## 폴더 구조
 
@@ -35,8 +34,6 @@ data-preprocessing/
 │   ├── update_schedule.py             ← 고객 일정 xlsx → Auto 정제 파일 업데이트
 │   └── check_mail_attachment.py       ← Outlook 신규 첨부 xlsx 감지·저장
 ├── 260427_schedule_refine/            ← 캠페인 일정 원본 xlsx 정제용 Excel 함수 모음
-├── 260430_mail_search/                ← 메일 키워드 검색 → .msg 일괄 다운로드
-│   └── mail_search_to_msg.py
 ├── campaign_mapping_key_separator_260109v3.py
 ├── campaign_main_value_mapping_251224_add_date.py
 └── campaign_default_value_splitter_251217.py
