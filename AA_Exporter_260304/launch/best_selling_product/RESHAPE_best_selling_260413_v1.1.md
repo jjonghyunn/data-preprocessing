@@ -50,7 +50,7 @@ SQL 기준: `best selling product_260212(카테고리displayname스페인어보�
 ```
 aa_exports/{tb_key}_*.csv
     │
-    ├─ 타임스탬프 기준 최신 파일 1개 선택 (_TS_PAT: _YYYYMMDD_HHMM)
+    ├─ 타임스탬프 기준 최신 파일 1개 선택 (_TS_PAT: _YYYYMMDD_HHMM(SS))
     ├─ status == "OK" 행만 유지
     ├─ value1~4 숫자 변환 (coerce → fillna 0)
     ├─ DIVISION / CATEGORY 분류 (value 컬럼 = 제품 모델번호 기준)
@@ -178,6 +178,6 @@ tb_key별로 파일이 없으면 스킵 후 다음 tb_key 계속 처리.
 | **`ORDER == 0` 행** | **v1.1부터 자동 제외됨** — scom/camp 각각 필터됨 (한쪽만 0이면 그쪽만 제거) |
 | **NaN/공란 PRODUCT** | **v1.1부터 ETC로 분류** (기존엔 Cooking 오분류) |
 | 환율 컬럼 자동 선택 | `currency_year`로 시작하는 컬럼 사용 — currency.csv 연도 컬럼 확인 필요 |
-| 타임스탬프 패턴 | `_YYYYMMDD_HHMM` (4자리 시분) — 6자리면 매칭 안됨 |
+| 타임스탬프 패턴 | `_YYYYMMDD_HHMM(SS)` — HHMM 4자리, HHMMSS 6자리 모두 지원 (정렬 시 4자리는 6자리로 zero-pad) |
 | REVENUE float | `.round(6)` 처리 후 `%.6f` 포맷 저장 |
 | TIER 컬럼 | 현재 공란으로 고정 |

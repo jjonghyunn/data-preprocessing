@@ -57,7 +57,7 @@ TOP_N           = 10                    # site_code별 상위 N개
 
 실제 AA 추출 파일명이 정해지면 위 prefix만 교체.
 
-> `find_latest()`는 정규식 fullmatch로 prefix 직후가 정확히 `_YYYYMMDD_HHMM` 인 파일만 매칭 → `nextpage_*` 가 `nextpage_total_mx_*`까지 잡지 않음.
+> `find_latest()`는 정규식 fullmatch로 prefix 직후가 정확히 `_YYYYMMDD_HHMM(SS)` 인 파일만 매칭 → `nextpage_*` 가 `nextpage_total_mx_*`까지 잡지 않음. HHMM(4자리) / HHMMSS(6자리) 둘 다 지원 (정렬 시 4자리는 6자리로 zero-pad).
 
 ---
 

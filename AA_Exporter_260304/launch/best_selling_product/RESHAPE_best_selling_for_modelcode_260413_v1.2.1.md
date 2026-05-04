@@ -100,7 +100,7 @@ non-US 3종 + US 3종. 파일 없는 tb_key는 자동 skip.
 ```
 aa_exports/{tb_key}_*.csv
     │
-    ├─ 타임스탬프 기준 최신 파일 1개 선택 (_TS_PAT: _YYYYMMDD_HHMM)
+    ├─ 타임스탬프 기준 최신 파일 1개 선택 (_TS_PAT: _YYYYMMDD_HHMM(SS))
     ├─ status 필터: 'fail'/'error' 단어 포함 행 제외 (v1.2.1)
     ├─ value1~4 숫자 변환 (coerce → fillna 0)
     │
