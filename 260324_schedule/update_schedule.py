@@ -2,9 +2,10 @@
 update_schedule.py
 2026-04-15  Jonghyun Park w/ Claude
 2026-04-21  Jonghyun Park w/ Claude
+2026-05-08  Jonghyun Park w/ Claude
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
-   - 정렬 기준: 문서날짜(YYYYMMDD/YYMMDD) → 시간/버전/메일수신일 순
+   - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등)
 2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기
    - datetime → yyyy-mm-dd 문자열 변환
    - WEEKNUM 수식 셀 → W01 형식 변환
@@ -41,7 +42,7 @@ def latest_file_key(f: Path):
     if m8:
         doc_date = int(m8.group(1))
 
-        # YYYYMMDD_HHMM[_YYMMDD]
+        # YYYYMMDD_HHMM[_YYMMDD]: 뒤에 4자리 숫자가 오되 그 직후 숫자 없을 때
         m = re.search(r'(?<!\d)\d{8}_(\d{4})(?:_(\d{6}))?(?!\d)', name)
         if m:
             return (doc_date, int(m.group(1)), 0.0, 0, int(m.group(2) or 0))
@@ -72,9 +73,9 @@ BASE = Path(
     r"\part_name\2026\# CAMPAIGN_PROJECTS\02. CAMPAIGN NAME\02. SCHEDULE"
 )
 
-SOURCE_FOLDER = BASE / "1.고객 법인 일정 파일"
-TARGET_SHEET  = "고객법인일정파일"
-LAST_SOURCE_FILE = Path(r"C:\Users\user_name\Documents\schedule_last_source.txt")
+SOURCE_FOLDER    = BASE / "1.고객 법인 일정 파일"
+TARGET_SHEET     = "고객법인일정파일"
+LAST_SOURCE_FILE = BASE / "schedule_last_source.txt"  # 마커: Auto 파일과 같은 폴더 (프로젝트별 독립 관리. 다른 캠페인으로 fork 시 BASE만 교체하면 마커도 따라감)
 
 # ── Auto 파일 자동 탐색 ──────────────────────────────────────
 auto_files = list(BASE.glob("*Auto*.xlsx"))

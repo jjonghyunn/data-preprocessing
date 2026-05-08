@@ -75,7 +75,7 @@ _v0.49_260420   → (260420, 0, 0.49, 0, 0)  ← 최신
 |---|---|
 | 소스 폴더 | `02. SCHEDULE/1.고객 법인 일정 파일/` |
 | 업데이트 대상 | `02. SCHEDULE/*Auto*.xlsx` (자동 탐색) |
-| 마커 파일 | `C:\Users\user_name\Documents\schedule_last_source.txt` — `파일명\|mtime` 형식으로 저장 (로컬, OneDrive 외부) |
+| 마커 파일 | `BASE/schedule_last_source.txt` — `파일명\|mtime` 형식으로 저장 (Auto 파일과 같은 폴더에 두어 프로젝트별 독립 관리. 다른 캠페인으로 fork 시 BASE만 교체하면 마커도 따라감) |
 
 ## 실행 방법
 ```bash
