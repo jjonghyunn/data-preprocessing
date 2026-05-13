@@ -1,8 +1,17 @@
-# generate_column_from_segments.py
+# generate_column_from_segments.py / _v2.0.py
 
 `extract_panel_tables_json_v2.0.py` 가 생성한 매핑 CSV 의 빈 `column` 컬럼을, 같은 row 의 `tb / segments / metric / panel / period` 만 보고 **algorithmic 하게 재구성** 하는 generator. union KEY 형식의 column 값을 자동으로 생성.
 
-기준 문서 업데이트일: 2026-05-12
+두 버전 병존:
+
+| 파일 | 토큰 결합 | column 예시 | `_` 개수 |
+|---|---|---|---|
+| `generate_column_from_segments.py` | 8 토큰 모두 `_` | `1_1_all_2026_cmp_pc_visit_null_uniquevisitor` | 가변 (multi-word slug 안에 `_` 포함) |
+| `generate_column_from_segments_v2.0.py` | 토큰 간 `_`, 내부 결합 `-` | `1-1_all_2026_cmp_pc_visit_null_uniquevisitor` | **항상 정확히 7개** (8 토큰) |
+
+v2.0 은 `col.split("_")` 결과가 항상 8 토큰으로 떨어져 union RESHAPE 단계의 토큰 분해가 단순해짐. multi-word slug (`internal-gnb-l0`, `main-then-pd-all`, `scom-and-order-all-rev`, `mx-vd-multiorder` 등) 는 내부 `-` 결합. special tb (`nodata-multi-purchase-value1` 등) 는 8 토큰 룰 예외 (단일 dash-slug placeholder).
+
+기준 문서 업데이트일: 2026-05-13
 
 ---
 
@@ -17,7 +26,8 @@
 스크립트 상단의 `NEW_CSV` 만 본인 경로로 바꿔서 실행.
 
 ```bash
-python generate_column_from_segments.py
+python generate_column_from_segments.py        # v1 (모두 '_' 결합)
+python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' 정확히 7개)
 ```
 
 ---
