@@ -54,24 +54,17 @@ AA_Exporter/
 │   ├── US_campaign_period.ipynb      # This Year US Campaign 추출
 │   ├── US_last_campaign_period.ipynb # Last Year US Campaign 추출
 │   ├── US_prior_period.ipynb         # This Year US Prior 추출
-│   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅 (이전 버전)
-│   ├── RESHAPE_main_raw_v4.1.md              # 정제 가이드
-│   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
-│   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (이전 버전)
-│   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
-│   ├── RESHAPE_main_raw_v4.3.ipynb           # 정제/포맷팅 (최신)
+│   ├── RESHAPE_main_raw_v4.3.ipynb           # ★최신 정제/포맷팅
 │   ├── RESHAPE_main_raw_v4.3.md              # v4.3 정제 가이드
-│   ├── best_selling_product/                 # Best Selling 정제 (v1, v1.1, v1.2, v2, for_modelcode v1.2.1)
-│   │   ├── RESHAPE_best_selling_260413_v1.py     # v1 (value1~4, 11컬럼)
-│   │   ├── RESHAPE_best_selling_260413_v1.md
-│   │   ├── RESHAPE_best_selling_260413_v1.1.py   # v1.1 (NaN→ETC, ORDER=0 제거)
-│   │   ├── RESHAPE_best_selling_260413_v1.1.md
+│   ├── old/                                  # 구버전 (v4.1, v4.1.1, v4.2)
+│   ├── best_selling_product/                 # Best Selling 정제
 │   │   ├── RESHAPE_best_selling_260413_v1.2.py   # v1.2 (PRICE RANGE 추가, 12컬럼)
 │   │   ├── RESHAPE_best_selling_260413_v1.2.md
 │   │   ├── RESHAPE_best_selling_260427_v2.py     # v2 (value1~8 Web/App 분리, 12컬럼)
 │   │   ├── RESHAPE_best_selling_260427_v2.md
 │   │   ├── RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py   # for_modelcode (다중 모델 dimension, DIVISION/CATEGORY ORIGIN 추가)
-│   │   └── RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md
+│   │   ├── RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md
+│   │   └── old/                              # 구버전 (v1, v1.1)
 │   ├── nextpage/                             # nextpage 정제 + 원본 SQL
 │   │   ├── RESHAPE_nextpage_260428.py            # COMBINED/SEPARATE 자동 감지
 │   │   ├── RESHAPE_nextpage_260428.md
@@ -304,8 +297,8 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `cleanup_old_exports.py` | aa_exports 내 동일 base_key 파일 중 최신 1개만 남기고 나머지 삭제 (union·타임스탬프 없는 파일 보존, y/N 확인 후 삭제) |
 | `ipynb_json_usage_mapper.py` | JSON 파일이 노트북에서 실제 참조되는지 3방향 검수 |
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
-| `launch/best_selling_product/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 v1 — value1~4, 출력 11컬럼. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260413_v1.md` (구 파일명: `best_selling_refine_260413.py`) |
-| `launch/best_selling_product/RESHAPE_best_selling_260427_v2.py` | Best Selling 데이터 정제 v2 — value1~8 (Web/App 분리), 출력 12컬럼(`WEB/APP` 추가), PRODUCT 공란 ETC 강제. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260427_v2.md` |
+| `launch/best_selling_product/RESHAPE_best_selling_260413_v1.2.py` | Best Selling 정제 v1.2 — PRICE RANGE 추가, 12컬럼. 가이드: `RESHAPE_best_selling_260413_v1.2.md` |
+| `launch/best_selling_product/RESHAPE_best_selling_260427_v2.py` | Best Selling 정제 v2 — value1~8 (Web/App 분리), 12컬럼(`WEB/APP` 추가). 가이드: `RESHAPE_best_selling_260427_v2.md` |
 | `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py` | for_modelcode 버전 — 다중 모델 코드(쉼표 구분) dimension. DIVISION/CATEGORY 각각 ORIGIN 컬럼(`DIVISION ORIGIN`, `CATEGORIES ORIGIN`) 우측 끝에 추가. DIVISION 고정 순서 `MX→VD→DA(→ETC)`. 가이드: `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md` |
 | `launch/nextpage/RESHAPE_nextpage_260428.py` | nextpage 정제 (단일/분리 파일 자동 감지). 가이드: `launch/nextpage/RESHAPE_nextpage_260428.md` |
 | `launch/multipurchase/RESHAPE_multipurchase_260428.py` | 멀티오더 정제 (this year/prior/last year 동시 처리). 가이드: `launch/multipurchase/RESHAPE_multipurchase_260428.md` |
