@@ -1,0 +1,37 @@
+# AA exports (추출 결과물 CSV)
+aa_exports/
+*_stacked_separate.csv
+*_stacked.csv
+union_*.csv
+
+# Auto-generated segment / usage reports (실제 세그먼트 ID 포함 — 커밋 금지)
+json_segment_report/
+json_usage_report/
+mapping_match_report/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Auth / secrets
+*_auth.json
+*.key
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Excel / temp outputs
+~$*.xlsx
+~$*.xls

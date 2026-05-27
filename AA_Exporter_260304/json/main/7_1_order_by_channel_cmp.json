@@ -1,0 +1,422 @@
+{
+    "rsid": "rsid_placeholder",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-01-19T00:00:00.000/2026-01-26T00:00:00.000"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "3",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "0",
+                    "1",
+                    "2"
+                ],
+                "sort": "desc"
+            },
+            {
+                "columnId": "4",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "3",
+                    "4",
+                    "5"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "6",
+                    "7",
+                    "8"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "9",
+                    "10",
+                    "11"
+                ]
+            },
+            {
+                "columnId": "8",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "12",
+                    "13",
+                    "14"
+                ]
+            },
+            {
+                "columnId": "12",
+                "id": "metrics/orders",
+                "filters": [
+                    "15",
+                    "16",
+                    "17"
+                ]
+            },
+            {
+                "columnId": "13",
+                "id": "metrics/orders",
+                "filters": [
+                    "18",
+                    "19",
+                    "20"
+                ]
+            },
+            {
+                "columnId": "15",
+                "id": "metrics/orders",
+                "filters": [
+                    "21",
+                    "22",
+                    "23"
+                ]
+            },
+            {
+                "columnId": "16",
+                "id": "metrics/orders",
+                "filters": [
+                    "24",
+                    "25",
+                    "26"
+                ]
+            },
+            {
+                "columnId": "17",
+                "id": "metrics/orders",
+                "filters": [
+                    "27",
+                    "28",
+                    "29"
+                ]
+            },
+            {
+                "columnId": "20",
+                "id": "metrics/revenue",
+                "filters": [
+                    "30",
+                    "31",
+                    "32"
+                ]
+            },
+            {
+                "columnId": "21",
+                "id": "metrics/revenue",
+                "filters": [
+                    "33",
+                    "34",
+                    "35"
+                ]
+            },
+            {
+                "columnId": "23",
+                "id": "metrics/revenue",
+                "filters": [
+                    "36",
+                    "37",
+                    "38"
+                ]
+            },
+            {
+                "columnId": "24",
+                "id": "metrics/revenue",
+                "filters": [
+                    "39",
+                    "40",
+                    "41"
+                ]
+            },
+            {
+                "columnId": "25",
+                "id": "metrics/revenue",
+                "filters": [
+                    "42",
+                    "43",
+                    "44"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "android_activity"
+            },
+            {
+                "id": "10",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "11",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "12",
+                "type": "segment",
+                "segmentId": "ios_activity"
+            },
+            {
+                "id": "13",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "14",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "15",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "16",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "17",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "18",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "19",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "20",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "21",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "22",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "23",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "24",
+                "type": "segment",
+                "segmentId": "android_activity"
+            },
+            {
+                "id": "25",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "26",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "27",
+                "type": "segment",
+                "segmentId": "ios_activity"
+            },
+            {
+                "id": "28",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "29",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "30",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "31",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "32",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "33",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "34",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "35",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "36",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "37",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "38",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "39",
+                "type": "segment",
+                "segmentId": "android_activity"
+            },
+            {
+                "id": "40",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "41",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "42",
+                "type": "segment",
+                "segmentId": "ios_activity"
+            },
+            {
+                "id": "43",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "44",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            }
+        ]
+    },
+    "dimension": "variables/marketingchannel",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "exclude-nones",
+        "limit": 50,
+        "page": 0
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "YOUR_ID"
+            },
+            {
+                "name": "projectName",
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Campaign Page Order Conversion by Channel (Web & App)"
+            }
+        ]
+    }
+}

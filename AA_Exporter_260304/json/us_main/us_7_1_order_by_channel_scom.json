@@ -1,0 +1,95 @@
+{
+    "rsid": "rsid_placeholder",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-03-01T00:00:00.000/2026-04-01T00:00:00.000",
+            "dateRangeId": "YOUR_ID"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "CALC_METRIC_ID",
+                "filters": [
+                    "0"
+                ],
+                "sort": "desc"
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/orders",
+                "filters": [
+                    "1"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/event100",
+                "filters": [
+                    "2"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            }
+        ]
+    },
+    "dimension": "variables/marketingchannel",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "exclude-nones",
+        "limit": 50,
+        "page": 0
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "YOUR_ID"
+            },
+            {
+                "name": "projectName",
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "S.com Order Conversion by Channel (Web) [w. Prior Period]"
+            }
+        ]
+    }
+}

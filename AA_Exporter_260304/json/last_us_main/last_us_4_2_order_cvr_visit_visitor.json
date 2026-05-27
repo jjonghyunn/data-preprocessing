@@ -1,0 +1,167 @@
+{
+    "rsid": "rsid_placeholder",
+    "globalFilters": [
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "segment",
+            "segmentId": "segment_id_placeholder"
+        },
+        {
+            "type": "dateRange",
+            "dateRange": "2026-03-01T00:00:00.000/2026-04-01T00:00:00.000",
+            "dateRangeId": "thisMonth"
+        }
+    ],
+    "metricContainer": {
+        "metrics": [
+            {
+                "columnId": "1",
+                "id": "metrics/orders",
+                "filters": [
+                    "0"
+                ]
+            },
+            {
+                "columnId": "2",
+                "id": "metrics/orders",
+                "filters": [
+                    "1"
+                ]
+            },
+            {
+                "columnId": "3",
+                "id": "metrics/orders",
+                "filters": [
+                    "2"
+                ]
+            },
+            {
+                "columnId": "5",
+                "id": "metrics/event100",
+                "filters": [
+                    "3"
+                ]
+            },
+            {
+                "columnId": "6",
+                "id": "metrics/event100",
+                "filters": [
+                    "4"
+                ]
+            },
+            {
+                "columnId": "7",
+                "id": "metrics/event100",
+                "filters": [
+                    "5"
+                ]
+            },
+            {
+                "columnId": "10",
+                "id": "metrics/visits",
+                "filters": [
+                    "6",
+                    "7"
+                ]
+            },
+            {
+                "columnId": "11",
+                "id": "metrics/visits",
+                "filters": [
+                    "8",
+                    "9"
+                ]
+            }
+        ],
+        "metricFilters": [
+            {
+                "id": "0",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "1",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "2",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "3",
+                "type": "segment",
+                "segmentId": "All_Visits"
+            },
+            {
+                "id": "4",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "5",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "6",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "7",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "8",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            },
+            {
+                "id": "9",
+                "type": "segment",
+                "segmentId": "segment_id_placeholder"
+            }
+        ]
+    },
+    "dimension": "variables/daterangeyear",
+    "settings": {
+        "countRepeatInstances": true,
+        "includeAnnotations": true,
+        "nonesBehavior": "return-nones",
+        "limit": 400,
+        "page": 0,
+        "dimensionSort": "asc"
+    },
+    "statistics": {
+        "functions": [
+            "col-max",
+            "col-min"
+        ]
+    },
+    "capacityMetadata": {
+        "associations": [
+            {
+                "name": "applicationName",
+                "value": "Analysis Workspace UI"
+            },
+            {
+                "name": "projectId",
+                "value": "YOUR_ID"
+            },
+            {
+                "name": "projectName",
+                "value": "[part_name] 2026 New Year, New You Campaign Performance Analysis_API 추출용_260127"
+            },
+            {
+                "name": "panelName",
+                "value": "Order Conversion - S.com Order / (4-2.) Visit/Visitor by Login & Non-login (Total)"
+            }
+        ]
+    }
+}
