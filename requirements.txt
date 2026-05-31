@@ -1,0 +1,6 @@
+pandas
+requests
+tqdm
+aanalytics2
+openpyxl
+pywin32
