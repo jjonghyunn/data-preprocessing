@@ -1,6 +1,5 @@
-# AA Export Workflow
-
-기준 문서 업데이트일: `260517` (v4.3 반영, check_failed 위치 정정)
+# AA Export Workflow  
+<sub>2026-05-17  Jonghyun Park w/ Claude</sub>
 
 ---
 
