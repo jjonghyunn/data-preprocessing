@@ -41,6 +41,7 @@ python remark_olap.py      →  data_fx/ 폴더
 # ※ 1a/1b 실행 시 칼럼별 레전드 csv 가 자동 생성됨:
 #    remark_classic.py → _remarkprefix_classic.csv
 #    remark_olap.py    → _remarkprefix_olap.csv
+#    (상단 PREFIX_ONLY=True 면 결과물 xlsx/data_fx 저장 생략, 레전드 csv 만 빠르게 생성)
 
 # 2. (선택) dim 마스터 기반 칼럼쌍 레전드 xlsx
 python remark_prefix_v2.py      →  remark_prefix_v2.xlsx

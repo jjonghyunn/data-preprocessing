@@ -17,6 +17,7 @@ import openpyxl
 # ─── 출력 파일명 prefix ───
 OUT_PREFIX    = "_remark_"        # 마스킹 결과 xlsx prefix  예) _remark_Analysis_260616_updated.xlsx
 LEGEND_PREFIX = "_remarkprefix_"  # 칼럼 레전드 csv prefix   예) _remarkprefix_classic.csv
+PREFIX_ONLY   = False             # True: 결과물(xlsx) 저장 생략하고 레전드 csv 만 생성
 
 # ─── 경로 ───
 OUT_DIR      = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
@@ -180,11 +181,14 @@ def main():
         print(f"  Remarking: {sname} (header row={hrow})")
         process_raw_sheet(wb[sname], header_row_num=hrow)
 
-    out_name = OUT_PREFIX + Path(src).stem + ".xlsx"
-    out_path = Path(OUT_DIR) / out_name
-    wb.save(str(out_path))
-    print(f"\n  Saved → {out_path}")
-    print(f"  Sheets: {wb.sheetnames}")
+    if PREFIX_ONLY:
+        print("\n  [PREFIX_ONLY] xlsx 저장 생략 — 레전드 csv 만 생성")
+    else:
+        out_name = OUT_PREFIX + Path(src).stem + ".xlsx"
+        out_path = Path(OUT_DIR) / out_name
+        wb.save(str(out_path))
+        print(f"\n  Saved → {out_path}")
+        print(f"  Sheets: {wb.sheetnames}")
 
     import csv
     # 칼럼별 레전드 (Column | Value_Original | Value_fx) — 같은 SEED=<REMARK_SEED> 라 remark_olap 과 매핑 일치

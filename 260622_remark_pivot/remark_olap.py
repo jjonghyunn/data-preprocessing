@@ -22,6 +22,7 @@ OUTPUT_DIR = r"C:\Users\user_name\Downloads\data_fx"
 
 # 칼럼 레전드 csv prefix  예) _remarkprefix_olap.csv
 LEGEND_PREFIX = "_remarkprefix_"
+PREFIX_ONLY   = False  # True: data_fx 출력 생략하고 레전드 csv 만 생성
 
 # ─── dim 테이블 리마킹 컬럼 ───
 # 키 = 파일명, 값 = 리마킹 대상 컬럼 리스트
@@ -108,12 +109,27 @@ def fx(val) -> str:
 
 def remark_csv(src: Path, dst: Path, remark_cols: list):
     if not remark_cols:
-        # 리마킹 불필요 — 원본 그대로 복사
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        dst.write_bytes(src.read_bytes())
+        # 리마킹 불필요 — 원본 그대로 복사 (PREFIX_ONLY 면 복사도 생략)
+        if not PREFIX_ONLY:
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_bytes(src.read_bytes())
         return 0
 
     rows_processed = 0
+
+    # PREFIX_ONLY: 읽으면서 fx 로 레전드만 수집, 출력 파일 미생성
+    if PREFIX_ONLY:
+        with open(src, "r", encoding="utf-8-sig", newline="") as fin:
+            for row in csv.DictReader(fin):
+                for col in remark_cols:
+                    if col in row:
+                        orig = row[col]
+                        new  = fx(orig)
+                        if new != orig:
+                            _COL_LEGEND[(col, orig)] = new
+                rows_processed += 1
+        return rows_processed
+
     dst.parent.mkdir(parents=True, exist_ok=True)
     with open(src, "r", encoding="utf-8-sig", newline="") as fin, \
          open(dst, "w", encoding="utf-8-sig", newline="") as fout:
@@ -153,10 +169,11 @@ def main():
     dim_out = out_root / "dim"
     for f in sorted(dim_in.iterdir()):
         if f.suffix.lower() != ".csv":
-            # xlsx 등 비-CSV는 그대로 복사
-            (dim_out / f.name).parent.mkdir(parents=True, exist_ok=True)
-            (dim_out / f.name).write_bytes(f.read_bytes())
-            print(f"  {f.name}  (copy as-is)")
+            # xlsx 등 비-CSV는 그대로 복사 (PREFIX_ONLY 면 생략)
+            if not PREFIX_ONLY:
+                (dim_out / f.name).parent.mkdir(parents=True, exist_ok=True)
+                (dim_out / f.name).write_bytes(f.read_bytes())
+                print(f"  {f.name}  (copy as-is)")
             continue
         cols = DIM_REMARK.get(f.name, [])
         dst  = dim_out / f.name
