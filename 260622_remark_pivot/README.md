@@ -2,7 +2,19 @@
 <sub>2026-06-23  Jonghyun Park w/ Claude</sub>
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
-클래식 피봇 xlsx raw 셀 값 치환 + CSV 치환 + 레전드 생성.
+피봇 종류(Classic / OLAP)에 따라 도구가 나뉜다.
+
+---
+
+## 피봇 종류별 도구
+
+| 피봇 종류 | 도구 | 방식 |
+|---|---|---|
+| **Classic** (워크시트 소스) | `remark_classic.py` | xlsx raw 시트 셀 값 직접 치환 (openpyxl 안전) |
+| **OLAP** (파워피봇 데이터 모델) | `remark_olap.py` | 데이터 모델 소스인 data/ CSV 를 치환 → data_fx/ 출력 |
+
+> **OLAP 피봇 xlsx 는 openpyxl 저장 시 파일이 깨진다** → xlsx 를 직접 못 건드림.  
+> 그래서 소스 CSV(`data/`)를 리마킹해 `data_fx/` 로 떨군 뒤, Excel 에서 데이터 모델 소스 경로를 `data_fx/` 로 다시 로드한다.
 
 ---
 
@@ -10,32 +22,29 @@
 
 | 파일 | 용도 |
 |---|---|
-| `remark_xlsx_rebuild.py` | 클래식 피봇 xlsx 리마킹 — raw 시트 셀 치환 + 불필요 시트 삭제 |
-| `remark_data.py` | data/ 폴더 CSV 리마킹 → data_fx/ 출력 |
+| `remark_classic.py` | **Classic 피봇** xlsx 리마킹 — raw 시트 셀 치환 + 불필요 시트 삭제 |
+| `remark_olap.py` | **OLAP 피봇** 소스 리마킹 — data/ CSV → data_fx/ 출력 |
 | `remark_prefix_v2.py` | 컬럼쌍 구조 레전드 xlsx 생성 (샘플 포맷) |
 | `remark_pivot.py` | 피봇 캐시 차원값 추출 (분석용 보조 도구) |
-
-> **OLAP 피봇 xlsx** (파워피봇 데이터 모델 기반)는 openpyxl 저장 시 파일이 깨지므로  
-> 이 스크립트로 처리하지 않는다 — 시트 정리는 Excel에서 수동으로.
 
 ---
 
 ## 실행 순서
 
 ```
-# 1. xlsx 리마킹 (클래식 피봇 전용)
-python remark_xlsx_rebuild.py   →  _remark_원본파일명.xlsx
+# 1a. Classic 피봇 xlsx 리마킹
+python remark_classic.py   →  _remark_원본파일명.xlsx
 
-# 2. CSV 리마킹 (data 폴더가 있을 때)
-python remark_data.py           →  data_fx/ 폴더
+# 1b. OLAP 피봇 소스 CSV 리마킹 (data 폴더가 있을 때)
+python remark_olap.py      →  data_fx/ 폴더
 
-# 3. 레전드 뷰 생성
+# 2. 레전드 뷰 생성
 python remark_prefix_v2.py      →  remark_prefix_v2.xlsx
 ```
 
 ---
 
-## remark_xlsx_rebuild.py
+## remark_classic.py
 
 ### 동작 방식
 - `openpyxl.load_workbook()` 으로 **기존 xlsx 그대로 열기** (새 workbook 미생성)
@@ -77,11 +86,15 @@ CLASSIC_RAW_HEADER_ROW = {
 
 ---
 
-## remark_data.py
+## remark_olap.py
 
 ### 동작 방식
-- `data/dim/*.csv` + `data/fact/*.csv` 의 지정 컬럼 값을 치환
-- 원본 유지, `data_fx/` 에 별도 출력
+- OLAP(파워피봇 데이터 모델) 피봇용 — 데이터 모델 소스인 `data/dim/*.csv` + `data/fact/*.csv` 의 지정 컬럼 값을 치환
+- 원본 유지, `data_fx/` 에 별도 출력 → Excel 에서 데이터 모델 소스를 `data_fx/` 로 다시 로드
+
+### 리마킹 대상 컬럼
+- 민감 식별자(`sitecode` / `region` / `subs` / `country` / `division` / `channel` 계열)만 치환
+- `SegmentName` / `SegmentId` / `category` / `variables/product` / `prop6` / `evar41` / `div_1~3` 등은 기본 주석처리(미치환) — 필요 시 주석 해제
 
 ### 새 파일 적용 시 수정 항목
 
@@ -89,9 +102,10 @@ CLASSIC_RAW_HEADER_ROW = {
 INPUT_DIR  = r"...새 data 폴더"
 OUTPUT_DIR = r"...출력 경로"
 
-# 새 dim 파일이나 컬럼이 다르면 갱신
+# dim: 민감 컬럼만 (region/subs/country 는 dim 에서 치환)
 DIM_REMARK  = { "d_country.csv": ["sitecode", "region", "subs", "country"], ... }
-FACT_REMARK = { "basic_traffic": ["sitecode", "SegmentName", "SegmentId"], ... }
+# fact: sitecode/division/channel 만 활성, 나머지는 주석처리
+FACT_REMARK = { "basic_traffic": ["sitecode"], "internal": ["sitecode", "channel"], ... }
 ```
 
 ---

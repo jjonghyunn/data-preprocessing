@@ -1,4 +1,4 @@
-# remark_xlsx_rebuild.py
+# remark_classic.py
 # 2026-06-23  Jonghyun Park w/ Claude
 #
 # 클래식 피봇 xlsx 리마킹 전용

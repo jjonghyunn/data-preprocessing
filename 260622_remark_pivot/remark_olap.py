@@ -1,7 +1,12 @@
-# remark_data.py
+# remark_olap.py
 # 2026-06-23  Jonghyun Park w/ Claude
 #
-# data/ 폴더의 dim/fact CSV를 _fx 리마킹 → data_fx/ 로 출력
+# ▣ OLAP(파워피봇 데이터 모델) 피봇용 리마킹 도구
+#   OLAP 피봇 xlsx 는 openpyxl 로 저장 시 깨지므로 xlsx 를 직접 못 건드린다.
+#   대신 데이터 모델의 소스인 data/ 폴더의 dim/fact CSV 를 리마킹해서
+#   data_fx/ 로 출력 → Excel 에서 데이터 모델 소스를 data_fx/ 로 다시 로드.
+#   (Classic 피봇 xlsx 는 remark_classic.py 로 셀 직접 치환)
+#
 # remark_pivot.py 와 동일 SEED=<REMARK_SEED> cipher (토큰 일관성 유지)
 #
 # 리마킹 방식: 지정 컬럼의 값을 _fx 로 in-place 교체 (컬럼명 유지, 값만 치환)
@@ -27,16 +32,37 @@ DIM_REMARK = {
 # ─── fact 테이블 리마킹 컬럼 ───
 # 키 = 파일명 패턴(startswith), 값 = 리마킹 대상 컬럼 리스트
 FACT_REMARK = {
-    "basic_traffic":  ["sitecode", "SegmentName", "SegmentId"],
+    "basic_traffic":  ["sitecode",
+                    #    "SegmentName", "SegmentId"
+                    ],
     "external":       ["sitecode", "variables/marketingchannel"],
-    "internal":       ["sitecode", "channel", "SegmentName", "SegmentId"],
-    "adhoc":          ["sitecode", "SegmentName", "SegmentId"],
-    "order":          ["sitecode", "SegmentName", "SegmentId"],
-    "shop_traffic":   ["sitecode", "SegmentName", "SegmentId", "division"],
-    "best_selling":   ["sitecode", "division", "category", "variables/product"],
-    "nextpage":       ["sitecode", "division", "variables/prop6"],
-    "cross_sell":     ["sitecode", "SegmentName", "SegmentId", "div_1", "div_2", "div_3"],
-    "multi_purchase": ["sitecode", "category", "variables/evar41"],
+    "internal":       ["sitecode", "channel",
+                    #    "SegmentName", "SegmentId"
+                       ],
+    "adhoc":          ["sitecode",
+                    #    "SegmentName", "SegmentId"
+                       ],
+    "order":          ["sitecode",
+                    #    "SegmentName", "SegmentId"
+                       ],
+    "shop_traffic":   ["sitecode",
+                    #    "SegmentName", "SegmentId",
+                       "division"],
+    "best_selling":   ["sitecode", "division",
+                    #    "category",
+                    #    "variables/product"
+                       ],
+    "nextpage":       ["sitecode", "division",
+                    #    "variables/prop6"
+                       ],
+    "cross_sell":     ["sitecode",
+                    #    "SegmentName", "SegmentId",
+                    #    "div_1", "div_2", "div_3"
+                       ],
+    "multi_purchase": ["sitecode",
+                    #    "category",
+                    #    "variables/evar41"
+                       ],
 }
 
 # ════ 내부 사용 ════
@@ -77,6 +103,7 @@ def fx(val) -> str:
 
 def remark_csv(src: Path, dst: Path, remark_cols: list):
     if not remark_cols:
+        # 리마킹 불필요 — 원본 그대로 복사
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_bytes(src.read_bytes())
         return 0
@@ -117,6 +144,7 @@ def main():
     dim_out = out_root / "dim"
     for f in sorted(dim_in.iterdir()):
         if f.suffix.lower() != ".csv":
+            # xlsx 등 비-CSV는 그대로 복사
             (dim_out / f.name).parent.mkdir(parents=True, exist_ok=True)
             (dim_out / f.name).write_bytes(f.read_bytes())
             print(f"  {f.name}  (copy as-is)")
