@@ -246,6 +246,14 @@ def remark_xlsx(xlsx_path: str, out_name: str):
             if cid:
                 used_cids.add(cid)
 
+    # ── 피봇 테이블 수 집계 (엔진별) ──
+    pivot_engine = {"CLASSIC": 0, "OLAP": 0, "?": 0}
+    for pt, cid in pt_cid_map.items():
+        ctype = cache_map.get(cid, {}).get("type", "?")
+        pivot_engine[ctype] = pivot_engine.get(ctype, 0) + 1
+    print(f"  Pivot tables: total={len(pt_cid_map)}  "
+          f"CLASSIC={pivot_engine['CLASSIC']}  OLAP={pivot_engine['OLAP']}  ?={pivot_engine['?']}")
+
     dim_merged: dict = {}
     for cid in used_cids:
         ci = cache_map.get(cid, {})
