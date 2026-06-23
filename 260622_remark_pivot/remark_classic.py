@@ -15,7 +15,8 @@ import openpyxl
 # ════ 사용자가 바꿔야 하는 부분 ════
 
 # ─── 출력 파일명 prefix ───
-OUT_PREFIX = "_remark_"  # prefix + 원본파일명 + .xlsx  예) _remark_Analysis_260616_updated.xlsx
+OUT_PREFIX    = "_remark_"        # 마스킹 결과 xlsx prefix  예) _remark_Analysis_260616_updated.xlsx
+LEGEND_PREFIX = "_remarkprefix_"  # 칼럼 레전드 csv prefix   예) _remarkprefix_classic.csv
 
 # ─── 경로 ───
 OUT_DIR      = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
@@ -79,6 +80,8 @@ _LOWER_MAP = _make_cipher()
 _UPPER_MAP  = {c.upper(): v.upper() for c, v in _LOWER_MAP.items()}
 _CHAR_MAP   = {**_LOWER_MAP, **_UPPER_MAP}
 _CACHE: dict = {}
+# 칼럼별 레전드: (칼럼헤더, 원본값) → _fx값  (_remarkprefix_classic.csv 출력용)
+_COL_LEGEND: dict = {}
 
 def _mask_token(tok: str) -> str:
     if tok not in _CACHE:
@@ -107,6 +110,7 @@ def process_raw_sheet(ws, header_row_num: int = 1):
     hrow = list(ws.iter_rows(min_row=header_row_num, max_row=header_row_num))[0]
     dim_cols  = set()
     item_cols = set()
+    col_label = {}   # 칼럼 index → 헤더 텍스트 (레전드용)
 
     for cell in hrow:
         h = norm_header(cell.value or "")
@@ -114,8 +118,10 @@ def process_raw_sheet(ws, header_row_num: int = 1):
             continue
         if h in DIM_HEADERS:
             dim_cols.add(cell.column)
+            col_label[cell.column] = str(cell.value).strip()
         if h in {norm_header(n) for n in ITEM_COL_NAMES}:
             item_cols.add(cell.column)
+            col_label[cell.column] = str(cell.value).strip()
 
     if not dim_cols and not item_cols:
         print(f"    → 매핑 컬럼 없음, skip")
@@ -140,6 +146,7 @@ def process_raw_sheet(ws, header_row_num: int = 1):
                 new_val = fx(val)
                 if new_val != val:
                     cell.value = new_val
+                    _COL_LEGEND[(col_label.get(c, ""), val)] = new_val
                     changed += 1
                 continue
 
@@ -149,6 +156,7 @@ def process_raw_sheet(ws, header_row_num: int = 1):
                     new_val = fx(val)
                     if new_val != val:
                         cell.value = new_val
+                        _COL_LEGEND[(col_label.get(c, ""), val)] = new_val
                         changed += 1
 
     print(f"    → {total} rows, {changed} cells changed")
@@ -179,13 +187,14 @@ def main():
     print(f"  Sheets: {wb.sheetnames}")
 
     import csv
-    legend = Path(OUT_DIR) / "remark_prefix.csv"
+    # 칼럼별 레전드 (Column | Value_Original | Value_fx) — 같은 SEED=<REMARK_SEED> 라 remark_olap 과 매핑 일치
+    legend = Path(OUT_DIR) / (LEGEND_PREFIX + "classic.csv")
     with open(legend, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=["Token_Original", "Token_fx"])
+        w = csv.DictWriter(f, fieldnames=["Column", "Value_Original", "Value_fx"])
         w.writeheader()
-        for orig in sorted(_CACHE, key=str.lower):
-            w.writerow({"Token_Original": orig, "Token_fx": _CACHE[orig]})
-    print(f"  Legend: {legend}  ({len(_CACHE)} tokens)")
+        for (col, orig) in sorted(_COL_LEGEND, key=lambda k: (k[0].lower(), k[1].lower())):
+            w.writerow({"Column": col, "Value_Original": orig, "Value_fx": _COL_LEGEND[(col, orig)]})
+    print(f"  Legend: {legend}  ({len(_COL_LEGEND)} values)")
     print("\nDone.")
 
 

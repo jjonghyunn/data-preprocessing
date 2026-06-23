@@ -1,7 +1,11 @@
-# remark_pivot.py
+# check_pivot_cache.py
 # 2026-06-23  Jonghyun Park w/ Claude
 #
-# 목적: xlsx 피봇 소스 분석 → site code / subs / country / channel 값 _fx 리마킹
+# 목적: xlsx 피봇 캐시 진단 (읽기 전용 — 파일 미수정)
+#   ▸ 각 피봇 캐시의 CLASSIC / OLAP 엔진 판별
+#   ▸ 캐시 안 dimension 값(site code / subs / country / channel / region) 추출 + _fx 미리보기
+#   실제 마스킹(파일 변환)은 remark_classic.py / remark_olap.py 가 수행.
+#   이 도구는 그 전에 "어느 시트가 CLASSIC/OLAP인지 / 캐시에 어떤 값이 있고 어떻게 마스킹될지" 확인용.
 #
 # ▸ CLASSIC 피봇 → source_path = sheet://소스시트명
 #   피봇 캐시 sharedItems 에서 dimension 값 직접 추출
@@ -17,8 +21,10 @@ import xml.etree.ElementTree as ET
 
 # ════ 사용자가 바꿔야 하는 부분 ════
 
-INPUT_XLSX = r"C:\Users\user_name\Downloads\2026 campaign_name Performance Analysis.xlsx"
-OUTPUT_DIR = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
+# 진단할 원본 xlsx (마스킹 전 파일). 안 쓰는 쪽은 "" 로 두면 skip.
+OLAP_XLSX    = r"C:\Users\user_name\Downloads\2026 campaign_name Performance Analysis.xlsx"          # OLAP 원본 → remark_olap.csv
+CLASSIC_XLSX = r"C:\Users\user_name\Downloads\2026 CAMPAIGN NAME Campaign Performance Analysis.xlsx"  # Classic 원본 → remark_classic.csv
+OUTPUT_DIR   = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
 
 # 리마킹 대상 dimension 키워드 (필드명 소문자 포함 여부로 판단)
 # MDX 경로의 계층/레벨 이름에도 동일하게 적용
@@ -278,15 +284,18 @@ def remark_xlsx(xlsx_path: str, out_name: str):
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # OLAP 피봇 xlsx 분석
-    olap_dims = remark_xlsx(INPUT_XLSX, "remark_olap.csv")
-
-    # Classic 피봇 xlsx 분석 (파일 경로 직접 지정)
-    classic_xlsx = r"C:\Users\user_name\Downloads\2026 CAMPAIGN NAME Campaign Performance Analysis.xlsx"
-    if os.path.exists(classic_xlsx):
-        classic_dims = remark_xlsx(classic_xlsx, "remark_classic.csv")
+    # OLAP 피봇 캐시 진단
+    if OLAP_XLSX and os.path.exists(OLAP_XLSX):
+        olap_dims = remark_xlsx(OLAP_XLSX, "remark_olap.csv")
     else:
-        print(f"\nClassic xlsx not found, skipping: {classic_xlsx}")
+        print(f"\nOLAP xlsx not set/found, skipping: {OLAP_XLSX}")
+        olap_dims = {}
+
+    # Classic 피봇 캐시 진단
+    if CLASSIC_XLSX and os.path.exists(CLASSIC_XLSX):
+        classic_dims = remark_xlsx(CLASSIC_XLSX, "remark_classic.csv")
+    else:
+        print(f"\nClassic xlsx not set/found, skipping: {CLASSIC_XLSX}")
         classic_dims = {}
 
     # prefix 레전드 (전체 사용된 토큰)

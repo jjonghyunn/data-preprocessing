@@ -20,6 +20,9 @@ from pathlib import Path
 INPUT_DIR  = r"C:\Users\user_name\Downloads\data"
 OUTPUT_DIR = r"C:\Users\user_name\Downloads\data_fx"
 
+# 칼럼 레전드 csv prefix  예) _remarkprefix_olap.csv
+LEGEND_PREFIX = "_remarkprefix_"
+
 # ─── dim 테이블 리마킹 컬럼 ───
 # 키 = 파일명, 값 = 리마킹 대상 컬럼 리스트
 DIM_REMARK = {
@@ -81,6 +84,8 @@ _LOWER_MAP = _make_cipher()
 _UPPER_MAP  = {c.upper(): v.upper() for c, v in _LOWER_MAP.items()}
 _CHAR_MAP   = {**_LOWER_MAP, **_UPPER_MAP}
 _CACHE: dict = {}
+# 칼럼별 레전드: (칼럼명, 원본값) → _fx값  (_remarkprefix_olap.csv 출력용)
+_COL_LEGEND: dict = {}
 
 def _mask_token(tok: str) -> str:
     if tok not in _CACHE:
@@ -119,7 +124,11 @@ def remark_csv(src: Path, dst: Path, remark_cols: list):
         for row in reader:
             for col in remark_cols:
                 if col in row:
-                    row[col] = fx(row[col])
+                    orig = row[col]
+                    new  = fx(orig)
+                    if new != orig:
+                        _COL_LEGEND[(col, orig)] = new
+                    row[col] = new
             writer.writerow(row)
             rows_processed += 1
     return rows_processed
@@ -170,14 +179,14 @@ def main():
         total_rows  += rows
         total_files += 1
 
-    # ── 레전드 CSV ──
-    legend_path = out_root / "remark_prefix.csv"
+    # ── 칼럼별 레전드 CSV (Column | Value_Original | Value_fx) — 같은 SEED=<REMARK_SEED> 라 remark_classic 과 매핑 일치 ──
+    legend_path = out_root / (LEGEND_PREFIX + "olap.csv")
     with open(legend_path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.DictWriter(f, fieldnames=["Token_Original", "Token_fx"])
+        w = csv.DictWriter(f, fieldnames=["Column", "Value_Original", "Value_fx"])
         w.writeheader()
-        for orig in sorted(_CACHE, key=str.lower):
-            w.writerow({"Token_Original": orig, "Token_fx": _CACHE[orig]})
-    print(f"\nLegend: {legend_path}  ({len(_CACHE)} tokens)")
+        for (col, orig) in sorted(_COL_LEGEND, key=lambda k: (k[0].lower(), k[1].lower())):
+            w.writerow({"Column": col, "Value_Original": orig, "Value_fx": _COL_LEGEND[(col, orig)]})
+    print(f"\nLegend: {legend_path}  ({len(_COL_LEGEND)} values)")
     print(f"\nDone. {total_files} files, {total_rows:,} rows → {OUTPUT_DIR}")
 
 if __name__ == "__main__":

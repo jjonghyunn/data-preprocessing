@@ -22,10 +22,10 @@
 
 | 파일 | 용도 |
 |---|---|
-| `remark_classic.py` | **Classic 피봇** xlsx 리마킹 — raw 시트 셀 치환 + 불필요 시트 삭제 |
-| `remark_olap.py` | **OLAP 피봇** 소스 리마킹 — data/ CSV → data_fx/ 출력 |
-| `remark_prefix_v2.py` | 컬럼쌍 구조 레전드 xlsx 생성 (샘플 포맷) |
-| `remark_pivot.py` | 피봇 캐시 차원값 추출 (분석용 보조 도구) |
+| `remark_classic.py` | **Classic 피봇** xlsx 리마킹 — raw 시트 셀 치환 + 불필요 시트 삭제 + `_remarkprefix_classic.csv` 레전드 |
+| `remark_olap.py` | **OLAP 피봇** 소스 리마킹 — data/ CSV → data_fx/ + `_remarkprefix_olap.csv` 레전드 |
+| `check_pivot_cache.py` | 피봇 캐시 **진단**(읽기 전용) — CLASSIC/OLAP 엔진 판별 + 차원값 추출 (마스킹 전 확인용) |
+| `remark_prefix_v2.py` | dim 마스터 기반 칼럼쌍 레전드 xlsx 생성 (선택) |
 
 ---
 
@@ -38,8 +38,15 @@ python remark_classic.py   →  _remark_원본파일명.xlsx
 # 1b. OLAP 피봇 소스 CSV 리마킹 (data 폴더가 있을 때)
 python remark_olap.py      →  data_fx/ 폴더
 
-# 2. 레전드 뷰 생성
+# ※ 1a/1b 실행 시 칼럼별 레전드 csv 가 자동 생성됨:
+#    remark_classic.py → _remarkprefix_classic.csv
+#    remark_olap.py    → _remarkprefix_olap.csv
+
+# 2. (선택) dim 마스터 기반 칼럼쌍 레전드 xlsx
 python remark_prefix_v2.py      →  remark_prefix_v2.xlsx
+
+# (선택) 마스킹 전 피봇 캐시 엔진 진단 (CLASSIC/OLAP 확인)
+python check_pivot_cache.py     →  remark_olap.csv / remark_classic.csv
 ```
 
 ---
@@ -107,6 +114,20 @@ DIM_REMARK  = { "d_country.csv": ["sitecode", "region", "subs", "country"], ... 
 # fact: sitecode/division/channel 만 활성, 나머지는 주석처리
 FACT_REMARK = { "basic_traffic": ["sitecode"], "internal": ["sitecode", "channel"], ... }
 ```
+
+---
+
+## 레전드(legend) — 어떤 값이 뭐로 바뀌었나
+
+| 파일 | 생성 도구 | 형태 |
+|---|---|---|
+| `_remarkprefix_classic.csv` | `remark_classic.py` (실행 시 자동) | `Column \| Value_Original \| Value_fx` — 그 실행에서 **실제 바뀐** 값 |
+| `_remarkprefix_olap.csv` | `remark_olap.py` (실행 시 자동) | 〃 |
+| `remark_prefix_v2.xlsx` | `remark_prefix_v2.py` (선택) | dim 마스터 전체 칼럼쌍 (보기용 xlsx) |
+| `remark_olap.csv` / `remark_classic.csv` | `check_pivot_cache.py` (선택) | 캐시에 실제 있던 차원값 기준 |
+
+- 네 경로 모두 **같은 SEED=<REMARK_SEED> cipher** → `ca_fr` 은 어디서 나오든 항상 같은 `_fx` 값. 서로 모순 없이 맞물린다.
+- ⚠️ 레전드는 **역추적 키** — 외부 공유 파일과 같이 보내지 말 것 (내부 검증용).
 
 ---
 
