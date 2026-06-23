@@ -43,8 +43,7 @@ python remark_prefix_v2.py      →  remark_prefix_v2.xlsx
 - 피봇 캐시 XML 유지 → **Excel 새로고침으로 피봇 복원 가능**
 
 ### 치환 범위
-- **차원 컬럼**: sitecode / country / subs / region — `d_country.csv` 값 기준 매칭
-- **채널 컬럼**: channel_source / channel_unified — `d_channel.csv` 값 기준 매칭
+- **차원 컬럼**: sitecode / country / subs / region / channel 계열 헤더를 가진 컬럼 — xlsx 내부 값 직접 치환 (외부 CSV 조회 불필요)
 - **ITEM 컬럼**: 왼쪽 열 값이 `Paid` 또는 `Non-Paid` 일 때만 조건부 치환
 - **치환 안 하는 것**: 시트명, 컬럼 헤더, 숫자값, 날짜, Current/Prior/YoY 등 일반 레이블
 

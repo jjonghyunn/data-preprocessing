@@ -6,8 +6,9 @@
 # 피봇 캐시 XML 유지 (새 workbook 미생성) → Excel 새로고침으로 피봇 복원 가능
 #
 # 치환 대상: sitecode·country·subs·region + channel + ITEM(좌측열 Paid/Non-Paid 조건부)
+# 치환 범위는 xlsx 안의 dim 컬럼 값 그대로 — 외부 CSV 조회 불필요
 
-import csv, re, random
+import re, random
 from pathlib import Path
 import openpyxl
 
@@ -17,14 +18,7 @@ import openpyxl
 OUT_PREFIX = "_remark_"  # prefix + 원본파일명 + .xlsx  예) _remark_Analysis_260616_updated.xlsx
 
 # ─── 경로 ───
-# DIM_DIR: 치환 대상 값 목록 CSV 폴더 (xlsx 원본 데이터와 무관)
-#   d_country.csv → sitecode / region / subs / country 값 목록
-#   d_channel.csv → channel_source / channel_unified 값 목록
-#   "이 값이 raw 셀에 있으면 치환해라" 판단에만 사용
-DIM_DIR  = r"C:\Users\user_name\Downloads\data\dim"
-OUT_DIR  = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
-
-# ─── 입력 파일 ───
+OUT_DIR      = r"C:\Users\user_name\OneDrive - company_name\user_id\path\to\output"
 CLASSIC_XLSX = r"C:\Users\user_name\Downloads\2026 CAMPAIGN NAME Campaign Performance Analysis.xlsx"
 
 # ─── 유지할 시트 목록 (새 파일은 Excel에서 시트 탭 확인 후 교체) ───
@@ -59,19 +53,17 @@ ITEM_TRIGGER = {"paid", "non-paid", "non paid"}
 
 SEED = <REMARK_SEED>
 
-# 컬럼 헤더 → dim 종류 매핑 (소문자·구분자 제거 후 비교)
-HEADER_DIM_MAP = {
-    "sitecode":                  "sitecode",
-    "sitecode(s)":               "sitecode",
-    "site":                      "sitecode",
-    "country":                   "country",
-    "subs":                      "subs",
-    "region":                    "region",
-    "channel":                   "channel",
-    "channelsource":             "channel",
-    "channelunified":            "channel",
-    "variablesmarketingchannel": "channel",
-    "mktchannel":                "channel",
+# 컬럼 헤더 → dim 여부 판단 (소문자·비알파뉴메릭 제거 후 비교)
+DIM_HEADERS = {
+    "sitecode", "sitecodes", "site",
+    "country",
+    "subs",
+    "region",
+    "channel",
+    "channelsource",
+    "channelunified",
+    "variablesmarketingchannel",
+    "mktchannel",
 }
 
 
@@ -111,50 +103,25 @@ def norm_header(h) -> str:
     return re.sub(r"[^a-z0-9]", "", str(h).lower())
 
 
-def build_dim_lookup() -> dict:
-    dim = {k: set() for k in ["sitecode", "country", "subs", "region", "channel"]}
-    d = Path(DIM_DIR)
-
-    country_path = d / "d_country.csv"
-    if country_path.exists():
-        with open(country_path, encoding="utf-8-sig") as f:
-            for row in csv.DictReader(f):
-                for col in ["sitecode", "country", "subs", "region"]:
-                    v = row.get(col, "").strip()
-                    if v:
-                        dim[col].add(v)
-
-    channel_path = d / "d_channel.csv"
-    if channel_path.exists():
-        with open(channel_path, encoding="utf-8-sig") as f:
-            for row in csv.DictReader(f):
-                for col in ["channel_source", "channel_unified"]:
-                    v = row.get(col, "").strip()
-                    if v:
-                        dim["channel"].add(v)
-
-    return dim
-
-
-def process_raw_sheet(ws, dim: dict, header_row_num: int = 1):
+def process_raw_sheet(ws, header_row_num: int = 1):
     hrow = list(ws.iter_rows(min_row=header_row_num, max_row=header_row_num))[0]
-    col_dim   = {}
+    dim_cols  = set()
     item_cols = set()
 
     for cell in hrow:
         h = norm_header(cell.value or "")
         if not h:
             continue
-        if h in HEADER_DIM_MAP:
-            col_dim[cell.column] = HEADER_DIM_MAP[h]
+        if h in DIM_HEADERS:
+            dim_cols.add(cell.column)
         if h in {norm_header(n) for n in ITEM_COL_NAMES}:
             item_cols.add(cell.column)
 
-    if not col_dim and not item_cols:
+    if not dim_cols and not item_cols:
         print(f"    → 매핑 컬럼 없음, skip")
         return 0
 
-    print(f"    → dim cols: {col_dim}  item cols: {item_cols}")
+    print(f"    → dim cols: {dim_cols}  item cols: {item_cols}")
 
     changed = 0
     total   = 0
@@ -169,12 +136,11 @@ def process_raw_sheet(ws, dim: dict, header_row_num: int = 1):
             if val is None or not isinstance(val, str):
                 continue
 
-            if c in col_dim:
-                if val.strip() in dim[col_dim[c]]:
-                    new_val = fx(val)
-                    if new_val != val:
-                        cell.value = new_val
-                        changed += 1
+            if c in dim_cols:
+                new_val = fx(val)
+                if new_val != val:
+                    cell.value = new_val
+                    changed += 1
                 continue
 
             if c in item_cols:
@@ -190,13 +156,8 @@ def process_raw_sheet(ws, dim: dict, header_row_num: int = 1):
 
 
 def main():
-    dim = build_dim_lookup()
-    print("Dim lookup:")
-    for k, v in dim.items():
-        print(f"  {k}: {len(v)} values")
-
     src = CLASSIC_XLSX
-    print(f"\n── {Path(src).name} ──")
+    print(f"── {Path(src).name} ──")
     wb = openpyxl.load_workbook(src)
     print(f"  Available: {wb.sheetnames}")
 
@@ -209,7 +170,7 @@ def main():
             print(f"  SKIP (없음): {sname}")
             continue
         print(f"  Remarking: {sname} (header row={hrow})")
-        process_raw_sheet(wb[sname], dim, header_row_num=hrow)
+        process_raw_sheet(wb[sname], header_row_num=hrow)
 
     out_name = OUT_PREFIX + Path(src).stem + ".xlsx"
     out_path = Path(OUT_DIR) / out_name
@@ -217,6 +178,7 @@ def main():
     print(f"\n  Saved → {out_path}")
     print(f"  Sheets: {wb.sheetnames}")
 
+    import csv
     legend = Path(OUT_DIR) / "remark_prefix.csv"
     with open(legend, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=["Token_Original", "Token_fx"])
