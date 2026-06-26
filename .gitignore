@@ -20,6 +20,19 @@ old/
 *_test.py
 test_*.py
 
+# 바이너리/오피스 산출물 (코드 repo — 실수 add 방지)
+*.pptx
+*.xlsx
+*.xls
+*.zip
+*.pdf
+*.docx
+*.png
+*.jpg
+
+# sanitize 전 미정리 작업 폴더 (public 금지)
+260602_AI_Silver_Certification/
+
 # Auto-generated segment / usage reports (실제 세그먼트 ID 포함 — 커밋 금지)
 json_segment_report/
 json_usage_report/
