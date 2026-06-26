@@ -3,6 +3,22 @@ aa_exports/
 *_stacked_separate.csv
 *_stacked.csv
 union_*.csv
+_union_*.csv
+
+# 출력물 폴더 / 타임스탬프 산출물 (개인 public — 커밋 금지)
+**/output/
+*_2[0-9][0-9][0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9].csv
+*_2[0-9][0-9][0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9].xlsx
+*_2[0-9][0-9][0-9][0-9][0-9][0-9].csv
+
+# 버전 아카이브 / 작업 잔재 (test·backup·sample·편집)
+old/
+*sample*
+*backup*
+*★backup*
+*(편집)*
+*_test.py
+test_*.py
 
 # Auto-generated segment / usage reports (실제 세그먼트 ID 포함 — 커밋 금지)
 json_segment_report/
