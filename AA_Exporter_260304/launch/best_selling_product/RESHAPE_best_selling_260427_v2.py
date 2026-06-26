@@ -1,11 +1,12 @@
 # RESHAPE_best_selling_260427_v2.py
-# 2026-04-27  Jonghyun Park w/ Claude
+# 2026-05-06  Jonghyun Park w/ Claude
 # v1 → v2 변경:
 #   1) 출력 컬럼에 WEB/APP 추가 (SITE CODE 다음)
 #   2) value 컬럼 4개 → 8개 확장 (value1~4 = Web, value5~8 = App)
 #   3) 한 raw 행 → 4줄 출력 (S.com Web, Campaign Web, S.com App, Campaign App)
 #   4) PRODUCT(value) 공란/NaN 시 CATEGORY=ETC 강제
 #      (기존엔 NaN→str("nan")→"NA"로 시작해 Cooking 오분류되던 문제)
+# 2026-05-06: _TS_PAT을 v1.1/v1.2/v1.2.1과 통일 — HHMM(4자리)/HHMMSS(6자리) 모두 지원
 #
 # best_selling_product_cmp raw CSV → 정제 CSV (stacked_separate)
 # SQL: best selling product_260212(카테고리displayname스페인어보완).sql 기준
@@ -30,8 +31,14 @@ TB_KEYS = [
     ("last_best_selling_product",  "2025 Campaign Period", "2025"),
 ]
 
-# ── 타임스탬프 패턴 ────────────────────────────────────────────────
-_TS_PAT = re.compile(r"_(\d{8}_\d{4})$")
+# ── 타임스탬프 패턴 (HHMM 4자리 또는 HHMMSS 6자리 모두 지원) ───────
+_TS_PAT = re.compile(r"_(\d{8})_(\d{4,6})$")
+
+
+def _ts_sort_key(path):
+    """타임스탬프 정렬 키. HHMM은 6자리로 zero-pad해서 HHMMSS와 섞여도 정상 정렬."""
+    m = _TS_PAT.search(path.stem)
+    return m.group(1) + m.group(2).ljust(6, "0")
 
 
 # ── SITE CODE 정규화 (SQL: before_last CTE) ────────────────────────
@@ -335,16 +342,16 @@ def find_latest(tb_key: str) -> Path | None:
     """tb_key에 해당하는 타임스탬프 파일 중 가장 최신 1개 반환.
 
     glob prefix 매칭만으로는 best_selling_product → best_selling_product_prior도
-    잡히므로, 정규식 fullmatch로 tb_key 직후가 _YYYYMMDD_HHMM 인지 확인.
+    잡히므로, 정규식 fullmatch로 tb_key 직후가 _YYYYMMDD_HHMM(SS) 인지 확인.
     """
-    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4}}$")
+    pat = re.compile(rf"^{re.escape(tb_key)}_\d{{8}}_\d{{4,6}}$")
     candidates = [
         f for f in EXPORTS_DIR.glob(f"{tb_key}_*.csv")
         if pat.match(f.stem)
     ]
     if not candidates:
         return None
-    return max(candidates, key=lambda f: _TS_PAT.search(f.stem).group(1))
+    return max(candidates, key=_ts_sort_key)
 
 
 # ── 단일 파일 정제 ─────────────────────────────────────────────────
