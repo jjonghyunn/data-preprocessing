@@ -1,4 +1,5 @@
-# check_mapping_match_260313.py -- 2026 03 13 jonghyun
+# check_mapping_match_260313.py  
+<sub>2026-03-13  Jonghyun Park w/ Claude</sub>  
 
 aa_exports 폴더의 CSV 파일들이 tb_column_name_mapping.csv와 컬럼 레벨로 정상 매핑되는지 검수합니다.
 

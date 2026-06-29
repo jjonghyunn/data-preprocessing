@@ -1,4 +1,5 @@
-# 후처리 코드 가이드 -- 2026-04-23 Jonghyun Park w/ Claude
+# 후처리 코드 가이드  
+<sub>2026-04-23  Jonghyun Park w/ Claude</sub>  
 
 AA 추출 후 정제·통합하는 메인 노트북.
 
