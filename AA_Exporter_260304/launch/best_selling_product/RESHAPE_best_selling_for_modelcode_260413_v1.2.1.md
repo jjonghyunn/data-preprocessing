@@ -1,10 +1,10 @@
-# RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py 가이드
-<!-- 2026-04-30  Jonghyun Park w/ Claude -->
+# RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py 가이드  
+<sub>2026-04-30  Jonghyun Park w/ Claude</sub>  
 
 `best_selling_modelcode` raw CSV → 정제 CSV (`_stacked_separate`) 생성 스크립트.
 
-베이스: `RESHAPE_best_selling_260413_v1.2.1.py` (v1.2.1)  
-카테고리 집계 패턴: `RESHAPE_multipurchase_260428_v1.1.py` 의 `aggregate_categories`
+베이스: `RESHAPE_best_selling_260413_v1.2.py` (v1.2.1)  
+카테고리 집계 패턴: `RESHAPE_multipurchase_260428.py` 의 `aggregate_categories`
 
 > **언제 사용?** raw `value` 컬럼이 단일 모델이 아니라 **다중 모델 코드 쉼표 구분** 형태 (예: `SM-S910,SM-A155,QN65...`)일 때.
 
@@ -21,30 +21,30 @@ raw `value` 컬럼을 **쉼표 분리**해서 모델별 DIVISION/CATEGORY를 추
     ↓ split ","
 ["SM-S910", "SM-A155", "QN65", "SM-S210"]
     ↓ get_division 각각
-["MX", "MX", "VD", "MX"]
+["DIV1", "DIV1", "DIV2", "DIV1"]
     ↓ 순서보존 dedup
-"MX, VD"
+"DIV1, DIV2"
 ```
 
 ### 2) DIVISION — 두 컬럼 분리 + 고정 순서
 
-- **이전 (best_selling v1.2.1)**: 단일 모델 → 단일 division ("MX" / "VD" / "DA" / "ETC")
+- **이전 (best_selling v1.2.1)**: 단일 모델 → 단일 division ("DIV1" / "DIV2" / "DIV3" / "ETC")
 - **변경 (modelcode v1.2.1)**: 다중 모델 → 두 컬럼:
-  - **DIVISION**: ETC 제외, 고정 순서 `MX→VD→DA`, dedup
-  - **DIVISION ORIGIN** (신규): ETC 포함, 고정 순서 `MX→VD→DA→ETC`, dedup
+  - **DIVISION**: ETC 제외, 고정 순서 `DIV1→DIV2→DIV3`, dedup
+  - **DIVISION ORIGIN** (신규): ETC 포함, 고정 순서 `DIV1→DIV2→DIV3→ETC`, dedup
 
-> **출력 순서는 등장 순서가 아니라 항상 `MX, VD, DA(, ETC)` 고정**. 즉 `DA, MX`는 잘못된 출력 — 항상 `MX, DA`로 정렬됨.
+> **출력 순서는 등장 순서가 아니라 항상 `DIV1, DIV2, DIV3(, ETC)` 고정**. 즉 `DIV3, DIV1`는 잘못된 출력 — 항상 `DIV1, DIV3`로 정렬됨.
 
 | 입력 (모델별 division 집합) | DIVISION ORIGIN | DIVISION |
 |---|---|---|
-| `{MX}` | `MX` | `MX` |
-| `{MX, VD, DA}` | `MX, VD, DA` | `MX, VD, DA` |
-| `{DA, MX}` | `MX, DA` | `MX, DA` |
-| `{MX, ETC}` | `MX, ETC` | `MX` |
+| `{DIV1}` | `DIV1` | `DIV1` |
+| `{DIV1, DIV2, DIV3}` | `DIV1, DIV2, DIV3` | `DIV1, DIV2, DIV3` |
+| `{DIV3, DIV1}` | `DIV1, DIV3` | `DIV1, DIV3` |
+| `{DIV1, ETC}` | `DIV1, ETC` | `DIV1` |
 | `{ETC}` | `ETC` | (빈) |
 
 ```python
-DIVISION_ORDER = ["MX", "VD", "DA", "ETC"]
+DIVISION_ORDER = ["DIV1", "DIV2", "DIV3", "ETC"]
 
 def aggregate_divisions(value) -> tuple[str, str]:
     if pd.isna(value):
@@ -110,7 +110,7 @@ aa_exports/{tb_key}_*.csv
     ├─ SITE CODE 정규화
     ├─ 환율 적용 (REVENUE = value2 or value4 × rate)
     │
-    ├─ S.com 행 생성   (STANDARD="S.com",    ORDER=value1, REVENUE=value2×rate)
+    ├─ Shop 행 생성   (STANDARD="Shop",    ORDER=value1, REVENUE=value2×rate)
     └─ Campaign 행 생성 (STANDARD="Campaign", ORDER=value3, REVENUE=value4×rate)
           ↓
     concat
@@ -136,18 +136,18 @@ DIVISION ORIGIN, CATEGORIES ORIGIN
 | 컬럼 | 내용 |
 |---|---|
 | `PERIOD` | TB_KEYS 설정값 (예: `2026 Campaign Period`) |
-| `STANDARD` | `S.com` 또는 `Campaign` |
+| `STANDARD` | `Shop` 또는 `Campaign` |
 | `TIER` | 공란 |
 | `SUBS` | `Subsidiary` 원본값 |
 | `COUNTRY` | `Country` 원본값 |
 | `SITE CODE` | 정규화된 site code |
-| **`DIVISION`** | **ETC 제외, 고정 순서 MX→VD→DA, dedup (예: `MX, VD, DA`)** |
+| **`DIVISION`** | **ETC 제외, 고정 순서 DIV1→DIV2→DIV3, dedup (예: `DIV1, DIV2, DIV3`)** |
 | `PRODUCT` | `value` 원본 (다중 모델 코드, 쉼표 구분 그대로) |
 | **`CATEGORY`** | **ACC 제외, 알파벳 정렬, dedup (예: `SMP, TV`)** |
 | `PRICE RANGE` | Under $300 / Under $500 / Under $800 / Under $1000 / Over $1000 — 단가 = REVENUE/ORDER |
-| `ORDER` | S.com=`value1`, Campaign=`value3` (0 행은 제거됨) |
-| `REVENUE` | S.com=`value2×rate`, Campaign=`value4×rate` (소수점 6자리) |
-| **`DIVISION ORIGIN`** | **(신규) ETC 포함, 고정 순서 MX→VD→DA→ETC, dedup** |
+| `ORDER` | Shop=`value1`, Campaign=`value3` (0 행은 제거됨) |
+| `REVENUE` | Shop=`value2×rate`, Campaign=`value4×rate` (소수점 6자리) |
+| **`DIVISION ORIGIN`** | **(신규) ETC 포함, 고정 순서 DIV1→DIV2→DIV3→ETC, dedup** |
 | **`CATEGORIES ORIGIN`** | **(신규, 가장 우측) pos 순서, 중복 유지, ACC 포함, X/ETC/None 제외** |
 
 ---
@@ -157,7 +157,7 @@ DIVISION ORIGIN, CATEGORIES ORIGIN
 ### `aggregate_divisions(value) -> tuple[str, str]`
 
 ```python
-DIVISION_ORDER = ["MX", "VD", "DA", "ETC"]
+DIVISION_ORDER = ["DIV1", "DIV2", "DIV3", "ETC"]
 
 def aggregate_divisions(value) -> tuple[str, str]:
     if pd.isna(value):
@@ -171,7 +171,7 @@ def aggregate_divisions(value) -> tuple[str, str]:
 ```
 
 - 반환: `(DIVISION ORIGIN, DIVISION)`
-- 출력 순서는 **항상 `MX, VD, DA(, ETC)` 고정** — 입력 등장 순서 무관
+- 출력 순서는 **항상 `DIV1, DIV2, DIV3(, ETC)` 고정** — 입력 등장 순서 무관
 - DIVISION은 ETC 제외, DIVISION ORIGIN은 ETC 포함
 
 ### `aggregate_categories(value) -> tuple[str, str]`
@@ -200,7 +200,7 @@ def aggregate_categories(value) -> tuple[str, str]:
 ## DIVISION / CATEGORY 분류 기준
 
 best_selling v1.2.1 의 `get_division` / `get_category` 함수와 **완전히 동일**.  
-상세 prefix 매핑은 `RESHAPE_best_selling_260413_v1.2.1.md` 참고.
+상세 prefix 매핑은 `RESHAPE_best_selling_260413_v1.2.md` 참고.
 
 ---
 
@@ -261,7 +261,7 @@ tb_key별로 파일이 없으면 스킵 후 다음 tb_key 계속 처리.
 | `status` 필터 | 'fail' / 'error' 단어 포함 행만 제외 (v1.2.1 완화 로직 그대로) |
 | `ORDER == 0` 행 | 자동 제외 (v1.1 룰 유지) |
 | NaN/공란 PRODUCT | DIVISION = `""`, CATEGORY = `""`, CATEGORIES ORIGIN = `""` (단일 모델 best_selling은 `ETC` 였음 — 다중 모델 집계 함수에선 빈 문자열 반환) |
-| **DIVISION 출력 순서** | **고정 `MX→VD→DA→ETC`** — 입력 순서 무관, 항상 정렬됨. 예) 입력이 `DA,MX` 이어도 출력은 `MX, DA` |
+| **DIVISION 출력 순서** | **고정 `DIV1→DIV2→DIV3→ETC`** — 입력 순서 무관, 항상 정렬됨. 예) 입력이 `DIV3,DIV1` 이어도 출력은 `DIV1, DIV3` |
 | **CATEGORY 정렬** | **알파벳 정렬 case-insensitive (utf8_general_ci 호환)**, ACC 제외 |
 | **CATEGORIES ORIGIN 제외값** | None / 빈 문자열 / `X` / `ETC` (`EXCLUDE` set에서 조정 가능) |
 | 환율 컬럼 자동 선택 | `currency_year`로 시작하는 컬럼 사용 — currency.csv 연도 컬럼 확인 필요 |
@@ -275,4 +275,4 @@ tb_key별로 파일이 없으면 스킵 후 다음 tb_key 계속 처리.
 
 - **2026-04-30** (Jonghyun Park) — 초기 작성. best_selling v1.2.1 베이스 + multipurchase의 다중 모델 카테고리 집계 패턴 결합. DIVISION 순서보존 dedup, CATEGORIES ORIGIN 우측 끝 컬럼 신설.
 - **2026-04-30** (Jonghyun Park) — TB_KEYS에 US 3종 추가 (`us_best_selling_modelcode`, `us_best_selling_modelcode_prior`, `us_last_raw_best_selling_modelcode`).
-- **2026-04-30** (Jonghyun Park) — DIVISION을 두 컬럼으로 분리 (`DIVISION` = ETC 제외, `DIVISION ORIGIN` = ETC 포함), 고정 순서 `MX→VD→DA(→ETC)` 적용. 컬럼 우측 끝 순서: `..., DIVISION ORIGIN, CATEGORIES ORIGIN`.
+- **2026-04-30** (Jonghyun Park) — DIVISION을 두 컬럼으로 분리 (`DIVISION` = ETC 제외, `DIVISION ORIGIN` = ETC 포함), 고정 순서 `DIV1→DIV2→DIV3(→ETC)` 적용. 컬럼 우측 끝 순서: `..., DIVISION ORIGIN, CATEGORIES ORIGIN`.

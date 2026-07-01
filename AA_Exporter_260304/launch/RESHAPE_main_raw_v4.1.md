@@ -25,7 +25,7 @@ RESHAPE_main_raw_v4.1.ipynb
 
 | 항목 | 값 |
 |---|---|
-| `MAPPING_CSV` | `tb_column_name_mapping.csv` |
+| `MAPPING_CSV` | `tb_column_name_mapping_corrected.csv` |
 | `report_no_mapping` | 1_1~5_1 (캠페인 기준) |
 
 ```python
@@ -49,7 +49,7 @@ report_no_mapping = {
 
 | 파일 | 내용 |
 |------|------|
-| `../ref/tb_column_name_mapping.csv` | value_n → 컬럼명 매핑 마스터 |
+| `../ref/tb_column_name_mapping_corrected.csv` | value_n → 컬럼명 매핑 마스터 |
 | `../ref/currency.csv` | 환율 (3번째 컬럼=latest연도, 4번째 컬럼=prior연도) |
 | `../ref/app_O_X.csv` | site_code별 App 유무 (A열=site_code, B열=O/X) |
 
@@ -93,7 +93,7 @@ AA에서 next_page 쿼리가 두 파일(`_ttlmx`, `_vdda`)로 분리 출력되�
 
 ### 4. wide → long 변환 및 환율 적용
 
-- `tb_column_name_mapping.csv` 기준으로 value1~N → 실제 컬럼명 rename
+- `tb_column_name_mapping_corrected.csv` 기준으로 value1~N → 실제 컬럼명 rename
 - `pd.melt`로 wide → long (metric_col / metric_value_origin)
 - `revenue` 포함 컬럼만 `currency.csv` 환율 적용 → `metric_value_adj`
 - 환율 연도 기준: `End_Date` 연도 사용
@@ -199,4 +199,4 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 - CSV 파일별 FAILED 건수 일괄 확인
 
 ### check_mapping_match.py
-- `aa_exports/` CSV vs `tb_column_name_mapping.csv` 컬럼 매핑 검수
+- `aa_exports/` CSV vs `tb_column_name_mapping_corrected.csv` 컬럼 매핑 검수

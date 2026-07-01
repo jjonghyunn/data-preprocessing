@@ -1,4 +1,5 @@
-# Windows LongPath 활성화 방법
+# Windows LongPath 활성화 방법  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 ## 왜 필요한가
 

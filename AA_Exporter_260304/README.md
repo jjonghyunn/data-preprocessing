@@ -1,4 +1,5 @@
-# AA Export Workflow
+# AA Export Workflow  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 기준 문서 업데이트일: `260430` (best_selling for_modelcode v1.2.1 추가)
 
@@ -57,8 +58,10 @@ AA_Exporter/
 │   ├── RESHAPE_main_raw_v4.1.ipynb           # 정제/포맷팅 (이전 버전)
 │   ├── RESHAPE_main_raw_v4.1.md              # 정제 가이드
 │   ├── RESHAPE_main_raw_v4.1.1.md            # v4.1.1 업데이트 노트
-│   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (최신)
+│   ├── RESHAPE_main_raw_v4.2.ipynb           # 정제/포맷팅 (이전 버전)
 │   ├── RESHAPE_main_raw_v4.2.md              # v4.2 정제 가이드
+│   ├── RESHAPE_main_raw_v4.3.ipynb           # 정제/포맷팅 (최신)
+│   ├── RESHAPE_main_raw_v4.3.md              # v4.3 정제 가이드
 │   ├── best_selling_product/                 # Best Selling 정제 (v1, v1.1, v1.2, v2, for_modelcode v1.2.1)
 │   │   ├── RESHAPE_best_selling_260413_v1.py     # v1 (value1~4, 11컬럼)
 │   │   ├── RESHAPE_best_selling_260413_v1.md
@@ -99,7 +102,7 @@ AA_Exporter/
 4. `launch/` 의 노트북 6개 실행 (3가지 기간 global/us)
 5. `check_failed_status.py` 실행 후 수기 보정
 6. `check_mapping_match_260313.py` 실행
-7. `launch/RESHAPE_main_raw_v4.2.ipynb` 실행
+7. `launch/RESHAPE_main_raw_v4.3.ipynb` 실행
 8. `aa_exports/union_{timestamp}.csv` 최종본 확인
 
 실제 기준 스크립트는 아래 4개입니다.
@@ -107,7 +110,7 @@ AA_Exporter/
 - `generate_period_notebooks_v3.py`
 - `ipynb_json_usage_mapper.py`
 - `check_mapping_match_260313.py`
-- `launch/RESHAPE_main_raw_v4.2.ipynb`
+- `launch/RESHAPE_main_raw_v4.3.ipynb`
 
 ---
 
@@ -268,8 +271,8 @@ site code 계열 CSV (`date/` 폴더):
 
 ## STEP 7. Post-Processing
 
-기준 파일: `launch/RESHAPE_main_raw_v4.2.ipynb`
-참고 문서: `launch/RESHAPE_main_raw_v4.2.md`
+기준 파일: `launch/RESHAPE_main_raw_v4.3.ipynb`
+참고 문서: `launch/RESHAPE_main_raw_v4.3.md`
 
 ### 처리 순서 (260410 기준)
 
@@ -305,6 +308,6 @@ TYPE, LOGIN/NON, PAID/NONPAID, ITEM, VALUE, KEY,
 | `metric_value_with_dummy.py` | aa_exports/ CSV의 value 숫자를 더미로 교체 (공유용) |
 | `launch/best_selling_product/RESHAPE_best_selling_260413_v1.py` | Best Selling 데이터 정제 v1 — value1~4, 출력 11컬럼. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260413_v1.md` (구 파일명: `best_selling_refine_260413.py`) |
 | `launch/best_selling_product/RESHAPE_best_selling_260427_v2.py` | Best Selling 데이터 정제 v2 — value1~8 (Web/App 분리), 출력 12컬럼(`WEB/APP` 추가), PRODUCT 공란 ETC 강제. 가이드: `launch/best_selling_product/RESHAPE_best_selling_260427_v2.md` |
-| `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py` | for_modelcode 버전 — 다중 모델 코드(쉼표 구분) dimension. DIVISION/CATEGORY 각각 ORIGIN 컬럼(`DIVISION ORIGIN`, `CATEGORIES ORIGIN`) 우측 끝에 추가. DIVISION 고정 순서 `MX→VD→DA(→ETC)`. 가이드: `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md` |
+| `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.py` | for_modelcode 버전 — 다중 모델 코드(쉼표 구분) dimension. DIVISION/CATEGORY 각각 ORIGIN 컬럼(`DIVISION ORIGIN`, `CATEGORIES ORIGIN`) 우측 끝에 추가. DIVISION 고정 순서 `DIV1→DIV2→DIV3(→ETC)`. 가이드: `launch/best_selling_product/RESHAPE_best_selling_for_modelcode_260413_v1.2.1.md` |
 | `launch/nextpage/RESHAPE_nextpage_260428.py` | nextpage 정제 (단일/분리 파일 자동 감지). 가이드: `launch/nextpage/RESHAPE_nextpage_260428.md` |
 | `launch/multipurchase/RESHAPE_multipurchase_260428.py` | 멀티오더 정제 (this year/prior/last year 동시 처리). 가이드: `launch/multipurchase/RESHAPE_multipurchase_260428.md` |

@@ -1,5 +1,5 @@
-# best selling product 정제 스크립트 노트
-<!-- 2026-04-27  Jonghyun Park w/ Claude -->
+# best selling product 정제 스크립트 노트  
+<sub>2026-04-27  Jonghyun Park w/ Claude</sub>  
 
 ## 파일 목록
 
@@ -58,13 +58,13 @@ aa_exports/{tb_key}_{YYYYMMDD}_{HHMM}.csv  (타임스탬프 최신 파일 자동
 
 ### 분류 체계
 
-**DIVISION** (대분류, `cmp_n_scom` CTE 기준)
+**DIVISION** (대분류, `cmp_n_shop` CTE 기준)
 
 | 값 | 대상 |
 |---|---|
-| MX | 스마트폰·웨어러블·태블릿·PC |
-| VD | TV·모니터·사운드바 |
-| DA | 생활가전 |
+| DIV1 | 스마트폰·웨어러블·태블릿·PC |
+| DIV2 | TV·모니터·사운드바 |
+| DIV3 | 생활가전 |
 | ETC | 그 외 |
 
 **CATEGORY** (세분류, `plus_category` CTE 기준)

@@ -1,6 +1,6 @@
-# RESHAPE_main_raw_v4.3.ipynb
+# RESHAPE_main_raw_v4.3.ipynb  
+<sub>2026-05-13  Jonghyun Park w/ Claude</sub>  
 
-작성일: 2026-05-13 / Jonghyun Park w/ Claude  
 이전 버전: `RESHAPE_main_raw_v4.2.ipynb`
 
 ---
@@ -33,8 +33,8 @@ v4.3에서는 **v2.0 dash-form column** (`1-1_all_2026_cmp_pc_visit_null_uniquev
 ```
 1-1_all_2026_cmp_pc_visit_null_uniquevisitor       (section 이 '1-1' 한 토큰)
 4-2_all_2026_cmp_mobile_revenue_login_main-then-pd-all-rev
-5-1_all_2026_scom_pc_order_null_mx-vd-multiorder
-6-0_all_2026_scom_total_visit_null_internal-gnb-l0
+5-1_all_2026_shop_pc_order_null_div1-div2-multiorder
+6-0_all_2026_shop_total_visit_null_internal-gnb-l0
 ```
 
 v4.2 의 `split_metric_col` 은 section 이 `\d{1,2}_\d{1,2}` 두 토큰 (`1` `_` `1`) 으로 들어온다고 가정 — dash-form 인 `1-1` 한 토큰이 들어오면 `_split_by_number_pattern` 매칭 실패로 분해가 망가지고 `report_no_mapping` lookup 도 실패 (J11 빈 값).
@@ -66,23 +66,23 @@ def _find_report_key(values):
 |---|---|---|---|---|---|
 | `1-1_all_2026_cmp_pc_visit_null_uniquevisitor` | `1_1` | `2026_cmp` | `null` | `1_1. Basic Traffic` | `uniquevisitor` |
 | `4-2_all_2026_cmp_mobile_revenue_login_main-then-pd-all-rev` | `4_2` | `2026_cmp` | `login` | `4_2. Order Conversion ...` | `main-then-pd-all-rev` |
-| `5-1_all_2026_scom_pc_order_null_mx-vd-multiorder` | `5_1` | `2026_scom` | `null` | `5_1. S.com Cross Sell ...` | `mx-vd-multiorder` |
-| `6-0_all_2026_scom_total_visit_null_internal-gnb-l0` | `6_0` | `2026_scom` | `null` | (6_0 미등록) | `internal-gnb-l0` |
-| `2-2_all_2026_scom_pc_visit_null_` (channel trail) | `2_2` | `2026_scom` | `null` | `2_2. Traffic by Channel (External)` | `` |
+| `5-1_all_2026_shop_pc_order_null_div1-div2-multiorder` | `5_1` | `2026_shop` | `null` | `5_1. Shop Cross Sell ...` | `div1-div2-multiorder` |
+| `6-0_all_2026_shop_total_visit_null_internal-gnb-l0` | `6_0` | `2026_shop` | `null` | (6_0 미등록) | `internal-gnb-l0` |
+| `2-2_all_2026_shop_pc_visit_null_` (channel trail) | `2_2` | `2026_shop` | `null` | `2_2. Traffic by Channel (External)` | `` |
 
 v1 underscore-form (`1_1_all_2026_...`) 도 그대로 호환 — 정규화 패턴은 첫 토큰의 `X-Y_` 만 매칭하므로 underscore-form 은 영향 없음.
 
 ### 다운스트림 주의사항
 
-- `metric_name` 슬롯에 v2.0 식 `main-then-pd-all-rev`, `mx-vd-multiorder` 같은 dash 결합 slug 가 들어감. v1 식 `main_then_pd_all_rev`, `mx_vd_multiorder` 와 동일 의미이나 문자열 비교 시 다름.
-- `J4` (DATE) 의 prior 표시: v1 `2026_scom_prior` → v2.0 `2026_scom-prior` 형식. `endswith("prior")` / `"prior" in J4` 등 substring 검사는 둘 다 통과하나, 토큰 단위 split 시 다름.
+- `metric_name` 슬롯에 v2.0 식 `main-then-pd-all-rev`, `div1-div2-multiorder` 같은 dash 결합 slug 가 들어감. v1 식 `main_then_pd_all_rev`, `div1_div2_multiorder` 와 동일 의미이나 문자열 비교 시 다름.
+- `J4` (DATE) 의 prior 표시: v1 `2026_shop_prior` → v2.0 `2026_shop-prior` 형식. `endswith("prior")` / `"prior" in J4` 등 substring 검사는 둘 다 통과하나, 토큰 단위 split 시 다름.
 
 ---
 
 ## 실행 순서
 
 1. `aa_exports/` 폴더에 SQL 뽑은 raw CSV 준비 (Non-prior / Prior / Last-year + FAILED 수기처리 후)
-2. `../ref/tb_column_name_mapping.csv` 의 `column` 컬럼이 v1 underscore-form 인지 v2.0 dash-form 인지 무관하게 작동
+2. `../ref/tb_column_name_mapping_corrected.csv` 의 `column` 컬럼이 v1 underscore-form 인지 v2.0 dash-form 인지 무관하게 작동
 3. 셀 실행
 4. `aa_exports/union_YYYYMMDD_HHMMSS.csv` 확인
 
@@ -92,7 +92,7 @@ v1 underscore-form (`1_1_all_2026_...`) 도 그대로 호환 — 정규화 패�
 
 | 경로 | 용도 |
 |---|---|
-| `../ref/tb_column_name_mapping.csv` | metric_col → column명 매핑 (v1 또는 v2.0 form 어느 쪽이든 OK) |
+| `../ref/tb_column_name_mapping_corrected.csv` | metric_col → column명 매핑 (v1 또는 v2.0 form 어느 쪽이든 OK) |
 | `../ref/currency.csv` | 환율 (site_code별 연도별) |
 | `../ref/app_O_X.csv` | App 없는 site 목록 |
 | `../aa_exports/*.csv` | 입력 raw CSV |

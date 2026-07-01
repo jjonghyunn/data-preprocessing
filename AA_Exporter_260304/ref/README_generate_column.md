@@ -1,4 +1,5 @@
-# generate_column_from_segments.py / _v2.0.py
+# generate_column_from_segments.py / _v2.0.py  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 `extract_panel_tables_json_v2.0.py` 가 생성한 매핑 CSV 의 빈 `column` 컬럼을, 같은 row 의 `tb / segments / metric / panel / period` 만 보고 **algorithmic 하게 재구성** 하는 generator. union KEY 형식의 column 값을 자동으로 생성.
 
@@ -9,7 +10,7 @@
 | `generate_column_from_segments.py` | 8 토큰 모두 `_` | `1_1_all_2026_cmp_pc_visit_null_uniquevisitor` | 가변 (multi-word slug 안에 `_` 포함) |
 | `generate_column_from_segments_v2.0.py` | 토큰 간 `_`, 내부 결합 `-` | `1-1_all_2026_cmp_pc_visit_null_uniquevisitor` | **항상 정확히 7개** (8 토큰) |
 
-v2.0 은 `col.split("_")` 결과가 항상 8 토큰으로 떨어져 union RESHAPE 단계의 토큰 분해가 단순해짐. multi-word slug (`internal-gnb-l0`, `main-then-pd-all`, `scom-and-order-all-rev`, `mx-vd-multiorder` 등) 는 내부 `-` 결합. special tb (`nodata-multi-purchase-value1` 등) 는 8 토큰 룰 예외 (단일 dash-slug placeholder).
+v2.0 은 `col.split("_")` 결과가 항상 8 토큰으로 떨어져 union RESHAPE 단계의 토큰 분해가 단순해짐. multi-word slug (`internal-gnb-l0`, `main-then-pd-all`, `shop-and-order-all-rev`, `div1-div2-multiorder` 등) 는 내부 `-` 결합. special tb (`nodata-multi-purchase-value1` 등) 는 8 토큰 룰 예외 (단일 dash-slug placeholder).
 
 기준 문서 업데이트일: 2026-05-13
 
@@ -43,7 +44,7 @@ python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' �
 | `section` | reportlet 번호 | tb 의 `X_Y` numeric prefix |
 | `scope` | data type | 0_1 은 da/mx/vd, 그 외 all |
 | `year` | 연도 | period=last → 2025 / 그 외 → 2026 |
-| `context` | reportlet 컨텍스트 | tb 토큰 cmp/scom 우선. 4_x 는 segments 의 campaign segment 보고 cmp/scom |
+| `context` | reportlet 컨텍스트 | tb 토큰 cmp/shop 우선. 4_x 는 segments 의 campaign segment 보고 cmp/shop |
 | `device` | 디바이스 | segments 의 PC/Mobile/App/Android/iOS User. `Excluded APP` 만 있으면 web |
 | `measure` | reportlet base type | visit-base (1_1/0_1/0_2/1_2/2_1/2_3/4_1) → 항상 visit. order-base (4_2/4_3/5_x) → metric 따라 order/revenue. 그 외 → metric 단수형 |
 | `login` | login/logout/total | 같은 tb 안에 logged in/out segment 가 있으면 logged-cross-tab → row 별 login/logout/total. 그 외 모든 tb → null |
@@ -60,7 +61,7 @@ python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' �
 | 2_1 | Internal_* segment 의 union 축약 슬러그 (`internal_gnb` / `internal_pf` / `internal_kv` 등) |
 | 2_3 (homepage KV/GNB to cmp) | · Internal_* 있음 → `<internal_뒤_슬러그>_tocmp` (예: `home_kv_tocmp`)<br>· 없음 → `home{metric}` (`homevisit` 등) |
 | 4_2 | `Campaign Page > PD Visit (All Products)` → `main_then_pd_all` 류 cell 별칭 |
-| 4_3 | default `scom_and_order_all` (+`_rev` if revenue). segments 에 `Unit >= 2` 있음 → `scom_multiorder` |
+| 4_3 | default `shop_and_order_all` (+`_rev` if revenue). segments 에 `Unit >= 2` 있음 → `shop_multiorder` |
 | 5_1 / 5_2 / 5_3 cross-sell | `<line>_{multiorder\|order\|cmporder}` (아래 cross-sell 룰 참조) |
 | 6_0 | 7-토큰 특수: `6_0_<scope>_<year>_<context>_<internal_slug>_<metric>` |
 | 6_1~6_4 (marketingchannel dimension) | trailing `_` (item 자리 빈 채로 — RESHAPE 단계에서 채널값 채움) |
@@ -70,17 +71,17 @@ python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' �
 
 ## Cross-sell (5_x) line 결정 룰
 
-`segments` 의 OR-exclude 와 individual `[Global] MX/VD/DA Order` 토큰 보고 살아남는 라인 결정:
+`segments` 의 OR-exclude 와 individual `[Global] DIV1/DIV2/DIV3 Order` 토큰 보고 살아남는 라인 결정:
 
 | segments 패턴 | line |
 |---|---|
 | `vd or da Order (Exclude)` 있음 | `mx` |
 | `mx or da Order (Exclude)` 있음 | `vd` |
 | `mx or vd Order (Exclude)` 있음 | `da` |
-| `[Global] MX Order` + `[Global] VD Order` (individual 2개 이상) | `mx_vd` 등 살아남는 라인 조합 |
-| `MX & VD & DA Order (Exclude)` 만 있고 individual 없음 | `total` |
+| `[Global] DIV1 Order` + `[Global] DIV2 Order` (individual 2개 이상) | `div1_div2` 등 살아남는 라인 조합 |
+| `DIV1 & DIV2 & DIV3 Order (Exclude)` 만 있고 individual 없음 | `total` |
 | campaign segment 있음 | `campaign` |
-| 그 외 | `scom` (default) |
+| 그 외 | `shop` (default) |
 
 **suffix:**
 - `context=cmp` (5_3) → `cmporder` (campaign + cmporder 중복 회피)

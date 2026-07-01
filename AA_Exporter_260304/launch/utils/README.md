@@ -1,4 +1,5 @@
-# launch/utils/ — 추출 핵심 모듈
+# launch/utils/ — 추출 핵심 모듈  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 6개 추출 노트북이 공통으로 import하는 유틸리티 패키지.  
 직접 실행하는 파일이 아니라 노트북 실행 시 자동으로 로드되는 라이브러리입니다.

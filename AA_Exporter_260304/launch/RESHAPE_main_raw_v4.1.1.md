@@ -1,6 +1,6 @@
-# 후처리 코드 가이드 (RESHAPE_main_raw)
+# 후처리 코드 가이드 (RESHAPE_main_raw)  
+<sub>2026-04-21  Jonghyun Park w/ Claude</sub>  
 
-작성일: 2026-04-21 / Jonghyun Park w/ Claude  
 이전 버전: `RESHAPE_main_raw_v4.1.ipynb`
 
 ---
@@ -46,7 +46,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
 │   ├── RESHAPE_main_raw_v4.1.1.ipynb  ← 이 노트북
 │   └── ...
 ├── ref/
-│   ├── tb_column_name_mapping.csv     ← 필수 마스터
+│   ├── tb_column_name_mapping_corrected.csv     ← 필수 마스터
 │   ├── currency.csv                   ← 필수 마스터
 │   └── app_O_X.csv                    ← 필수 마스터
 └── aa_exports/
@@ -56,7 +56,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
 
 ### 2단계 — 실행 전 체크리스트
 
-- [ ] `ref/tb_column_name_mapping.csv` 존재 확인
+- [ ] `ref/tb_column_name_mapping_corrected.csv` 존재 확인
 - [ ] `ref/currency.csv` 존재 확인 (환율 연도 컬럼 순서: 3번째=TY, 4번째=PY)
 - [ ] `ref/app_O_X.csv` 존재 확인 (A열=site_code, B열=O/X)
 - [ ] `aa_exports/` 안에 01~06 추출 노트북 실행 결과 CSV 존재 확인
@@ -84,7 +84,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
 
 | 항목 | 설명 |
 |---|---|
-| `MAPPING_CSV` | `tb_column_name_mapping.csv` (보통 고정) |
+| `MAPPING_CSV` | `tb_column_name_mapping_corrected.csv` (보통 고정) |
 | `report_no_mapping` | 이번 캠페인의 리포트 번호 ↔ 리포트명 매핑 |
 
 ```python
@@ -141,7 +141,7 @@ AA에서 next_page 쿼리가 `_ttlmx`/`_vdda` 두 파일로 분리 출력되는 
 
 ### 4. wide → long 변환 및 환율 적용
 
-- `tb_column_name_mapping.csv` 기준으로 value1~N → 실제 컬럼명 rename
+- `tb_column_name_mapping_corrected.csv` 기준으로 value1~N → 실제 컬럼명 rename
 - `pd.melt`로 wide → long (metric_col / metric_value_origin)
 - `revenue` 포함 컬럼만 `currency.csv` 환율 적용 → `metric_value_adj`
 - 환율 연도 기준: `End_Date` 연도 사용
@@ -230,5 +230,5 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 - 실행 전 FAILED 사이트 파악에 사용
 
 ### check_mapping_match.py
-- `aa_exports/` CSV의 컬럼명 vs `tb_column_name_mapping.csv` 매핑 검수
+- `aa_exports/` CSV의 컬럼명 vs `tb_column_name_mapping_corrected.csv` 매핑 검수
 - KEY 누락 원인 추적에 사용

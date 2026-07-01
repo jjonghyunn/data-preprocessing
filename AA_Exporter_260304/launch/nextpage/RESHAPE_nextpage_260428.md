@@ -1,7 +1,7 @@
-# RESHAPE_nextpage_260428.py 가이드
-<!-- 2026-04-28  Jonghyun Park w/ Claude -->
+# RESHAPE_nextpage_260428.py 가이드  
+<sub>2026-04-28  Jonghyun Park w/ Claude</sub>  
 
-`nextpage_260129_vdda_separate.sql` 의 Python 포팅 버전.
+`nextpage_260129_da_separate.sql` 의 Python 포팅 버전.
 nextpage 데이터 → SQL의 마지막 SELECT 결과 CSV 생성.
 
 **두 가지 입력 모드 자동 감지**:
@@ -27,18 +27,18 @@ nextpage 데이터 → SQL의 마지막 SELECT 결과 CSV 생성.
 | 실제 CSV 헤더 | 의미 |
 |---|---|
 | `value1` | TOTAL |
-| `value2` | MX |
-| `value3` | VD |
-| `value4` | DA |
+| `value2` | DIV1 |
+| `value3` | DIV2 |
+| `value4` | DIV3 |
 
 **SEPARATE 모드 (A + B)**
 
 | 파일 | 실제 CSV 헤더 | 의미 |
 |---|---|---|
 | A | `value1` | TOTAL |
-| A | `value2` | MX |
-| B | `value1` | VD |
-| B | `value2` | DA |
+| A | `value2` | DIV1 |
+| B | `value1` | DIV2 |
+| B | `value2` | DIV3 |
 
 > SEPARATE 모드의 B는 헤더가 `value1, value2`로 A와 동일하지만 AA 추출 단위가 달라 의미만 다름. (site_code, breakdown) 기준 LEFT JOIN.
 
@@ -49,15 +49,15 @@ nextpage 데이터 → SQL의 마지막 SELECT 결과 CSV 생성.
 코드 상단:
 
 ```python
-COMBINED_PREFIX = "nextpage"            # value1=TOTAL, value2=MX, value3=VD, value4=DA
-A_PREFIX        = "nextpage_total_mx"   # value1=TOTAL, value2=MX
-B_PREFIX        = "nextpage_vd_da"      # value1=VD,    value2=DA
+COMBINED_PREFIX = "nextpage"            # value1=TOTAL, value2=DIV1, value3=DIV2, value4=DIV3
+A_PREFIX        = "nextpage_total_div1"   # value1=TOTAL, value2=DIV1
+B_PREFIX        = "nextpage_div2_div3"      # value1=DIV2,    value2=DIV3
 TOP_N           = 10                    # site_code별 상위 N개
 ```
 
 실제 AA 추출 파일명이 정해지면 위 prefix만 교체.
 
-> `find_latest()`는 정규식 fullmatch로 prefix 직후가 정확히 `_YYYYMMDD_HHMM(SS)` 인 파일만 매칭 → `nextpage_*` 가 `nextpage_total_mx_*`까지 잡지 않음. HHMM(4자리) / HHMMSS(6자리) 둘 다 지원 (정렬 시 4자리는 6자리로 zero-pad).
+> `find_latest()`는 정규식 fullmatch로 prefix 직후가 정확히 `_YYYYMMDD_HHMM(SS)` 인 파일만 매칭 → `nextpage_*` 가 `nextpage_total_div1_*`까지 잡지 않음. HHMM(4자리) / HHMMSS(6자리) 둘 다 지원 (정렬 시 4자리는 6자리로 zero-pad).
 
 ---
 
@@ -68,8 +68,8 @@ TOP_N           = 10                    # site_code별 상위 N개
 | `origin` | `load_origin()` | 모드별 입력 → 동일 스키마 `[site_code, breakdown, total, mx, vd, da]` |
 | `mapped` (1) | `map_breakdown()` | URL/페이지명 → 카테고리명 정규화 |
 | `mapped` (2) | `get_pagetype2()` | PCD / PD / PF / SD 태깅 |
-| `unpivoted` | TOTAL/MX/VD/DA 4개 division 행으로 변환 | `pd.concat` |
-| `with_div2` | `division_pagetype2 = "{division} {pagetype2}"` (예: "MX PD") + `breakdown != '*'` | distinct |
+| `unpivoted` | TOTAL/DIV1/DIV2/DIV3 4개 division 행으로 변환 | `pd.concat` |
+| `with_div2` | `division_pagetype2 = "{division} {pagetype2}"` (예: "DIV1 PD") + `breakdown != '*'` | distinct |
 | `totals_ranked` | TOTAL division만, `groupby(site_code).rank()` | row_number 등가 |
 | `part1` | top N (`rn <= TOP_N`) → site_code 정규화 | UK/IQ_KU 변환 포함 |
 | `part2` | top N에 속한 page_type만, division_pagetype2별 sum | EXISTS → merge |
@@ -104,7 +104,7 @@ TOP_N           = 10                    # site_code별 상위 N개
 | `'%/shop/featured-offers/%'` 포함 | `offer main` |
 | `'%/web/account/%'` 포함 | `my account` |
 
-### SEC (`site_code = 'sec'`)
+### HQ (`site_code = 'hq'`)
 
 | 조건 | 매핑 |
 |---|---|
@@ -123,7 +123,7 @@ TOP_N           = 10                    # site_code별 상위 N개
 | `product detail`, `revamp product detail` | `PD` |
 | `product finder`, `revamp product finder` | `PF` |
 | `shop detail` | `SD` |
-| `buying configurator` (sec) | `PD` |
+| `buying configurator` (hq) | `PD` |
 | 그 외 | `null` |
 
 ---
@@ -140,9 +140,9 @@ TIER, SUBS, COUNTRY, SITE CODE, CATEGORY, PAGE TYPE, Origin_page_type, VALUE, VA
 | SITE CODE | 정규화된 site_code (대문자 + UK/IQ_KU 변환) |
 | PAGE TYPE | part1=mapped breakdown / part2=`{division} {pagetype2}` |
 | Origin_page_type | 원본 breakdown |
-| VALUE | TOTAL은 row 값, MX/VD/DA는 pagetype2별 합산 |
-| CATEGORY | suffix 기반 (`%PD`/`%PF`/`%PCD`/`%SD` → 카테고리명, sec `buying configurator` → `product detail`) |
-| VALUE_TYPE | `both` (페이지타입 7종) / `division` (`MX*`/`VD*`/`DA*` prefix) / `non-division` |
+| VALUE | TOTAL은 row 값, DIV1/DIV2/DA는 pagetype2별 합산 |
+| CATEGORY | suffix 기반 (`%PD`/`%PF`/`%PCD`/`%SD` → 카테고리명, hq `buying configurator` → `product detail`) |
+| VALUE_TYPE | `both` (페이지타입 7종) / `division` (`DIV1*`/`DIV2*`/`DIV3*` prefix) / `non-division` |
 
 ---
 

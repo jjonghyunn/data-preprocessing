@@ -1,4 +1,5 @@
-# 26_Schedule_separate(Auto).xlsx
+# 26_Schedule_separate(Auto).xlsx  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 캠페인 일정 관리 템플릿 파일.
 실제 데이터는 더미값으로 대체한 참고용 정제 버전.
@@ -148,4 +149,4 @@ site_code별 티어 자동 생성 조회 테이블.
 
 **예약 작업:** 두 스크립트 모두 Windows 작업 스케줄러를 통해 매 20분마다 실행 (`/it` — 로그온 시에만 실행).
 
-스크립트 상세 내용은 `update_schedule.md` 참고.
+스크립트 상세 내용은 `README.md` 참고.

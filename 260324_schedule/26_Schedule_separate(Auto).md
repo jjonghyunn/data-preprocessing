@@ -1,4 +1,5 @@
-# 26_Schedule_separate(Auto).xlsx
+# 26_Schedule_separate(Auto).xlsx  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 Campaign schedule management template file.
 Sanitized version for reference — actual data replaced with dummy values.
@@ -148,4 +149,4 @@ Master site code reference list.
 
 **Scheduled task:** both scripts run every 20 minutes via Windows Task Scheduler (`/it` — only when logged on).
 
-See `update_schedule.md` for script details.
+See `README.md` for script details.

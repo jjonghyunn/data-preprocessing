@@ -1,10 +1,10 @@
 # check_mapping_match_260313.py  
 <sub>2026-03-13  Jonghyun Park w/ Claude</sub>  
 
-aa_exports 폴더의 CSV 파일들이 tb_column_name_mapping.csv와 컬럼 레벨로 정상 매핑되는지 검수합니다.
+aa_exports 폴더의 CSV 파일들이 tb_column_name_mapping_corrected.csv와 컬럼 레벨로 정상 매핑되는지 검수합니다.
 
 ## 실행 목적
-AA 추출 후, tb_column_name_mapping.csv 기준으로 실제 CSV 컬럼과 매핑이 제대로 맞는지 사전에 확인합니다.
+AA 추출 후, tb_column_name_mapping_corrected.csv 기준으로 실제 CSV 컬럼과 매핑이 제대로 맞는지 사전에 확인합니다.
 매핑이 맞지 않으면 stack_n_currency_n_chnl_n_seaprate 노트북 실행 시 value_vars=[] 오류 또는 누락 발생.
 
 ## 검사 항목 (6가지 상태)

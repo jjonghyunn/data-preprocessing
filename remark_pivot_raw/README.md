@@ -1,5 +1,5 @@
 # 260622_remark_pivot  
-<sub>2026-06-23  Jonghyun Park w/ Claude</sub>
+<sub>2026-06-23  Jonghyun Park w/ Claude</sub>  
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
 피봇 종류(Classic / OLAP)에 따라 도구가 나뉜다.

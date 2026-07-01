@@ -1,4 +1,5 @@
-# json/ — JSON 유틸리티 스크립트
+# json/ — JSON 유틸리티 스크립트  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 AA Workspace에서 추출한 JSON 파일을 관리하는 보조 스크립트 모음.  
 메인 워크플로우에서는 **STEP 2 (JSON Preparation)** 단계에 해당합니다.
@@ -91,7 +92,7 @@ AA에서 payload를 다시 채워 넣은 뒤 일괄 롤백할 때 사용합니�
 검수 기준:
 - 세그먼트 ID와 메트릭 수가 prior와 일치해야 정상
 - `SHOULD_SAME` 테이블은 last_main과 변경 없어야 함, `SHOULD_DIFFER`는 변경이 있어야 함
-- 파일명에 `cmp` / `scom` / `prior` 등의 키워드가 있으면 `panelName`도 같은 키워드를 포함해야 함
+- 파일명에 `cmp` / `shop` / `prior` 등의 키워드가 있으면 `panelName`도 같은 키워드를 포함해야 함
 
 ---
 

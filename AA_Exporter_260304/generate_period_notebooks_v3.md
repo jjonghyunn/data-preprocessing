@@ -1,5 +1,5 @@
-# generate_period_notebooks_v3.py 가이드
-<!-- 2026-04-17  Jonghyun Park w/ Claude -->
+# generate_period_notebooks_v3.py 가이드  
+<sub>2026-04-17  Jonghyun Park w/ Claude</sub>  
 
 `json/` 서브폴더의 JSON 파일을 자동 감지하여 **기간별 Jupyter Notebook** 을 `launch/` 폴더에 생성하는 스크립트.
 

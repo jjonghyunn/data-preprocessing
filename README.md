@@ -1,5 +1,5 @@
-# data-preprocessing
-<!-- 2026-04-30  Jonghyun Park w/ Claude -->
+# data-preprocessing  
+<sub>2026-04-30  Jonghyun Park w/ Claude</sub>  
 
 preprocessing data — AA(Adobe Analytics) 추출·정제, 캠페인 매핑, 일정 자동화 스크립트 모음.
 
@@ -66,7 +66,7 @@ US는 별도 Report Suite를 쓰므로 non-US와 분리해서 추출합니다.
 
 ### 추출 후 작업 (후처리)
 
-기준 노트북: `launch/RESHAPE_main_raw_v4.2.ipynb` (가이드: `RESHAPE_main_raw_v4.2.md`)
+기준 노트북: `launch/RESHAPE_main_raw_v4.3.ipynb` (가이드: `RESHAPE_main_raw_v4.3.md`)
 
 처리 흐름:
 1. AA 추출 raw CSV에서 `value#` → 실제 컬럼명 rename, `wide → long` 변환

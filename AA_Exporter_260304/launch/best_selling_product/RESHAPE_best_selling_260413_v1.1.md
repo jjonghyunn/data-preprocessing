@@ -1,5 +1,5 @@
-# RESHAPE_best_selling_260413_v1.1.py 가이드
-<!-- 2026-04-28  Jonghyun Park w/ Claude -->
+# RESHAPE_best_selling_260413_v1.1.py 가이드  
+<sub>2026-04-28  Jonghyun Park w/ Claude</sub>  
 
 `best_selling_product` raw CSV → 정제 CSV (`_stacked_separate`) 생성 스크립트.  
 SQL 기준: `best selling product_260212(카테고리displayname스페인어보완).sql`
@@ -23,9 +23,9 @@ SQL 기준: `best selling product_260212(카테고리displayname스페인어보�
 
 ### [FIX-2] ORDER == 0 행 결과에서 제거
 
-- **문제**: scom/camp 분리 후 한쪽 ORDER가 0인 행이 그대로 출력 → 후속 분석에서 무의미한 0행이 다수
-- **수정**: `pd.concat([scom, camp])` 후 `result[result["ORDER"] != 0]` 필터 적용
-- **효과**: scom/camp 각각 독립적으로 ORDER=0 행 제거. 한쪽만 0이면 그쪽만 제거됨
+- **문제**: shop/camp 분리 후 한쪽 ORDER가 0인 행이 그대로 출력 → 후속 분석에서 무의미한 0행이 다수
+- **수정**: `pd.concat([shop, camp])` 후 `result[result["ORDER"] != 0]` 필터 적용
+- **효과**: shop/camp 각각 독립적으로 ORDER=0 행 제거. 한쪽만 0이면 그쪽만 제거됨
 - **로그**: `ORDER=0 제거: {n}행 → {m}행`
 
 > **참고**: v2(`RESHAPE_best_selling_260427_v2.py`)는 [FIX-1]은 동일하게 적용했지만 [FIX-2]는 미적용. v1.1은 v1 구조(2분할 출력) 유지하면서 두 보정만 추가.
@@ -58,7 +58,7 @@ aa_exports/{tb_key}_*.csv
     ├─ SITE CODE 정규화
     ├─ 환율 적용 (REVENUE = value2 or value4 × rate)
     │
-    ├─ S.com 행 생성   (STANDARD="S.com",    ORDER=value1, REVENUE=value2×rate)
+    ├─ Shop 행 생성   (STANDARD="Shop",    ORDER=value1, REVENUE=value2×rate)
     └─ Campaign 행 생성 (STANDARD="Campaign", ORDER=value3, REVENUE=value4×rate)
           ↓
     concat
@@ -79,16 +79,16 @@ PERIOD, STANDARD, TIER, SUBS, COUNTRY, SITE CODE, DIVISION, PRODUCT, CATEGORY, O
 | 컬럼 | 내용 |
 |---|---|
 | `PERIOD` | TB_KEYS 설정값 (예: `2026 Campaign Period`) |
-| `STANDARD` | `S.com` 또는 `Campaign` |
+| `STANDARD` | `Shop` 또는 `Campaign` |
 | `TIER` | 공란 |
 | `SUBS` | `Subsidiary` 원본값 |
 | `COUNTRY` | `Country` 원본값 |
 | `SITE CODE` | 정규화된 site code |
-| `DIVISION` | MX / VD / DA / **ETC (NaN 포함)** |
+| `DIVISION` | DIV1 / DIV2 / DIV3 / **ETC (NaN 포함)** |
 | `PRODUCT` | `value` 원본 (제품 모델명) |
 | `CATEGORY` | SMP / TV / REF / AC / Washer / Tablet / NPC / Wearable / Monitor / Sound Bar / Cooking / VC / ACC / Air Purifier / Dryer / Air Dresser / Shoe Dresser / DW / AUDIO / BUNDLE / X / **ETC (NaN 포함)** |
-| `ORDER` | S.com=`value1`, Campaign=`value3` (**0 행은 제거됨**) |
-| `REVENUE` | S.com=`value2×rate`, Campaign=`value4×rate` (소수점 6자리) |
+| `ORDER` | Shop=`value1`, Campaign=`value3` (**0 행은 제거됨**) |
+| `REVENUE` | Shop=`value2×rate`, Campaign=`value4×rate` (소수점 6자리) |
 
 ---
 
@@ -108,9 +108,9 @@ PERIOD, STANDARD, TIER, SUBS, COUNTRY, SITE CODE, DIVISION, PRODUCT, CATEGORY, O
 
 | DIVISION | 주요 prefix |
 |---|---|
-| MX | SM-S/G/A/F/M/E/W/X/P/T/R/Q/L, NT, NP, SM-R/Q/L, F-9/A/F7/M/S7/S9/X/NP, GALAXY WATCH, XE5/XE3 |
-| VD | GQ/KQ/QA/QE/QN/TQ/UN/UA/UE/KU, LS/LF/LT/LU/LV/LC, HW-Q/S/A/B/C/LS/T, F-55/65/80/58/70/75/85/LS/Q/UN/3X, S2/S3/C2/C3 등 |
-| DA | AF/AC/AR/AJ/AM/AW/AX/AY, WW/WA/WV/WD/WF/WR/WH/WT, DV/DF/DJ, RB/RF/RL/RQ/RR/RS/RT/RW/RZ/RH/RP, VR/VS/VC, ME/MJ/ML/MM/MQ/MW, NA~NZ, MC/MG/MS/DW 등 |
+| DIV1 | SM-S/G/A/F/M/E/W/X/P/T/R/Q/L, NT, NP, SM-R/Q/L, F-9/A/F7/M/S7/S9/X/NP, SMARTWATCH, XE5/XE3 |
+| DIV2 | GQ/KQ/QA/QE/QN/TQ/UN/UA/UE/KU, LS/LF/LT/LU/LV/LC, HW-Q/S/A/B/C/LS/T, F-55/65/80/58/70/75/85/LS/Q/UN/3X, S2/S3/C2/C3 등 |
+| DIV3 | AF/AC/AR/AJ/AM/AW/AX/AY, WW/WA/WV/WD/WF/WR/WH/WT, DV/DF/DJ, RB/RF/RL/RQ/RR/RS/RT/RW/RZ/RH/RP, VR/VS/VC, ME/MJ/ML/MM/MQ/MW, NA~NZ, MC/MG/MS/DW 등 |
 | **ETC** | **NaN/공란/"NAN" (v1.1 신규)**, LUMAFUSION, ARCSITE, UNSPECIFIED, 기타 미매칭 |
 
 ---
@@ -124,7 +124,7 @@ PERIOD, STANDARD, TIER, SUBS, COUNTRY, SITE CODE, DIVISION, PRODUCT, CATEGORY, O
 | SMP | SM-S/G/A/F/M/E/W/N 등 (스마트폰) |
 | Tablet | SM-X/P/T |
 | NPC | NT, NP, XE |
-| Wearable | SM-R/Q/L, L325N/L705N/L330N/L500N, GALAXY WATCH |
+| Wearable | SM-R/Q/L, L325N/L705N/L330N/L500N, SMARTWATCH |
 | ACC | ET/EF/GP/EI/EE/EB/EJ/EP/EO, WMN/CFX/MA/RA/VCA/SKK 등 |
 | TV | GQ/KQ/QA/QE/QN/TQ/UN/UA/UE/KU, TU3~9, GU 등 |
 | Monitor | LS/LF/LT/LU/LV/LC, S2/S3/S40/S43/S49/S5, U32 등 |
@@ -145,7 +145,7 @@ PERIOD, STANDARD, TIER, SUBS, COUNTRY, SITE CODE, DIVISION, PRODUCT, CATEGORY, O
 | **ETC** | **NaN/공란/"NAN" (v1.1 신규)**, 미매칭 |
 
 **스페인어 displayname fallthrough** (prefix 미매칭 시):  
-`MONITOR`, `CAMPAIGN NAME` (→TV), `FUNDA`/`SOPORTE` (→ACC), `BUDS` (→Wearable), `AIRE ACONDICIONADO` (→AC), `SMART TV` (→TV), `REFRIGERADOR` (→REF), `AURA STUDIO`/`JBL LIVE 770NC`/`TUNE BEAM`/`JBL TOUR ONE` (→AUDIO), `GALAXY WATCH` (→Watch), `IN EAR CORDED EARP` (→Wearable), `메모리카드`/`REMOCON-ECO`/`SOLARCELL REMOTE` (→X)
+`MONITOR`, `CAMPAIGN NAME` (→TV), `FUNDA`/`SOPORTE` (→ACC), `BUDS` (→Wearable), `AIRE ACONDICIONADO` (→AC), `SMART TV` (→TV), `REFRIGERADOR` (→REF), `AURA STUDIO`/`JBL LIVE 770NC`/`TUNE BEAM`/`JBL TOUR ONE` (→AUDIO), `SMARTWATCH` (→Watch), `IN EAR CORDED EARP` (→Wearable), `메모리카드`/`REMOCON-ECO`/`SOLARCELL REMOTE` (→X)
 
 ---
 
@@ -175,7 +175,7 @@ tb_key별로 파일이 없으면 스킵 후 다음 tb_key 계속 처리.
 | 항목 | 내용 |
 |---|---|
 | `status != "OK"` 행 | 자동 제외됨 (FAILED 등) |
-| **`ORDER == 0` 행** | **v1.1부터 자동 제외됨** — scom/camp 각각 필터됨 (한쪽만 0이면 그쪽만 제거) |
+| **`ORDER == 0` 행** | **v1.1부터 자동 제외됨** — shop/camp 각각 필터됨 (한쪽만 0이면 그쪽만 제거) |
 | **NaN/공란 PRODUCT** | **v1.1부터 ETC로 분류** (기존엔 Cooking 오분류) |
 | 환율 컬럼 자동 선택 | `currency_year`로 시작하는 컬럼 사용 — currency.csv 연도 컬럼 확인 필요 |
 | 타임스탬프 패턴 | `_YYYYMMDD_HHMM(SS)` — HHMM 4자리, HHMMSS 6자리 모두 지원 (정렬 시 4자리는 6자리로 zero-pad) |

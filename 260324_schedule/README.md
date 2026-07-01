@@ -1,4 +1,5 @@
-# update_schedule.py
+# update_schedule.py  
+<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 ## 개요
 캠페인 법인별 일정 파일을 자동으로 Auto 정제 파일에 붙여넣는 스크립트.

@@ -79,7 +79,7 @@ if df_long.empty and value_vars and _site_meta_map:
 
 | 항목 | 값 |
 |---|---|
-| `MAPPING_CSV` | `tb_column_name_mapping.csv` |
+| `MAPPING_CSV` | `tb_column_name_mapping_corrected.csv` |
 | `report_no_mapping` | 1_1~5_1 (캠페인 기준) |
 
 ```python
@@ -103,7 +103,7 @@ report_no_mapping = {
 
 | 파일 | 내용 |
 |------|------|
-| `../ref/tb_column_name_mapping.csv` | value_n → 컬럼명 매핑 마스터 |
+| `../ref/tb_column_name_mapping_corrected.csv` | value_n → 컬럼명 매핑 마스터 |
 | `../ref/currency.csv` | 환율 (3번째 컬럼=latest연도, 4번째 컬럼=prior연도) |
 | `../ref/app_O_X.csv` | site_code별 App 유무 (A열=site_code, B열=O/X) |
 
@@ -207,4 +207,4 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 - CSV 파일별 FAILED 건수 일괄 확인
 
 ### check_mapping_match.py
-- `aa_exports/` CSV vs `tb_column_name_mapping.csv` 컬럼 매핑 검수
+- `aa_exports/` CSV vs `tb_column_name_mapping_corrected.csv` 컬럼 매핑 검수
