@@ -21,8 +21,7 @@ data-preprocessing/
 │   │   ├── best_selling_product/      ← Best Selling 정제 (v1, v1.1, v1.2, v2)
 │   │   ├── nextpage/                  ← nextpage 정제 + 원본 SQL
 │   │   ├── multipurchase/             ← multipurchase 정제 + 원본 SQL (this year/prior/last year)
-│   │   ├── utils/                     ← 공통 유틸 (aa_exporter, site_registry)
-│   │   └── old/                       ← 구버전 정제 노트북 아카이브
+│   │   └── utils/                     ← 공통 유틸 (aa_exporter, site_registry)
 │   ├── generate_period_notebooks_v3.py
 │   ├── ipynb_json_usage_mapper.py
 │   ├── check_failed_status.py
@@ -76,8 +75,6 @@ US는 별도 Report Suite를 쓰므로 non-US와 분리해서 추출합니다.
 5. US 채널 매핑 + PAID/NONPAID 부여
 6. union 생성 → `aa_exports/union_{YYYYMMDD_HHMMSS}.csv`
 7. union 후 누락 조합 보완 (FIX-10), 추출 0행 fallback dummy (FIX-11)
-
-> 구버전 정제 노트북(`stack_n_currency_n_chnl_n_seaprate_*.ipynb`)은 `launch/old/`로 아카이브.
 
 ### 보조작업 — JSON 참조 검수
 

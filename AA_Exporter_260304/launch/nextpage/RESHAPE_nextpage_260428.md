@@ -65,7 +65,7 @@ TOP_N           = 10                    # site_code별 상위 N개
 
 | SQL CTE | Python 단계 | 내용 |
 |---|---|---|
-| `origin` | `load_origin()` | 모드별 입력 → 동일 스키마 `[site_code, breakdown, total, mx, vd, da]` |
+| `origin` | `load_origin()` | 모드별 입력 → 동일 스키마 `[site_code, breakdown, total, div1, div2, div3]` |
 | `mapped` (1) | `map_breakdown()` | URL/페이지명 → 카테고리명 정규화 |
 | `mapped` (2) | `get_pagetype2()` | PCD / PD / PF / SD 태깅 |
 | `unpivoted` | TOTAL/DIV1/DIV2/DIV3 4개 division 행으로 변환 | `pd.concat` |
@@ -169,8 +169,8 @@ TIER, SUBS, COUNTRY, SITE CODE, CATEGORY, PAGE TYPE, Origin_page_type, VALUE, VA
    - PY: 빈 문자열로 출력
 
 5. **모드별 입력 차이 (PY 전용)**
-   - COMBINED 모드: 단일 파일 → JOIN 단계 없음 (모든 행에 total/mx/vd/da 같이 존재)
-   - SEPARATE 모드: A LEFT JOIN B → A에 있고 B에 없는 (site_code, breakdown)은 vd/da=0 으로 채워짐
+   - COMBINED 모드: 단일 파일 → JOIN 단계 없음 (모든 행에 total/div1/div2/div3 같이 존재)
+   - SEPARATE 모드: A LEFT JOIN B → A에 있고 B에 없는 (site_code, breakdown)은 div2/div3=0 으로 채워짐
    - 두 모드 결과가 다를 수 있는 경우: SEPARATE의 A,B 추출 시 site/breakdown 셋이 다른 경우
 
 ---

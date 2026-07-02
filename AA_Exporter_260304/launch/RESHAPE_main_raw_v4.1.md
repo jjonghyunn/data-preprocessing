@@ -198,5 +198,5 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 ### check_failed_status.py
 - CSV 파일별 FAILED 건수 일괄 확인
 
-### check_mapping_match.py
+### check_mapping_match_260313.py
 - `aa_exports/` CSV vs `tb_column_name_mapping_corrected.csv` 컬럼 매핑 검수

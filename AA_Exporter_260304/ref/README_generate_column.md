@@ -42,7 +42,7 @@ python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' �
 | 토큰 | 의미 | 결정 룰 |
 |---|---|---|
 | `section` | reportlet 번호 | tb 의 `X_Y` numeric prefix |
-| `scope` | data type | 0_1 은 da/mx/vd, 그 외 all |
+| `scope` | data type | 0_1 은 div3/div1/div2, 그 외 all |
 | `year` | 연도 | period=last → 2025 / 그 외 → 2026 |
 | `context` | reportlet 컨텍스트 | tb 토큰 cmp/shop 우선. 4_x 는 segments 의 campaign segment 보고 cmp/shop |
 | `device` | 디바이스 | segments 의 PC/Mobile/App/Android/iOS User. `Excluded APP` 만 있으면 web |
@@ -75,9 +75,9 @@ python generate_column_from_segments_v2.0.py   # v2.0 (내부 '-' 결합, '_' �
 
 | segments 패턴 | line |
 |---|---|
-| `vd or da Order (Exclude)` 있음 | `mx` |
-| `mx or da Order (Exclude)` 있음 | `vd` |
-| `mx or vd Order (Exclude)` 있음 | `da` |
+| `div2 or div3 Order (Exclude)` 있음 | `div1` |
+| `div1 or div3 Order (Exclude)` 있음 | `div2` |
+| `div1 or div2 Order (Exclude)` 있음 | `div3` |
 | `[Global] DIV1 Order` + `[Global] DIV2 Order` (individual 2개 이상) | `div1_div2` 등 살아남는 라인 조합 |
 | `DIV1 & DIV2 & DIV3 Order (Exclude)` 만 있고 individual 없음 | `total` |
 | campaign segment 있음 | `campaign` |
@@ -116,5 +116,5 @@ spreadsheet 에서 `match_filled` 필터링 + `diff_field` 정렬로 패턴별 �
 
 ## 자매 도구
 
-- `extract_panel_tables_json_v2.0.py` (상위 폴더) — Workspace project 의 panel × reportlet → JSON + 매핑 CSV 자동 생성 (segments + metric 컬럼 포함)
+- `extract_panel_tables_json_v2.0.py` (다른 repo: AA-Segments-Maker-by-API) — Workspace project 의 panel × reportlet → JSON + 매핑 CSV 자동 생성 (segments + metric 컬럼 포함)
 - `fill_column_by_similarity.py` (다른 repo: AA-Segments-Maker-by-API/column_filler) — 이전 시즌의 column 컬럼 정리본을 reference 로 similarity 기반 채움. 본 generator 와 결합해서 비교 가능 (`FILLED_CSV` 지정 시 자동 비교).

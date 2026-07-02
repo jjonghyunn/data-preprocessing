@@ -74,7 +74,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
   - `[WEEKNUM 셀]`, `[읽은 행 수]` — 정상 파싱 여부
   - `→ App 없는 site App 데이터 N행 0처리` — App 없는 site 처리 여부
   - `[FIX-10] REPORT NO. XX: N행 dummy 삽입` — post-union 보완 여부
-- 예상 KEY 누락 시 → `check_mapping_match.py` 활용
+- 예상 KEY 누락 시 → `check_mapping_match_260313.py` 활용
 
 ---
 
@@ -229,6 +229,6 @@ PAID/NONPAID, ITEM, VALUE, KEY, 공란1, 공란2, 공란3, 공란4, value_origin
 - `aa_exports/` CSV 파일별 FAILED 건수 일괄 확인
 - 실행 전 FAILED 사이트 파악에 사용
 
-### check_mapping_match.py
+### check_mapping_match_260313.py
 - `aa_exports/` CSV의 컬럼명 vs `tb_column_name_mapping_corrected.csv` 매핑 검수
 - KEY 누락 원인 추적에 사용
