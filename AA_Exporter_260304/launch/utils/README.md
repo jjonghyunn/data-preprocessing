@@ -68,7 +68,7 @@ site code 문자열을 받아 `SiteInfo`를 반환하는 단일 함수 모듈.
 3. 없으면 `company_rsid_{normalized_code}` 패턴으로 fallback rsid 생성
 
 > RS ID가 변경된 경우(VRS 교체, US 특이 케이스 등) `_SITE_MASTER` 딕셔너리를 직접 수정해야 합니다.  
-> 관련 안내: 상위 폴더 `README.md` → STEP 1 참고.
+> 관련 안내: AA_Exporter 루트의 `README.md` (`../../README.md`) → STEP 1 참고.
 
 ---
 
