@@ -2,7 +2,7 @@
 <sub>2026-07-03  Jonghyun Park w/ Claude</sub>  
 
 구글드라이브 `study_SQL` 아카이브에서 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반).
-총 **41개 쿼리 / 9개 카테고리**. 각 `.sql` 상단 주석에 원본 출처·날짜를 기록.
+총 **40개 쿼리 / 9개 카테고리**. 각 `.sql` 상단 주석에 원본 출처·날짜를 기록.
 
 > 현직장(2024-05 이후) 작업물은 회사 식별자를 placeholder(`company_name` 등)로 sanitize 처리함. `⊘` 표시.
 
@@ -43,8 +43,7 @@ UNION·Unpivot — device/제조사 컬럼 정규화, aa-panel union
 
 | 파일 | 원본 출처 | 설명 |
 |---|---|---|
-| `home_idea_landing_v1_jonghyun.sql` | 홈아이디어 랜딩(오가닉 파악) 쿼리문 231206 / 종현개량 (2023-11) | LAG로 직전 url 유무를 판단해 홈아이디어 페이지의 랜딩(오가닉 유입) pcid/세션 수 산출 (개량본) |
-| `home_idea_landing_v2_original.sql` | 홈아이디어 랜딩(오가닉 파악) 쿼리문 231206 / 택주님 원본 (2023-11) | LAG로 직전 url 유무를 판단해 홈아이디어 상세 페이지의 랜딩(오가닉 유입) pcid/세션 수 산출 (원본) |
+| `home_idea_landing.sql` | 홈아이디어 랜딩(오가닉 파악) 쿼리문 231206 / 개량 버전 (2023-11) | LAG로 직전 url 유무를 판단해 홈아이디어 페이지의 랜딩(오가닉 유입) pcid/세션 수 산출 (개량본) |
 | `prev_next_path_lag_lead_flow.sql` | 이전 path 추출쿼리 / 시트2 (2023-10) | module/snb 파싱 + 경로 정규화 후 LAG/LEAD로 세션 내 이전/현재 경로 이동 플로우 및 종료율 산출 |
 | `prev_path_by_referrer.sql` | page_path_이전경로 / 시트1 (2023-11) | referr_path 기준 이전 페이지 → 현재 url_path 이동 조합별 PV·세션·PCID 집계 (상품상세 referrer 필터) |
 | `prev_path_by_referrer_product_detail.sql` | 이전 path 추출쿼리 / 상품상세기준 (2023-11) | 상품상세를 referrer로 하는 이전→현재 페이지 이동 조합별 PV·세션·PCID 집계 |
@@ -102,4 +101,4 @@ UNION·Unpivot — device/제조사 컬럼 정규화, aa-panel union
 | `home_idea_content_pivot.sql` | 홈아이디어 콘텐츠 본문 다운-sql lab(HSA용) 230828 / 시트1 (2023-08) | 홈아이디어 콘텐츠(homeideacontent) 본문을 sort(1~99)별 컬럼으로 pivot 하고 HTML 태그 제거, 지정 seq 목록만 조회 |
 
 ---
-<sub>41개 파일 · sanitize 적용 13개(⊘)</sub>
+<sub>40개 파일 · sanitize 적용 13개(⊘)</sub>
