@@ -50,7 +50,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
 │   ├── currency.csv                   ← 필수 마스터
 │   └── app_O_X.csv                    ← 필수 마스터
 └── aa_exports/
-    ├── 01_*.csv ~ 06_*.csv            ← 추출 노트북 실행 결과
+    ├── {tb_key}_*.csv                 ← 추출 노트북 6종 실행 결과
     └── union_*.csv                    ← 이 노트북 실행 결과 (자동 생성)
 ```
 
