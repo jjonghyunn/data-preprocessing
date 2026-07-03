@@ -12,8 +12,6 @@
 
 v2.0 은 `col.split("_")` 결과가 항상 8 토큰으로 떨어져 union RESHAPE 단계의 토큰 분해가 단순해짐. multi-word slug (`internal-gnb-l0`, `main-then-pd-all`, `shop-and-order-all-rev`, `div1-div2-multiorder` 등) 는 내부 `-` 결합. special tb (`nodata-multi-purchase-value1` 등) 는 8 토큰 룰 예외 (단일 dash-slug placeholder).
 
-기준 문서 업데이트일: 2026-05-13
-
 ---
 
 ## 입력 / 출력
