@@ -1,8 +1,6 @@
 # AA Export Workflow  
 <sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
-기준 문서 업데이트일: `260430` (best_selling for_modelcode v1.2.1 추가)
-
 ---
 
 아래는 AA Export Workflow입니다. STEP 1, 2, 3은 준비 단계이고 STEP 5부터가 실제 API 데이터 추출 단계입니다.
