@@ -59,7 +59,7 @@ aa_exports/union_YYYYMMDD_HHMMSS.csv (최종 출력)
 - [ ] `ref/tb_column_name_mapping_corrected.csv` 존재 확인
 - [ ] `ref/currency.csv` 존재 확인 (환율 연도 컬럼 순서: 3번째=TY, 4번째=PY)
 - [ ] `ref/app_O_X.csv` 존재 확인 (A열=site_code, B열=O/X)
-- [ ] `aa_exports/` 안에 01~06 추출 노트북 실행 결과 CSV 존재 확인
+- [ ] `aa_exports/` 안에 추출 노트북 6종 실행 결과 CSV 존재 확인
 - [ ] FAILED 사이트 있으면 수기 입력 완료 후 실행 (`check_failed_status.py` 참고)
 - [ ] 노트북 상단 캠페인 설정값 (`report_no_mapping` 등) 현재 캠페인에 맞게 수정
 
