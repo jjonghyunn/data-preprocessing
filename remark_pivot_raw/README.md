@@ -1,4 +1,4 @@
-# 260622_remark_pivot  
+# remark_pivot_raw  
 <sub>2026-06-23  Jonghyun Park w/ Claude</sub>  
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
@@ -43,7 +43,7 @@ python remark_olap.py      →  data_fx/ 폴더
 #    (상단 PREFIX_ONLY=True 면 결과물 xlsx/data_fx 저장 생략, 레전드 csv 만 빠르게 생성)
 
 # 2. (선택) 마스킹 전 피봇 캐시 엔진 진단 (CLASSIC/OLAP 확인)
-python check_pivot_cache.py     →  remark_olap.csv / remark_classic.csv
+python check_pivot_cache.py     →  remark_olap.csv / remark_classic.csv / remark_prefix.csv
 ```
 
 ---
@@ -120,7 +120,8 @@ FACT_REMARK = { "basic_traffic": ["sitecode"], "internal": ["sitecode", "channel
 |---|---|---|
 | `_remarkprefix_classic.csv` | `remark_classic.py` (실행 시 자동) | `Column \| Value_Original \| Value_fx` — 그 실행에서 **실제 바뀐** 값 |
 | `_remarkprefix_olap.csv` | `remark_olap.py` (실행 시 자동) | 〃 |
-| `remark_olap.csv` / `remark_classic.csv` | `check_pivot_cache.py` (선택) | 캐시에 실제 있던 차원값 기준 |
+| `remark_olap.csv` / `remark_classic.csv` | `check_pivot_cache.py` (선택) | 캐시에 실제 있던 차원값 기준 (원본칼럼 \| 칼럼_fx 쌍) |
+| `remark_prefix.csv` | `check_pivot_cache.py` (선택) | 토큰 레전드 (Token_Original \| Token_fx) |
 
 - 세 경로 모두 **같은 SEED=<REMARK_SEED> cipher** → `ca_fr` 은 어디서 나오든 항상 같은 `_fx` 값. 서로 모순 없이 맞물린다.
 - ⚠️ 레전드는 **역추적 키** — 외부 공유 파일과 같이 보내지 말 것 (내부 검증용).

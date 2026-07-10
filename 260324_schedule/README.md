@@ -1,8 +1,10 @@
-# update_schedule.py  
+# 260324_schedule  
 <sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
 
 ## 개요
 캠페인 법인별 일정 파일을 자동으로 Auto 정제 파일에 붙여넣는 스크립트.
+
+> 📄 정제 대상 Auto 파일의 시트 구조 상세: [`26_Schedule_separate(Auto).md`](<26_Schedule_separate(Auto).md>) (한글판: [`26_Schedule_separate(Auto)-kr.md`](<26_Schedule_separate(Auto)-kr.md>))
 
 ## 동작 순서
 1. `1.고객 법인 일정 파일/` 폴더에서 최신 파일 자동 선택
@@ -81,15 +83,13 @@ _v0.49_260420   → (260420, 0, 0.49, 0, 0)  ← 최신
 ## 실행 방법
 ```bash
 python update_schedule.py
-# 또는
-run_schedule_update.bat
 ```
 
 ## 스케줄 작업
 - 작업 이름: `md_schedule_update_v2`
 - 실행 주기: 20분마다
 - 시작: 10:00
-- 기간: ~ 2026-05-15
+- 기간: ~ 2026-05-15 (예시 — `/ed` 는 캠페인 종료일이므로 실제 값으로 교체)
 - 조건: 로그온 중일 때만 실행 (`/it`)
 - 배터리: 배터리 전원에서도 실행 (schtasks 등록 후 PowerShell 추가 설정 필요 → 아래 참고)
 
@@ -182,7 +182,7 @@ Outlook 수신함을 폴링해 일정 파일 첨부를 자동으로 로컬에 �
 ### 동작 순서
 
 1. `win32com.client`로 Outlook 수신함 접근
-2. 제목 필터 조건에 맞는 메일만 선별 (스크립트 상단 `SUBJECT_KEYWORDS` 참고)
+2. 제목 필터 조건에 맞는 메일만 선별 (스크립트 상단 `SUBJECT_KEYS` 참고)
 3. 처리 이력(`sw_mail_processed_ids.txt`)에 없는 메일만 처리
 4. `.xlsx` 첨부파일을 지정 폴더에 저장
 5. 처리한 메일의 EntryID를 이력 파일에 추가

@@ -7,7 +7,7 @@
 #   data_fx/ 로 출력 → Excel 에서 데이터 모델 소스를 data_fx/ 로 다시 로드.
 #   (Classic 피봇 xlsx 는 remark_classic.py 로 셀 직접 치환)
 #
-# remark_pivot.py 와 동일 SEED=<REMARK_SEED> cipher (토큰 일관성 유지)
+# remark_classic.py 와 동일 SEED=<REMARK_SEED> cipher (토큰 일관성 유지)
 #
 # 리마킹 방식: 지정 컬럼의 값을 _fx 로 in-place 교체 (컬럼명 유지, 값만 치환)
 # 숫자·날짜 컬럼은 그대로. 알파 토큰만 치환(비알파 구분자 유지).

@@ -6,6 +6,7 @@
 :: - pythonw.exe 경로와 py 파일 경로를 각각 \"...\" 로 감싸야 공백 처리 가능
 :: - python.exe 대신 pythonw.exe 사용 → 실행 시 cmd 창이 뜨지 않음
 :: - 작업명(/tn)에는 공백 넣지 말 것
+:: - /ed 2026/05/15 는 예시(캠페인 종료일) — 실제 종료일로 교체할 것
 
 schtasks /create /tn md_mail_check_v2 /tr "\"C:\Python3xx\pythonw.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\your_folder\your_workspace\260324_schedule\check_mail_attachment.py\"" /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
 

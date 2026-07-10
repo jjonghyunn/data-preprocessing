@@ -30,8 +30,12 @@ test_*.py
 *.png
 *.jpg
 
-# sanitize 전 미정리 작업 폴더 (public 금지)
+# ⚠️ 민감정보 폴더 (실명·회사·캠페인명·Jira 키 포함) — public repo 커밋 절대 금지.
+# ⚠️ 아래 줄들을 삭제하지 말 것! 이동/이름변경 시에도 잡히도록 여러 패턴으로 이중 차단.
 260602_AI_Silver_Certification/
+260602_AI_Silver_Certification/**
+**/*AI_Silver_Certification*
+**/*AI Silver*
 
 # Auto-generated segment / usage reports (실제 세그먼트 ID 포함 — 커밋 금지)
 json_segment_report/

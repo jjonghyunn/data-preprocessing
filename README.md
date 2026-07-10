@@ -14,7 +14,8 @@ preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과
 data-preprocessing/
 ├── 260324_schedule/                  ← 캠페인 일정 자동화 (xlsx 정제 + Outlook 첨부 감지)
 │   ├── update_schedule.py            ← 고객 일정 xlsx → Auto 정제 파일 업데이트
-│   └── check_mail_attachment.py      ← Outlook 신규 첨부 xlsx 감지·저장
+│   ├── check_mail_attachment.py      ← Outlook 신규 첨부 xlsx 감지·저장
+│   └── create_schtasks_v2.txt        ← 작업 스케줄러 등록 명령어(전체 경로 포함) 모음
 ├── remark_pivot_raw/                 ← 분석 결과 xlsx/CSV → 외부 공유용 리마킹 (Classic/OLAP 피봇)
 ├── SQL/                              ← study SQL 쿼리 모음 (BigQuery·AA 패널, 9개 카테고리)
 ├── campaign_mapping_key_separator_260109v3.py    ← 캠페인 매핑 키 분리
@@ -38,7 +39,7 @@ data-preprocessing/
 
 ### 작업 스케줄러 자동 실행
 
-`pythonw.exe`로 직접 호출하는 방식과 bat/vbs 래퍼 방식 두 가지를 지원.  
+`pythonw.exe`로 작업 스케줄러에 직접 등록 (bat/vbs 래퍼 불필요).  
 등록 명령어, 배터리 모드 허용, 트러블슈팅 등 상세는 `260324_schedule/README.md` 참고.
 
 ---
@@ -52,3 +53,15 @@ data-preprocessing/
 ## **SQL**
 
 구글드라이브 `study_SQL` 아카이브를 주제별로 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반). 총 40개 쿼리 / 9개 카테고리(DDL·DML, 윈도우 함수, UNION·pivot, 페이지 경로·세션, 기획전 컨버전, 검색 키워드, 상품, 트래픽 지표, 콘텐츠). 현직장 작업물은 회사 식별자를 placeholder로 sanitize 처리. 상세는 `SQL/README.md` 참고.
+
+---
+
+## 캠페인 매핑 스크립트 (루트)
+
+캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 타임스탬프가 붙은 결과 CSV 를 같은 폴더에 출력한다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
+
+| 파일 | 역할 |
+|---|---|
+| `campaign_mapping_key_separator_*.py` | 매핑 키를 분리해 `separated_*` + `report_format_*` CSV 생성 |
+| `campaign_main_value_mapping_*.py` | 입력 CSV 값을 xlsx 매핑표에 조인해 main value 매핑 (+ 날짜) |
+| `campaign_default_value_splitter_*.py` | default value 컬럼을 분리 |
