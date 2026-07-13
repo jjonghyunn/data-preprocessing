@@ -29,8 +29,8 @@ SELECT * FROM INIT_APP
 )
 ,EXT_GDSNO AS(
 SELECT
-CASE WHEN channel = "MOWEB" AND url LIKE "%store.hanssem.com/goods/%" THEN REGEXP_EXTRACT(url, r'goods/(\d+)') -- 신규(10/19 이후) 상품상세 번호 추출 MOWEB
-WHEN channel = "PC" AND url LIKE "%store.hanssem.com/goods/%" THEN REGEXP_EXTRACT(url, r'goods/(\d+)') -- 신규(10/19 이후) 상품상세 번호 추출 PC
+CASE WHEN channel = "MOWEB" AND url LIKE "%store.company_name.com/goods/%" THEN REGEXP_EXTRACT(url, r'goods/(\d+)') -- 신규(10/19 이후) 상품상세 번호 추출 MOWEB
+WHEN channel = "PC" AND url LIKE "%store.company_name.com/goods/%" THEN REGEXP_EXTRACT(url, r'goods/(\d+)') -- 신규(10/19 이후) 상품상세 번호 추출 PC
 WHEN channel = "MOAPP" AND url LIKE "%gdsDetail%" THEN REGEXP_EXTRACT(url, r'gdsNo=(\d+)')-- 신규(10/19 이후) 상품상세 번호 추출 MOAPP NATIVE
 WHEN url LIKE "%goodsDetailMall%" THEN REGEXP_EXTRACT(url, r'gdsNo=(\d+)') -- 구(10/19 이전) 상품상세 번호 추출
 ELSE NULL END AS gdsNo,

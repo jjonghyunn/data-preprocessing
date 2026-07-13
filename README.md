@@ -1,5 +1,5 @@
 # data-preprocessing  
-<sub>2026-07-06  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-13  Jonghyun Park w/ Claude</sub>  
 
 preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과 리마킹, SQL 쿼리 모음.
 
@@ -52,13 +52,13 @@ data-preprocessing/
 
 ## **SQL**
 
-구글드라이브 `study_SQL` 아카이브를 주제별로 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반). 총 40개 쿼리 / 9개 카테고리(DDL·DML, 윈도우 함수, UNION·pivot, 페이지 경로·세션, 기획전 컨버전, 검색 키워드, 상품, 트래픽 지표, 콘텐츠). 현직장 작업물은 회사 식별자를 placeholder로 sanitize 처리. 상세는 `SQL/README.md` 참고.
+구글드라이브 `study_SQL` 아카이브를 주제별로 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반). 총 40개 쿼리 / 9개 카테고리(DDL·DML, 윈도우 함수, UNION·pivot, 페이지 경로·세션, 기획전 컨버전, 검색 키워드, 상품, 트래픽 지표, 콘텐츠). 회사 식별자(도메인·스키마·캠페인명 등)는 placeholder로 sanitize 처리. 상세는 `SQL/README.md` 참고.
 
 ---
 
 ## 캠페인 매핑 스크립트 (루트)
 
-캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 타임스탬프가 붙은 결과 CSV 를 같은 폴더에 출력한다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
+캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 타임스탬프가 붙은 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 파일 상단의 경로·파일명 상수만 바꿔 재사용.
 
 | 파일 | 역할 |
 |---|---|

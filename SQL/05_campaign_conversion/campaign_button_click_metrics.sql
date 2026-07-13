@@ -52,8 +52,8 @@ COUNT(CASE WHEN url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%p
 ELSE 0
 END AS ExitRate
 --GTM 세팅 액션 지표 예시  -- GTM에 세팅한 파라미터(actionParams) 입력
-, COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_한샘 신학기 혜택%" THEN 1 ELSE NULL END) AS navi_1
-, COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_신학기 혜택%" THEN 1 ELSE NULL END) AS navi_2
+, COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_CAMPAIGN NAME A%" THEN 1 ELSE NULL END) AS navi_1
+, COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_CAMPAIGN NAME B%" THEN 1 ELSE NULL END) AS navi_2
 , COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_인플루언서 Pick%" THEN 1 ELSE NULL END) AS navi_3
 , COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_BEST 책상 특가%" THEN 1 ELSE NULL END) AS navi_4
 , COUNT(CASE WHEN (url LIKE CONCAT("%plan%", planNo_PC, "%") OR url LIKE CONCAT("%plan%", planNo_MO, "%")) AND url LIKE"%click=내비게이션탭_릴레이 타임 특가%" THEN 1 ELSE NULL END) AS navi_5

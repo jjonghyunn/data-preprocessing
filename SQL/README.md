@@ -1,10 +1,10 @@
 # SQL 쿼리 모음
-<sub>2026-07-03  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-13  Jonghyun Park w/ Claude</sub>  
 
 구글드라이브 `study_SQL` 아카이브에서 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반).
 총 **40개 쿼리 / 9개 카테고리**. 각 `.sql` 상단 주석에 원본 출처·날짜를 기록.
 
-> 현직장(2024-05 이후) 작업물은 회사 식별자를 placeholder(`company_name` 등)로 sanitize 처리함. `⊘` 표시.
+> 회사 식별자(도메인·스키마·캠페인명 등)는 출처 시기 구분 없이 placeholder(`company_name`, `CAMPAIGN NAME` 등)로 sanitize 처리함. `⊘` = 현직장(2024-05 이후) 출처 파일 표시.
 
 ## 01_ddl_dml_basics
 기본 DDL·DML — CREATE/ALTER/UPDATE/DELETE, UNION 테이블 생성
@@ -101,4 +101,4 @@ UNION·Unpivot — device/제조사 컬럼 정규화, aa-panel union
 | `home_idea_content_pivot.sql` | 홈아이디어 콘텐츠 본문 다운-sql lab(HSA용) 230828 / 시트1 (2023-08) | 홈아이디어 콘텐츠(homeideacontent) 본문을 sort(1~99)별 컬럼으로 pivot 하고 HTML 태그 제거, 지정 seq 목록만 조회 |
 
 ---
-<sub>40개 파일 · sanitize 적용 13개(⊘)</sub>
+<sub>40개 파일 · ⊘(현직장 출처) 13개</sub>

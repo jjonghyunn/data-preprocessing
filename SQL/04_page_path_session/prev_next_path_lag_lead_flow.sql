@@ -38,21 +38,21 @@ END AS new_url_path, -- url안의 url 뒷 부분 제거
 *
 FROM INIT_ALL
 )
-,EXT_PATH AS(-- 한샘몰 영역 path 단위로 뭉치기
+,EXT_PATH AS(-- company_name 몰 영역 path 단위로 뭉치기
 SELECT
 CASE
 WHEN new_url_path LIKE "%plan/%" THEN REGEXP_EXTRACT(new_url_path, r'^(.*plan/)') -- 기획전 path 통합
 WHEN new_url_path LIKE "%event/%" THEN REGEXP_EXTRACT(new_url_path, r'^(.*event/)') -- 이벤트 path 통합
 WHEN new_url_path LIKE "%goods%review%" THEN REGEXP_REPLACE(new_url_path, r'\/\d+\/', '/') -- 리뷰 path 통합
-WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%store.hanssem.com/goods%") AND channel = "PC"  THEN "https://store.hanssem.com/goods" -- 상품상세 신구 통합 PC
-WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%store.hanssem.com/goods%") AND (channel = "MOWEB" OR channel = "MOAPP")  THEN "https://m.store.hanssem.com/goods" -- 상품상세 신구 통합 MOWEB
-WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%app/gdsDetail%") AND channel = "MOAPP"  THEN "https://mall.hanssem.com/app/gdsDetail" -- 상품상세 신구 통합 MOAPP
+WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%store.company_name.com/goods%") AND channel = "PC"  THEN "https://store.company_name.com/goods" -- 상품상세 신구 통합 PC
+WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%store.company_name.com/goods%") AND (channel = "MOWEB" OR channel = "MOAPP")  THEN "https://m.store.company_name.com/goods" -- 상품상세 신구 통합 MOWEB
+WHEN (new_url_path LIKE "%goodsDetailMall%" OR new_url_path LIKE "%app/gdsDetail%") AND channel = "MOAPP"  THEN "https://mall.company_name.com/app/gdsDetail" -- 상품상세 신구 통합 MOAPP
 WHEN new_url_path LIKE "%app%store%module=home%" THEN REPLACE(REPLACE(new_url_path, "?module=home", ""), "&snb=", "") -- 앱 스토어 메인 module=home 구분 제거
 WHEN (new_url_path LIKE "%mall.html%" OR new_url_path LIKE "%mall\\_%html%" OR new_url_path LIKE "%/app/store%") AND module IS NOT NULL AND snb IS NOT NULL THEN CONCAT(new_url_path, '?module=', module, '&snb=', snb) -- module, snb 다 존재
 WHEN (new_url_path LIKE "%mall.html%" OR new_url_path LIKE "%mall\\_%html%" OR new_url_path LIKE "%/app/store%") AND module IS NOT NULL AND snb IS NULL THEN CONCAT(new_url_path, '?module=', module) -- module 만 존재
 WHEN (new_url_path LIKE "%homeidea.html%" OR new_url_path LIKE "%homeidea\\%html%") AND module IS NOT NULL AND snb IS NOT NULL THEN CONCAT(new_url_path, '?module=', module, '&snb=', snb) -- module, snb 다 존재
 WHEN (new_url_path LIKE "%homeidea.html%" OR new_url_path LIKE "%homeidea\\%html%") AND module IS NOT NULL AND snb IS NULL THEN CONCAT(new_url_path, '?module=', module) -- module, snb 다 존재
-WHEN new_url_path LIKE "%/m/mainA%" OR new_url_path LIKE "%/m/mainB%" THEN "https://mall.hanssem.com/m/main.html" -- 통합메인 A,B 통합
+WHEN new_url_path LIKE "%/m/mainA%" OR new_url_path LIKE "%/m/mainB%" THEN "https://mall.company_name.com/m/main.html" -- 통합메인 A,B 통합
 WHEN REGEXP_CONTAINS(new_url_path,r'\d+' ) THEN REGEXP_REPLACE(new_url_path, r'\d+', '') -- 번호로 분할되는 경우 일괄 번호제거하여 묶음
 ELSE new_url_path END AS curr_path,
 * FROM EXT_MODULE_SNB

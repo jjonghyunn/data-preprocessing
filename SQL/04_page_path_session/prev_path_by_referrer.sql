@@ -42,6 +42,6 @@ COUNT(*) AS counter, -- 페이지뷰
 COUNT(DISTINCT ssnId) AS ssnIds, -- 세션 수
 COUNT(DISTINCT pcid) AS pcids -- PCID 수
 FROM DNUM
-WHERE referr_path LIKE "%store.hanssem.com/goods%" -- 상품상세 조회 url 검색해주세요
+WHERE referr_path LIKE "%store.company_name.com/goods%" -- 상품상세 조회 url 검색해주세요
 GROUP BY channel, referr_path, url_path
 ORDER BY channel, counter DESC

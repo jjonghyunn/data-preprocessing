@@ -65,7 +65,7 @@ us_mapping = {
     "Social (Free and Owned)":"Owned Social",
     "Social (Retired)":"Social Network Referrals",
     "Other External CampaignSegments":"Mobile Application",
-    "Other External CampaignUS_Smartthings":"Mobile Application - Smartthings",
+    "Other External CampaignUS_ServiceApp":"Mobile Application - ServiceApp",
     f"Other External CampaignUS_{BRAND} Members": f"Mobile Application - {BRAND} Members",
     "SMS":"SMS",
     "Gen AI Search":"Gen AI (Organic)"
@@ -107,16 +107,16 @@ global_paid_mapping = {
 # REPORT NO 매핑
 # ===============================
 report_no_mapping = {
-    "1_1": "1_1~2. S.com Traffic by Division",
+    "1_1": "1_1~2. Shop Traffic by Division",
     "2_1": "2_1~4. Basic Traffic",
     "3_1": "3_1. Traffic by Channel (Internal)",
     "3_2": "3_2. Traffic by Channel (External)",
     "3_3": "3_3. Home KV & GNB to Campaign Page",
     "4_1": "4_1. Order Conversion with Login/Non_Login",
     "4_2": "4_2. Order Conversion with Login/Non_Login (Visit)",
-    "5_1": "5_1. S.com Order Conversion",
-    "6_1": "6_1. S.com Cross Sell Order (Multi Purchase)",
-    "6_2": "6_2. S.com Cross Sell Order (Total)",
+    "5_1": "5_1. Shop Order Conversion",
+    "6_1": "6_1. Shop Cross Sell Order (Multi Purchase)",
+    "6_2": "6_2. Shop Cross Sell Order (Total)",
     "6_3": "6_3. Campaign Page Cross Sell Order",
     "7_1": "7_1~2. Order Conversion/Traffic by Channel"
 }

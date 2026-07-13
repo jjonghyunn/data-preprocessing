@@ -50,7 +50,7 @@ ssn_lead_url, -- 세션 단위 직후  url_path
 COUNT(DISTINCT ssnId) AS count_ssnId -- 세션 수
 FROM B
 -- 원본은 채널(PC/MO)에 따라 검색 URL_path를 분기: PC면 /plan/, 아니면 /m/mplan/
-WHERE REGEXP_CONTAINS(url_path,'(mall.hanssem.com/m/mplan/{PLAN_NO})') -- 검색할 URL_path 값 (PC 조회 시 mall.hanssem.com/plan/{PLAN_NO} 로 교체)
+WHERE REGEXP_CONTAINS(url_path,'(mall.company_name.com/m/mplan/{PLAN_NO})') -- 검색할 URL_path 값 (PC 조회 시 mall.company_name.com/plan/{PLAN_NO} 로 교체)
 AND NOT REGEXP_CONTAINS(url,'(isAdmin=Y)') -- 제외할 URL 값(파라미터 포함)추가 시 |를 OR이라 생각하시고 붙여서 넣어주세요
 GROUP BY channel, url_path_dnum, ssn_lead_url
 ORDER BY channel, count_ssnId DESC

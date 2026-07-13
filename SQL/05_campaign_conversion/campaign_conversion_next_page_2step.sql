@@ -50,7 +50,7 @@ ssn_lead_url_1, -- 세션 단위 직후(2번쨰)  url_path
 ssn_lead_url_2, -- 세션 단위 3번째 url_path
 COUNT(DISTINCT ssnId) AS count_ssnId -- 세션 수
 FROM B
-WHERE REGEXP_CONTAINS(url_path,'(mall.hanssem.com/m/mplan/{MO_PLAN_NO}|mall.hanssem.com/plan/{PC_PLAN_NO})') -- 검색할 URL_path 값 (기획전 번호 입력)
+WHERE REGEXP_CONTAINS(url_path,'(mall.company_name.com/m/mplan/{MO_PLAN_NO}|mall.company_name.com/plan/{PC_PLAN_NO})') -- 검색할 URL_path 값 (기획전 번호 입력)
 AND NOT REGEXP_CONTAINS(url,'(isAdmin=Y)') -- 제외할 URL 값(파라미터 포함)추가 시 |를 OR이라 생각하시고 붙여서 넣어주세요
 GROUP BY channel, url_path_dnum, ssn_lead_url_1, ssn_lead_url_2
 ORDER BY channel, count_ssnId DESC

@@ -41,7 +41,7 @@ COUNT(DISTINCT ssnId) AS ssnId_exists, -- 검색한 URL을 방문한 ssnId의 �
 COUNT(DISTINCT CASE WHEN lag_pcid IS NULL THEN pcid ELSE NULL END) AS pcid_lands, -- 검색한 URL 이 pcid의 랜딩인 경우 고유 pcid 수
 COUNT(DISTINCT CASE WHEN lag_ssnId IS NULL THEN ssnId ELSE NULL END) AS ssnId_lands -- 검색한 URL 이 pcid의 랜딩인 경우 고유 ssnId 수
 FROM A
-WHERE url_path LIKE "%https://mall.hanssem.com/%" -- 검색할 URL_path 값
+WHERE url_path LIKE "%https://mall.company_name.com/%" -- 검색할 URL_path 값
 AND (url_path LIKE "%homeIdea%" OR url_path LIKE "%homeidea%") -- "homeIdea" 또는 "homeidea"가 포함된 URL
 AND url NOT LIKE "%Admin=Y%" -- 제외할 URL 값
 GROUP BY channel
