@@ -1,5 +1,5 @@
 # remark_pivot_raw  
-<sub>2026-06-23  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
 피봇 종류(Classic / OLAP)에 따라 도구가 나뉜다.
@@ -131,7 +131,7 @@ FACT_REMARK = { "basic_traffic": ["sitecode"], "internal": ["sitecode", "channel
 ## 치환 규칙
 
 - **토큰 단위**: 알파벳 연속 덩어리만 치환, 숫자/언더바/구분자는 원형 유지
-  - 예) `ca_fr` → `fr_tc` (`ca`→`fr`, `_` 유지, `fr`→`tc`)
-- **대소문자 유지**: `France` → `Bqozxi`, `FRANCE` → `BQOZXI`
+  - 예) `ca_fr` → `vp_ez` (`ca`→`vp`, `_` 유지, `fr`→`ez`)
+- **대소문자 유지**: `France` → `Ezpdvc`, `FRANCE` → `EZPDVC`
 - **일관성**: 같은 토큰은 파일 전체에서 항상 같은 결과
 - **시드 고정**: `SEED = <REMARK_SEED>` — 동일 입력이면 언제나 동일 출력 (재현 가능)

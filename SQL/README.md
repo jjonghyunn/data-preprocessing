@@ -1,5 +1,5 @@
 # SQL 쿼리 모음
-<sub>2026-07-13  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
 
 구글드라이브 `study_SQL` 아카이브에서 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반).
 총 **40개 쿼리 / 9개 카테고리**. 각 `.sql` 상단 주석에 원본 출처·날짜를 기록.
@@ -15,7 +15,7 @@
 | `create_column_date_only.sql` ⊘ | create_column2.sql (2024-08) | day 테이블에 DATE 타입 date_only 컬럼을 NULL 값으로 추가 |
 | `create_table_combine_monthly.sql` ⊘ | create_combine.sql (2024-06) | 월별(2401~2405) 테이블을 UNION ALL 로 합쳐 단일 통합 테이블 생성 |
 | `create_table_union_re4_mnfctrr.sql` ⊘ | create_table.sql (2024-06) | 두 가공 테이블(re4 / mnfctrr)을 UNION 하여 신규 통합 테이블 생성 |
-| `delete_value_flip6.sql` ⊘ | delete_value.sql (2024-07) | extra 컬럼 값이 특정 옵션인 행을 DELETE |
+| `delete_value_model6.sql` ⊘ | delete_value.sql (2024-07) | extra 컬럼 값이 특정 옵션인 행을 DELETE |
 | `select_member_by_gender_addr.sql` | study_230808.sql (2023-08) | Member 테이블에서 성별 필터 조회 및 주소(addr)별 회원수 집계 (SQL 기초 학습) |
 | `update_value_device_total.sql` ⊘ | update_value.sql (2024-06) | device 값 'All' 을 'Total' 로 일괄 UPDATE |
 | `update_value_manufacturer_device.sql` ⊘ | value_column.sql (2024-06) | Manufacturers/device1 컬럼 값을 'Total' 로 UPDATE |

@@ -1,5 +1,5 @@
 # data-preprocessing  
-<sub>2026-07-13  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
 
 preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과 리마킹, SQL 쿼리 모음.
 
@@ -15,7 +15,10 @@ data-preprocessing/
 ├── 260324_schedule/                  ← 캠페인 일정 자동화 (xlsx 정제 + Outlook 첨부 감지)
 │   ├── update_schedule.py            ← 고객 일정 xlsx → Auto 정제 파일 업데이트
 │   ├── check_mail_attachment.py      ← Outlook 신규 첨부 xlsx 감지·저장
-│   └── create_schtasks_v2.txt        ← 작업 스케줄러 등록 명령어(전체 경로 포함) 모음
+│   ├── create_schtasks_v2.txt        ← 작업 스케줄러 등록 명령어(전체 경로 포함) 모음
+│   ├── 26_Schedule_separate(Auto).md / -kr.md  ← Auto 정제 파일 구조 설명 (영/한)
+│   ├── enable_long_path.md           ← 긴 경로(MAX_PATH) 우회 설정 안내
+│   └── README.md                     ← 260324_schedule 상세 가이드
 ├── remark_pivot_raw/                 ← 분석 결과 xlsx/CSV → 외부 공유용 리마킹 (Classic/OLAP 피봇)
 ├── SQL/                              ← study SQL 쿼리 모음 (BigQuery·AA 패널, 9개 카테고리)
 ├── campaign_mapping_key_separator_260109v3.py    ← 캠페인 매핑 키 분리
@@ -58,10 +61,10 @@ data-preprocessing/
 
 ## 캠페인 매핑 스크립트 (루트)
 
-캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 타임스탬프가 붙은 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 파일 상단의 경로·파일명 상수만 바꿔 재사용.
+캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 결과 파일 접미사는 현재시각이 아니라 **입력 파일명의 `YYMMDD_HHMMSS` 패턴**에서 추출한다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
 
 | 파일 | 역할 |
 |---|---|
 | `campaign_mapping_key_separator_*.py` | 매핑 키를 분리해 `separated_*` + `report_format_*` CSV 생성 |
 | `campaign_main_value_mapping_*.py` | 입력 CSV 값을 xlsx 매핑표에 조인해 main value 매핑 (+ 날짜) |
-| `campaign_default_value_splitter_*.py` | default value 컬럼을 분리 |
+| `campaign_default_value_splitter_*.py` | `metric` 컬럼을 `_` 기준으로 `split1`·`split2`… 컬럼으로 분리 |
