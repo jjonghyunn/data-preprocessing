@@ -36,7 +36,7 @@ UNION·Unpivot — device/제조사 컬럼 정규화, aa-panel union
 | `carttoadd_per_visits_filter.sql` ⊘ | 240520_study1.sql (2024-05) | 장바구니 담기/방문 지표 테이블에서 visits 5백만 이상 행만 필터 |
 | `union_device_all_pc_mobile.sql` ⊘ | union_aa-panel.sql (2024-06) | 원본 테이블의 all/pc/mobile 디바이스별 지표를 device 축으로 UNION ALL 정규화 후 테이블 생성 |
 | `union_manufacturer_breakdown.sql` ⊘ | union_aa-panel2.sql (2024-06) | 제조사(company_name/Co.A/Cbrand/Google/Others)별 지표 컬럼을 Manufacturer 축으로 UNION ALL 정규화 후 테이블 생성 |
-| `unpivot_os_visit_union_all.sql` ⊘ | 240610_us_mx_visit_user_id2.sql (2024-06) | OS(ios/and/others/ALL)별 방문값을 UNION ALL 로 세로 전개(unpivot)하는 쿼리 |
+| `unpivot_os_visit_union_all.sql` ⊘ | 240610_us_div1_visit_user_id2.sql (2024-06) | OS(ios/and/others/ALL)별 방문값을 UNION ALL 로 세로 전개(unpivot)하는 쿼리 |
 
 ## 04_page_path_session
 페이지 경로·세션 플로우 — 이전경로, LAG/LEAD 흐름 분석
