@@ -61,7 +61,7 @@ data-preprocessing/
 
 ## 캠페인 매핑 스크립트 (루트)
 
-캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 결과 파일 접미사는 현재시각이 아니라 **입력 파일명의 `YYMMDD_HHMMSS` 패턴**에서 추출한다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
+캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 결과 파일 접미사는 스크립트마다 다르다 — `campaign_main_value_mapping_*` 는 **입력 파일명의 `YYMMDD_HHMMSS` 패턴**에서 추출하고, `campaign_mapping_key_separator_*`·`campaign_default_value_splitter_*` 는 **실행 시각(`datetime.now()`)**을 접미사로 붙인다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
 
 | 파일 | 역할 |
 |---|---|
