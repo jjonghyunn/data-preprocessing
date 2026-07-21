@@ -1,4 +1,4 @@
-# SQL 쿼리 모음
+# SQL 쿼리 모음  
 <sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
 
 구글드라이브 `study_SQL` 아카이브에서 정리한 SQL 쿼리 모음 (BigQuery · Adobe Analytics 패널 기반).
