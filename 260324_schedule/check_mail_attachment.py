@@ -1,9 +1,11 @@
 """
 check_mail_attachment.py
+2026-07-22  Jonghyun Park w/ Claude  — 중복 suffix _yymmdd → _yymmdd_HHMM
 
 [mailbox] 받은편함에서 CAMPAIGN NAME 법인별 일정 첨부파일을 감지해 저장.
 - 이미 처리한 메일은 EntryID로 기록해 재처리 방지
-- 같은 파일명이 있으면 수신일(_yymmdd) 붙여 저장
+- 같은 파일명이 있으면 수신일시(_yymmdd_HHMM) 붙여 저장
+  ※ 이 폴더는 update_schedule.py 가 읽는 소스 폴더 — 시각까지 붙어야 최신 판정이 갈림
 - SaveAsFile은 MAX_PATH 제한으로 임시폴더에 저장 후 shutil.move로 이동
 """
 
@@ -70,7 +72,9 @@ for mail in inbox.Items:
         continue
 
     mail_saved = False
-    received = datetime.strftime(mail.ReceivedTime, "%y%m%d")
+    # 중복 파일명에 붙일 수신일시. 날짜만(_yymmdd) 쓰면 같은 날 두 번 온 파일이
+    # 이름 충돌로 스킵되어 유실 + update_schedule.py 최신 판정이 동점 → 시각(_HHMM)까지 (2026-07-22)
+    received = datetime.strftime(mail.ReceivedTime, "%y%m%d_%H%M")
 
     for att in mail.Attachments:
         name = att.FileName

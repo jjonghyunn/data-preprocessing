@@ -3,9 +3,10 @@ update_schedule.py
 2026-04-15  Jonghyun Park w/ Claude
 2026-04-21  Jonghyun Park w/ Claude
 2026-05-08  Jonghyun Park w/ Claude
+2026-07-22  Jonghyun Park w/ Claude  — latest_file_key: 메일 중복 suffix _YYMMDD_HHMM(시각) 인식
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
-   - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등)
+   - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등) → 메일수신 일시
 2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기
    - datetime → yyyy-mm-dd 문자열 변환
    - WEEKNUM 수식 셀 → W01 형식 변환
@@ -24,46 +25,69 @@ NO_FILL      = PatternFill(fill_type=None)
 
 
 # ── 최신 파일 정렬 키 ────────────────────────────────────────
+def mail_stamp_key(date6: str | None, hhmm: str | None) -> int:
+    """메일수신 일시(YYMMDD[_HHMM])를 정렬 가능한 정수 하나로 합침.
+
+    YYMMDD*10000 + HHMM → 260722_1432 = 2607221432, 260722(시각없음) = 2607220000
+    시각 없는 옛 파일이 같은 날 시각 있는 파일보다 항상 앞(=오래된 것)으로 정렬됨.
+    """
+    return int(date6 or 0) * 10000 + int(hhmm or 0)
+
+
 def latest_file_key(f: Path):
-    """파일명에서 정렬 키 (문서날짜, HHMM, 버전float, 버전int, 메일수신일) 반환.
+    """파일명에서 정렬 키 (문서날짜, HHMM, 버전float, 버전int, 메일수신일시) 반환.
 
-    SW형 (8자리 날짜):
-      YYYYMMDD_HHMM[_YYMMDD]  → (doc_date, hhmm, 0, 0, mail)
-      YYYYMMDD_vN[_YYMMDD]    → (doc_date, 0, 0, ver_int, mail)
-      YYYYMMDD_YYMMDD         → (doc_date, 0, 0, 0, mail)
-      YYYYMMDD                → (doc_date, 0, 0, 0, 0)
+    ※ 마지막 성분(메일수신일시)은 check_mail_attachment.py 가 **같은 파일명이 재수신될 때만**
+      덧붙이는 suffix. _YYMMDD → _YYMMDD_HHMM (시각 포함) 으로 확장됐고,
+      옛 _YYMMDD 형식도 그대로 파싱되므로 기존 파일 재정렬 문제 없음.
 
-    MD형 (6자리 날짜 + vX.XX 버전):
-      _vX.XX_YYMMDD           → (mail_date, 0, ver_float, 0, 0)
+    A형 (8자리 날짜):
+      YYYYMMDD_HHMM[_YYMMDD[_HHMM]]  → (doc_date, hhmm, 0, 0, mail)
+      YYYYMMDD_vN[_YYMMDD[_HHMM]]    → (doc_date, 0, 0, ver_int, mail)
+      YYYYMMDD_YYMMDD[_HHMM]         → (doc_date, 0, 0, 0, mail)
+      YYYYMMDD                       → (doc_date, 0, 0, 0, 0)
+
+    B형 (6자리 날짜 + vX.XX 버전):
+      _vX.XX_YYMMDD[_YYMMDD_HHMM]    → (doc_date6, 0, ver_float, suffix, mail)
     """
     name = f.stem
+
+    # 메일 suffix 공통 꼬리: _YYMMDD 또는 _YYMMDD_HHMM (둘 다 없어도 됨)
+    MAIL_TAIL = r'(?:_(\d{6})(?:_(\d{4}))?)?'
 
     m8 = re.search(r'(?<!\d)(\d{8})(?!\d)', name)
     if m8:
         doc_date = int(m8.group(1))
 
-        # YYYYMMDD_HHMM[_YYMMDD]: 뒤에 4자리 숫자가 오되 그 직후 숫자 없을 때
-        m = re.search(r'(?<!\d)\d{8}_(\d{4})(?:_(\d{6}))?(?!\d)', name)
+        # YYYYMMDD_HHMM[_메일꼬리]: 뒤에 4자리 숫자가 오되 그 직후 숫자 없을 때
+        m = re.search(r'(?<!\d)\d{8}_(\d{4})' + MAIL_TAIL + r'(?!\d)', name)
         if m:
-            return (doc_date, int(m.group(1)), 0.0, 0, int(m.group(2) or 0))
+            return (doc_date, int(m.group(1)), 0.0, 0, mail_stamp_key(m.group(2), m.group(3)))
 
-        # YYYYMMDD_vN[_YYMMDD]
-        m = re.search(r'(?<!\d)\d{8}_v(\d+)(?:_(\d{6}))?', name)
+        # YYYYMMDD_vN[_메일꼬리]
+        m = re.search(r'(?<!\d)\d{8}_v(\d+)' + MAIL_TAIL, name)
         if m:
-            return (doc_date, 0, 0.0, int(m.group(1)), int(m.group(2) or 0))
+            return (doc_date, 0, 0.0, int(m.group(1)), mail_stamp_key(m.group(2), m.group(3)))
 
-        # YYYYMMDD_YYMMDD
-        m = re.search(r'(?<!\d)\d{8}_(\d{6})(?!\d)', name)
+        # YYYYMMDD_YYMMDD[_HHMM]
+        m = re.search(r'(?<!\d)\d{8}_(\d{6})(?:_(\d{4}))?(?!\d)', name)
         if m:
-            return (doc_date, 0, 0.0, 0, int(m.group(1)))
+            return (doc_date, 0, 0.0, 0, mail_stamp_key(m.group(1), m.group(2)))
 
         return (doc_date, 0, 0.0, 0, 0)
 
-    # MD형: _vX.XX_YYMMDD
-    date6   = int(m.group()) if (m := re.search(r'(?<!\d)\d{6}(?!\d)', name)) else 0
-    version = float(m.group(1)) if (m := re.search(r'_v(\d+\.\d+)', name)) else 0.0
-    suffix  = int(m.group(1)) if (m := re.search(r'_(\d{1,5})$', name)) else 0
-    return (date6, 0, version, suffix, 0)
+    # ── B형: _vX.XX_YYMMDD ──
+    # ⚠ 끝번호 정규식 `_(\d{1,5})$` 이 메일 suffix 의 시각(_1432)을 버전 끝번호로 오인하므로,
+    #   끝의 `_YYMMDD_HHMM`(날짜+시각이 둘 다 있는 형태 = 스크립트가 붙인 것) 을 먼저 떼어낸 뒤 판정.
+    #   날짜만 있는 `_YYMMDD` 는 문서날짜일 수 있어 떼지 않음 (종전 동작 유지).
+    m_tail   = re.search(r'_(\d{6})_(\d{4})$', name)
+    mail_key = mail_stamp_key(m_tail.group(1), m_tail.group(2)) if m_tail else 0
+    core     = name[:m_tail.start()] if m_tail else name
+
+    date6   = int(m.group()) if (m := re.search(r'(?<!\d)\d{6}(?!\d)', core)) else 0
+    version = float(m.group(1)) if (m := re.search(r'_v(\d+\.\d+)', core)) else 0.0
+    suffix  = int(m.group(1)) if (m := re.search(r'_(\d{1,5})$', core)) else 0
+    return (date6, 0, version, suffix, mail_key)
 
 
 # ── 경로 설정 ────────────────────────────────────────────────
