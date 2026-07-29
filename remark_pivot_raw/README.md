@@ -1,5 +1,5 @@
 # remark_pivot_raw  
-<sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-29  Jonghyun Park w/ Claude</sub>  
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
 피봇 종류(Classic / OLAP)에 따라 도구가 나뉜다.
@@ -32,10 +32,12 @@
 
 ```
 # 1a. Classic 피봇 xlsx 리마킹
-python remark_classic.py   →  _remark_원본파일명.xlsx
+python remark_classic.py   →  OUT_DIR/_remark_원본파일명.xlsx
 
 # 1b. OLAP 피봇 소스 CSV 리마킹 (data 폴더가 있을 때)
-python remark_olap.py      →  data_fx/ 폴더
+python remark_olap.py      →  OUTPUT_DIR/data_fx/ 폴더
+
+# ※ 출력은 입력 파일 옆이 아니라 스크립트 상단 OUT_DIR / OUTPUT_DIR 로 나간다 (레전드 csv 도 동일).
 
 # ※ 1a/1b 실행 시 칼럼별 레전드 csv 가 자동 생성됨:
 #    remark_classic.py → _remarkprefix_classic.csv
@@ -63,8 +65,9 @@ python check_pivot_cache.py     →  remark_olap.csv / remark_classic.csv / rema
 ### 새 캠페인 파일 적용 시 수정 항목
 
 ```python
-# 1. 파일 경로
+# 1. 입력 파일 경로 + 출력 폴더 (둘 다 하드코딩이라 반드시 교체)
 CLASSIC_XLSX = r"...새 파일.xlsx"
+OUT_DIR      = r"...출력 경로"     # 결과 xlsx·레전드 csv 가 여기로 나감 (입력 폴더 아님)
 
 # 2. 유지할 시트 목록 (새 파일 구조에 맞게 — 아래는 예시)
 CLASSIC_KEEP = ["SHEET_A TRAFFIC ANALYSIS", "SHEET_A_PIVOT_1", ...]
@@ -97,7 +100,7 @@ CLASSIC_RAW_HEADER_ROW = {
 - 원본 유지, `data_fx/` 에 별도 출력 → Excel 에서 데이터 모델 소스를 `data_fx/` 로 다시 로드
 
 ### 리마킹 대상 컬럼
-- 민감 식별자(`sitecode` / `region` / `subs` / `country` / `division` / `channel` 계열)만 치환
+- 민감 식별자(`sitecode` / `region` / `subs` / `country` / `division` / `channel` 계열)만 치환. `external` fact 는 채널 컬럼명이 `variables/marketingchannel` 이라 그 이름으로 등록돼 있음
 - `SegmentName` / `SegmentId` / `category` / `variables/product` / `prop6` / `evar41` / `div_1~3` 등은 기본 주석처리(미치환) — 필요 시 주석 해제
 
 ### 새 파일 적용 시 수정 항목
@@ -108,8 +111,13 @@ OUTPUT_DIR = r"...출력 경로"
 
 # dim: 민감 컬럼만 (region/subs/country 는 dim 에서 치환)
 DIM_REMARK  = { "d_country.csv": ["sitecode", "region", "subs", "country"], ... }
-# fact: sitecode/division/channel 만 활성, 나머지는 주석처리
-FACT_REMARK = { "basic_traffic": ["sitecode"], "internal": ["sitecode", "channel"], ... }
+# fact: sitecode/division/channel 계열만 활성, 나머지(SegmentName·category·product 등)는 주석처리
+FACT_REMARK = {
+    "basic_traffic": ["sitecode"],
+    "external":      ["sitecode", "variables/marketingchannel"],
+    "internal":      ["sitecode", "channel"],
+    ...
+}
 ```
 
 ---

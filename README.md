@@ -1,5 +1,5 @@
 # data-preprocessing  
-<sub>2026-07-14  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-29  Jonghyun Park w/ Claude</sub>  
 
 preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과 리마킹, SQL 쿼리 모음.
 
@@ -20,11 +20,19 @@ data-preprocessing/
 │   ├── enable_long_path.md           ← 긴 경로(MAX_PATH) 우회 설정 안내
 │   └── README.md                     ← 260324_schedule 상세 가이드
 ├── remark_pivot_raw/                 ← 분석 결과 xlsx/CSV → 외부 공유용 리마킹 (Classic/OLAP 피봇)
-├── SQL/                              ← study SQL 쿼리 모음 (BigQuery·AA 패널, 9개 카테고리)
+│   ├── remark_classic.py             ← Classic 피봇 xlsx 리마킹
+│   ├── remark_olap.py                ← OLAP 피봇 (fact/dim CSV) 리마킹
+│   ├── check_pivot_cache.py          ← 피봇 캐시 점검·추출
+│   └── README.md                     ← remark_pivot_raw 상세 가이드
+├── SQL/                              ← study SQL 쿼리 모음 (BigQuery·AA 패널)
+│   ├── 01_ddl_dml_basics/ … 09_content/   ← 9개 카테고리, 총 40개 .sql
+│   └── README.md                     ← 카테고리별 쿼리 인덱스
 ├── campaign_mapping_key_separator_260109v3.py    ← 캠페인 매핑 키 분리
 ├── campaign_main_value_mapping_251224_add_date.py ← 캠페인 main value 매핑 (+ 날짜)
 ├── campaign_default_value_splitter_251217.py     ← 캠페인 default value 분리
-└── requirements.txt
+├── requirements.txt
+├── .gitignore
+└── LICENSE
 ```
 
 ---
@@ -61,7 +69,11 @@ data-preprocessing/
 
 ## 캠페인 매핑 스크립트 (루트)
 
-캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 모두 `~/Downloads` 의 입력 파일을 읽어 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력). 결과 파일 접미사는 스크립트마다 다르다 — `campaign_main_value_mapping_*` 는 **입력 파일명의 `YYMMDD_HHMMSS` 패턴**에서 추출하고, `campaign_mapping_key_separator_*`·`campaign_default_value_splitter_*` 는 **실행 시각(`datetime.now()`)**을 접미사로 붙인다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
+캠페인 매핑 테이블(CSV/xlsx)을 정제·변환하는 유틸. 입력 파일을 읽어 결과 CSV/xlsx 를 같은 폴더에 출력한다(`campaign_main_value_mapping_*` 는 xlsx 출력).
+
+> ⚠ **입력 폴더는 스크립트마다 다르다.** `campaign_main_value_mapping_*` 만 `base_dir = Path.home()/"Downloads"` 로 홈 기준 자동 탐색이고, `campaign_mapping_key_separator_*`·`campaign_default_value_splitter_*` 는 `base_dir = r'C:\Users\{username}\Downloads'` 라는 **리터럴 placeholder**(f-string 아님 → `{username}` 이 치환되지 않음)이므로 실행 전 직접 고쳐야 한다.
+
+결과 파일 접미사도 스크립트마다 다르다 — `campaign_main_value_mapping_*` 는 **입력 파일명의 `YYMMDD_HHMMSS` 패턴**에서 추출하고, `campaign_mapping_key_separator_*`·`campaign_default_value_splitter_*` 는 **실행 시각(`datetime.now()`)**을 접미사로 붙인다. 파일 상단의 경로·파일명 상수만 바꿔 재사용.
 
 | 파일 | 역할 |
 |---|---|
