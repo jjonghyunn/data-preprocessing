@@ -1,3 +1,5 @@
+# campaign_mapping_key_separator_260109v3.py
+# updated: 2026-07-29 17:37  — sanitize: 채널 분류값 placeholder 치환
 import csv
 import os
 import re
@@ -55,7 +57,7 @@ us_mapping = {
     "Email - eComm":"Email",
     "Email - Upsell it":"Email",
     "Email (Retired)":"Email",
-    "EPP":"EPP - US",
+    "B2B":"B2B - US",
     "Natural Search":"Natural Search",
     "Other":"Other",
     "None":"Other",
