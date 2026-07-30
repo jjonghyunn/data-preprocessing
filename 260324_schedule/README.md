@@ -1,5 +1,5 @@
 # 260324_schedule  
-<sub>2026-07-29  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-30  Jonghyun Park w/ Claude</sub>  
 
 ## 개요
 캠페인 법인별 일정 파일을 자동으로 Auto 정제 파일에 붙여넣는 스크립트.
