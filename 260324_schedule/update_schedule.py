@@ -4,13 +4,17 @@ update_schedule.py
 2026-04-21  Jonghyun Park w/ Claude
 2026-05-08  Jonghyun Park w/ Claude
 2026-07-22  Jonghyun Park w/ Claude  — latest_file_key: 메일 중복 suffix _YYMMDD_HHMM(시각) 인식
+2026-07-30  Jonghyun Park w/ Claude  — ① 읽기/붙여넣기 범위를 상단 상수로 추출(SRC_*/TGT_*/COMPARE)
+                                       ② 대상 영역과 겹치는 병합셀 자동 해제 — MergedCell 은 value 설정이
+                                          불가(read-only)해서 클리어 단계에서 예외로 죽던 문제
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
    - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등) → 메일수신 일시
-2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기
+2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기  ※ 범위는 상단 SRC_* 상수
    - datetime → yyyy-mm-dd 문자열 변환
    - WEEKNUM 수식 셀 → W01 형식 변환
 3. Auto 파일의 '고객법인일정파일' 시트 B2:K999 클리어 후 B2부터 값 붙여넣기 (서식 제외)
+   ※ 범위는 상단 TGT_* 상수
 """
 
 import re
@@ -101,6 +105,28 @@ SOURCE_FOLDER    = BASE / "1.고객 법인 일정 파일"
 TARGET_SHEET     = "고객법인일정파일"
 LAST_SOURCE_FILE = BASE / "schedule_last_source.txt"  # 마커: Auto 파일과 같은 폴더 (프로젝트별 독립 관리. 다른 캠페인으로 fork 시 BASE만 교체하면 마커도 따라감)
 
+# ── 읽기 / 붙여넣기 범위 ─────────────────────────────────────
+# 소스 일정표의 열 구성이 바뀌면 여기 숫자만 고치면 된다 (함수 본문엔 숫자를 박지 않는다).
+SRC_MIN_COL   = 2    # B (Global)
+SRC_MAX_COL   = 10   # J — 1세트 구성 기준
+SRC_MIN_ROW   = 3    # 소스 데이터 시작 행
+TGT_START_ROW = 2    # 타겟 붙여넣기 시작 행 (소스 행 - 1)
+TGT_MAX_ROW   = 999  # 클리어 범위 하단
+TGT_MIN_COL   = 2    # B
+TGT_MAX_COL   = 11   # K
+
+# 전후 비교(노란 음영) 대상 — {src_data 인덱스: 타겟 열번호},  타겟 열번호 = 인덱스 + 2
+COMPARE = {
+    3: 5,   # E Participation
+    4: 6,   # F Starts at
+    6: 8,   # H Ends at
+}
+
+# ※ 소스가 B2B/B2C 2세트(B~N)로 확장된 일정표라면 위 값을 아래로 바꿔 쓴다:
+#     SRC_MAX_COL = 14 (N) / TGT_MAX_COL = 14
+#     COMPARE 에 { 8: 10 (J 2번째 Starts at), 10: 12 (L 2번째 Ends at) } 추가
+#   (포맷이 바뀐 직후 1회는 전후 비교에서 성격이 다른 열끼리 비교돼 음영이 과하게 찍힐 수 있음)
+
 # ── Auto 파일 자동 탐색 ──────────────────────────────────────
 auto_files = list(BASE.glob("*Auto*.xlsx"))
 if not auto_files:
@@ -128,7 +154,7 @@ src_wb_raw = openpyxl.load_workbook(source_file, data_only=False)
 src_ws_raw = src_wb_raw.worksheets[0]
 
 weeknum_cells = set()
-for row in src_ws_raw.iter_rows(min_row=3, min_col=2, max_col=10):
+for row in src_ws_raw.iter_rows(min_row=SRC_MIN_ROW, min_col=SRC_MIN_COL, max_col=SRC_MAX_COL):
     for cell in row:
         if (
             cell.value
@@ -146,7 +172,7 @@ src_ws = src_wb.worksheets[0]
 print(f"[소스 시트] {src_ws.title}")
 
 src_data = []
-for row in src_ws.iter_rows(min_row=3, min_col=2, max_col=10):  # B3:J
+for row in src_ws.iter_rows(min_row=SRC_MIN_ROW, min_col=SRC_MIN_COL, max_col=SRC_MAX_COL):
     if all(cell.value is None for cell in row):
         continue  # 완전 빈 행 스킵
     row_data = []
@@ -171,7 +197,7 @@ if len(xlsx_files) >= 2:
     prev_wb_raw = openpyxl.load_workbook(prev_file, data_only=False)
     prev_ws_raw = prev_wb_raw.worksheets[0]
     prev_weeknum_cells = set()
-    for row in prev_ws_raw.iter_rows(min_row=3, min_col=2, max_col=10):
+    for row in prev_ws_raw.iter_rows(min_row=SRC_MIN_ROW, min_col=SRC_MIN_COL, max_col=SRC_MAX_COL):
         for cell in row:
             if cell.value and isinstance(cell.value, str) and "WEEKNUM" in cell.value.upper():
                 prev_weeknum_cells.add((cell.row, cell.column))
@@ -179,7 +205,7 @@ if len(xlsx_files) >= 2:
 
     prev_wb = openpyxl.load_workbook(prev_file, data_only=True)
     prev_ws = prev_wb.worksheets[0]
-    for row in prev_ws.iter_rows(min_row=3, min_col=2, max_col=10):
+    for row in prev_ws.iter_rows(min_row=SRC_MIN_ROW, min_col=SRC_MIN_COL, max_col=SRC_MAX_COL):
         if all(cell.value is None for cell in row):
             continue
         row_data = []
@@ -211,25 +237,31 @@ tgt_ws = tgt_wb[TARGET_SHEET]
 # D1에 소스 파일명 기록
 tgt_ws.cell(row=1, column=4, value=source_file.name)
 
-# B2:K999 값·음영 클리어 (서식 유지)
-for row in tgt_ws.iter_rows(min_row=2, max_row=999, min_col=2, max_col=11):
+# 대상 영역과 겹치는 병합셀 해제 — MergedCell 은 value 설정이 불가(read-only)해서
+# 클리어·붙여넣기에서 예외가 난다. 이 영역은 어차피 소스값으로 덮어쓰므로 해제해도 무방.
+for rng in list(tgt_ws.merged_cells.ranges):
+    if (rng.max_row >= TGT_START_ROW and rng.min_row <= TGT_MAX_ROW
+            and rng.max_col >= TGT_MIN_COL and rng.min_col <= TGT_MAX_COL):
+        tgt_ws.unmerge_cells(str(rng))
+
+# 값·음영 클리어 (서식 유지)
+for row in tgt_ws.iter_rows(min_row=TGT_START_ROW, max_row=TGT_MAX_ROW,
+                            min_col=TGT_MIN_COL, max_col=TGT_MAX_COL):
     for cell in row:
         cell.value = None
         cell.fill  = NO_FILL
 
 # B2부터 값 붙여넣기
-for r_idx, row_data in enumerate(src_data, start=2):
-    for c_idx, value in enumerate(row_data, start=2):  # B열=2
+for r_idx, row_data in enumerate(src_data, start=TGT_START_ROW):
+    for c_idx, value in enumerate(row_data, start=TGT_MIN_COL):  # B열=2
         cell = tgt_ws.cell(row=r_idx, column=c_idx, value=value)
         if isinstance(value, dt.date):
             cell.number_format = "YYYY-MM-DD"
 
-# 변경 셀 음영 표시 (E=Participation, F=Start at, H=End at)
-# src_data index: 3=E, 4=F, 6=H  /  target column: 5=E, 6=F, 8=H
-COMPARE = {3: 5, 4: 6, 6: 8}
+# 변경 셀 음영 표시 (대상 = 상단 COMPARE)
 if prev_data:
     changed_count = 0
-    for r_idx, row_data in enumerate(src_data, start=2):
+    for r_idx, row_data in enumerate(src_data, start=TGT_START_ROW):
         subs_key = row_data[1]  # C열
         if not subs_key or subs_key not in prev_data:
             continue
