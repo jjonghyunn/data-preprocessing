@@ -1,5 +1,5 @@
 # 26_Schedule_separate(Auto).xlsx  
-<sub>2026-07-01  Jonghyun Park w/ Claude</sub>  
+<sub>2026-07-10  Jonghyun Park w/ Claude</sub>  
 
 캠페인 일정 관리 템플릿 파일.
 실제 데이터는 더미값으로 대체한 참고용 정제 버전.
