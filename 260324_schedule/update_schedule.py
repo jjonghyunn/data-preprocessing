@@ -4,6 +4,7 @@ update_schedule.py
 2026-04-21  Jonghyun Park w/ Claude
 2026-05-08  Jonghyun Park w/ Claude
 2026-07-22  Jonghyun Park w/ Claude  — latest_file_key: 메일 중복 suffix _YYMMDD_HHMM(시각) 인식
+2026-08-11  Jonghyun Park w/ Claude  — win32com 지연 바인딩에서 wb_com.Close() 가 TypeError 로 죽는 문제 방어
 2026-07-30  Jonghyun Park w/ Claude  — ① 읽기/붙여넣기 범위를 상단 상수로 추출(SRC_*/TGT_*/COMPARE)
                                        ② 대상 영역과 겹치는 병합셀 자동 해제 — MergedCell 은 value 설정이
                                           불가(read-only)해서 클리어 단계에서 예외로 죽던 문제
@@ -285,11 +286,20 @@ except PermissionError:
 # Excel로 열어서 전체 재계산 후 저장 (FILTER/SORT 등 동적 배열 함수 반영)
 excel = win32com.client.Dispatch("Excel.Application")
 excel.Visible = False
+excel.DisplayAlerts = False      # Close/Quit 시 저장 확인 팝업 방지 (스케줄러 실행 대비)
 try:
     wb_com = excel.Workbooks.Open(str(output_file.resolve()))
     excel.CalculateFull()
     wb_com.Save()
-    wb_com.Close()
+    # ※ gen_py 캐시가 없으면(파이썬 새 버전 설치 직후 등) win32com 이 지연 바인딩으로 동작해
+    #   `wb_com.Close` 는 속성 접근만으로 COM 메서드가 실행되고 bool(True) 을 돌려준다
+    #   → 이어지는 `()` 가 TypeError: 'bool' object is not callable 로 죽는다.
+    #   그 시점엔 이미 저장·닫기가 끝난 상태이므로 TypeError 만 무시한다.
+    #   (조기 바인딩이면 아래 호출이 정상 동작 — 양쪽 다 안전)
+    try:
+        wb_com.Close(SaveChanges=False)
+    except TypeError:
+        pass
     LAST_SOURCE_FILE.write_text(current_marker, encoding="utf-8")
     print(f"[완료] {output_file.name} 저장 완료")
 finally:
