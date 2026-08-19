@@ -7,7 +7,7 @@
 #   data_fx/ 로 출력 → Excel 에서 데이터 모델 소스를 data_fx/ 로 다시 로드.
 #   (Classic 피봇 xlsx 는 remark_classic.py 로 셀 직접 치환)
 #
-# remark_classic.py 와 동일 SEED=<REMARK_SEED> cipher (토큰 일관성 유지)
+# remark_classic.py 와 동일 시드 cipher (토큰 일관성 유지)
 #
 # 리마킹 방식: 지정 컬럼의 값을 _fx 로 in-place 교체 (컬럼명 유지, 값만 치환)
 # 숫자·날짜 컬럼은 그대로. 알파 토큰만 치환(비알파 구분자 유지).
@@ -71,7 +71,16 @@ FACT_REMARK = {
 
 # ════ 내부 사용 ════
 
-SEED = <REMARK_SEED>
+# 마스킹 시드 — 환경변수 REMARK_SEED 로 주입한다 (공개 저장소에 값을 두지 않기 위함).
+#   PowerShell:  $env:REMARK_SEED = "<숫자>"
+# 같은 값을 넣으면 이전 산출물과 동일한 _fx 결과가 재현된다.
+_SEED_ENV = os.environ.get("REMARK_SEED", "").strip()
+if not _SEED_ENV.lstrip("-").isdigit():
+    raise SystemExit(
+        'REMARK_SEED 환경변수(정수)가 필요합니다 — 마스킹 시드를 코드에 박지 않기 위한 것입니다. '
+        'PowerShell 예:  $env:REMARK_SEED = "<숫자>"'
+    )
+SEED = int(_SEED_ENV)
 
 def _make_cipher(seed=SEED):
     rng = random.Random(seed)
@@ -196,7 +205,7 @@ def main():
         total_rows  += rows
         total_files += 1
 
-    # ── 칼럼별 레전드 CSV (Column | Value_Original | Value_fx) — 같은 SEED=<REMARK_SEED> 라 remark_classic 과 매핑 일치 ──
+    # ── 칼럼별 레전드 CSV (Column | Value_Original | Value_fx) — 같은 시드라 remark_classic 과 매핑 일치 ──
     legend_path = out_root / (LEGEND_PREFIX + "olap.csv")
     with open(legend_path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=["Column", "Value_Original", "Value_fx"])

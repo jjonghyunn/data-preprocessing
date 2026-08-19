@@ -42,7 +42,16 @@ OLAP_PREFIX    = "model"    # model://테이블/계층/레벨
 
 # ════ 내부 사용 ════
 
-SEED = <REMARK_SEED>
+# 마스킹 시드 — 환경변수 REMARK_SEED 로 주입한다 (공개 저장소에 값을 두지 않기 위함).
+#   PowerShell:  $env:REMARK_SEED = "<숫자>"
+# 같은 값을 넣으면 이전 산출물과 동일한 _fx 결과가 재현된다.
+_SEED_ENV = os.environ.get("REMARK_SEED", "").strip()
+if not _SEED_ENV.lstrip("-").isdigit():
+    raise SystemExit(
+        'REMARK_SEED 환경변수(정수)가 필요합니다 — 마스킹 시드를 코드에 박지 않기 위한 것입니다. '
+        'PowerShell 예:  $env:REMARK_SEED = "<숫자>"'
+    )
+SEED = int(_SEED_ENV)
 
 def _make_cipher(seed=SEED):
     rng = random.Random(seed)

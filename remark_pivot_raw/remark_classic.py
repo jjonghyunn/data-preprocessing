@@ -8,7 +8,7 @@
 # 치환 대상: sitecode·country·subs·region + channel + ITEM(좌측열 Paid/Non-Paid 조건부)
 # 치환 범위는 xlsx 안의 dim 컬럼 값 그대로 — 외부 CSV 조회 불필요
 
-import re, random
+import os, re, random
 from pathlib import Path
 import openpyxl
 
@@ -53,7 +53,16 @@ ITEM_COL_NAMES = {"item"}
 # 왼쪽 열 값이 이 중 하나일 때만 ITEM 치환
 ITEM_TRIGGER = {"paid", "non-paid", "non paid"}
 
-SEED = <REMARK_SEED>
+# 마스킹 시드 — 환경변수 REMARK_SEED 로 주입한다 (공개 저장소에 값을 두지 않기 위함).
+#   PowerShell:  $env:REMARK_SEED = "<숫자>"
+# 같은 값을 넣으면 이전 산출물과 동일한 _fx 결과가 재현된다.
+_SEED_ENV = os.environ.get("REMARK_SEED", "").strip()
+if not _SEED_ENV.lstrip("-").isdigit():
+    raise SystemExit(
+        'REMARK_SEED 환경변수(정수)가 필요합니다 — 마스킹 시드를 코드에 박지 않기 위한 것입니다. '
+        'PowerShell 예:  $env:REMARK_SEED = "<숫자>"'
+    )
+SEED = int(_SEED_ENV)
 
 # 컬럼 헤더 → dim 여부 판단 (소문자·비알파뉴메릭 제거 후 비교)
 DIM_HEADERS = {
@@ -191,7 +200,7 @@ def main():
         print(f"  Sheets: {wb.sheetnames}")
 
     import csv
-    # 칼럼별 레전드 (Column | Value_Original | Value_fx) — 같은 SEED=<REMARK_SEED> 라 remark_olap 과 매핑 일치
+    # 칼럼별 레전드 (Column | Value_Original | Value_fx) — 같은 시드라 remark_olap 과 매핑 일치
     legend = Path(OUT_DIR) / (LEGEND_PREFIX + "classic.csv")
     with open(legend, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=["Column", "Value_Original", "Value_fx"])
