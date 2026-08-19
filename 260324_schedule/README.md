@@ -1,8 +1,27 @@
 # 260324_schedule  
-<sub>2026-07-30  Jonghyun Park w/ Claude</sub>  
+<sub>2026-08-19  Jonghyun Park w/ Claude</sub>  
 
 ## 개요
 캠페인 법인별 일정 파일을 자동으로 Auto 정제 파일에 붙여넣는 스크립트.
+
+메일함 감시 → 첨부 자동 저장 → 일정 시트 정제 → Auto 워크북 반영 → 변경 셀 음영까지가 한 묶음이다.
+
+## 파일 구성
+
+| 파일 | 역할 |
+|---|---|
+| `check_mail_attachment.py` | **메일 제목** 키워드로 첨부 감지 |
+| `check_mail_attachment_byname.py` | **첨부파일명** 키워드(OR 그룹 지원) + 수신일 이후 필터 |
+| `check_mail_attachment_status.py` | 첨부파일명 키워드, 저장 폴더 안에 마커를 두는 독립 감시본 |
+| `check_mail_attachment_url.py` | **제목 + 첨부파일명 2중 조건** + 수신 기간(From~To) 필터 |
+| `update_schedule.py` | 최신 소스 선택 → Auto 워크북 반영 → 변경 셀 음영 → 강제 재계산 |
+| `update_schedule_summary.py` | 위 + **자유형 Summary 시트를 13열 일정으로 자동 정제**하는 단계가 앞에 붙은 버전 |
+| `26_Schedule(Auto)_example.xlsx` | Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷) |
+| `create_schtasks_v2.txt` | 작업 스케줄러 등록 명령어 모음 |
+
+> 감지 스크립트 4종은 **일부러 각각 독립 파일**로 둔다. 공통 함수로 묶으면 한 캠페인의 조건을
+> 바꿀 때 다른 캠페인 감시까지 흔들려서, 파일 하나만 복사해 상단 상수만 고치는 편이 안전하다.
+
 
 > 📄 정제 대상 Auto 파일의 시트 구조 상세: [`26_Schedule_separate(Auto).md`](<26_Schedule_separate(Auto).md>) (한글판: [`26_Schedule_separate(Auto)-kr.md`](<26_Schedule_separate(Auto)-kr.md>))
 
@@ -106,7 +125,7 @@ python update_schedule.py
 ```
 
 ## 스케줄 작업
-- 작업 이름: `md_schedule_update_v2`
+- 작업 이름: `cmp_schedule_update`
 - 실행 주기: 20분마다
 - 시작: 10:00
 - 기간: ~ 2026-05-15 (예시 — `/ed` 는 캠페인 종료일이므로 실제 값으로 교체)
@@ -128,11 +147,11 @@ Python 스크립트를 작업 스케줄러에 직접 등록. bat/vbs 래퍼 불�
 ### CLI 등록 명령어
 
 ```bat
-schtasks /create /tn md_mail_check_v2 ^
+schtasks /create /tn cmp_mail_check ^
   /tr "\"C:\Python3xx\pythonw.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\...\check_mail_attachment.py\"" ^
   /sc minute /mo 20 /st 09:55 /ed 2026/05/15 /it /f
 
-schtasks /create /tn md_schedule_update_v2 ^
+schtasks /create /tn cmp_schedule_update ^
   /tr "\"C:\Python3xx\pythonw.exe\" \"C:\Users\user_name\OneDrive - company_name\user_id\...\update_schedule.py\"" ^
   /sc minute /mo 20 /st 10:00 /ed 2026/05/15 /it /f
 ```
@@ -153,13 +172,13 @@ schtasks /create /tn md_schedule_update_v2 ^
 **[권장] PowerShell 창에서 직접 실행** — 래퍼 없이 한 줄, 빠름:
 
 ```powershell
-$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }
+$names = 'cmp_mail_check','cmp_schedule_update'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }
 ```
 
 또는 가독성 버전:
 
 ```powershell
-$names = 'md_mail_check_v2', 'md_schedule_update_v2'
+$names = 'cmp_mail_check', 'cmp_schedule_update'
 foreach ($n in $names) {
     $t = Get-ScheduledTask -TaskName $n
     $t.Settings.DisallowStartIfOnBatteries = $false
@@ -171,7 +190,7 @@ foreach ($n in $names) {
 **[cmd/bat에서 실행할 때만] `powershell -Command` 래퍼 사용**:
 
 ```bat
-powershell -Command "$names = 'md_mail_check_v2','md_schedule_update_v2'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }"
+powershell -Command "$names = 'cmp_mail_check','cmp_schedule_update'; foreach ($n in $names) { $t = Get-ScheduledTask -TaskName $n; $t.Settings.DisallowStartIfOnBatteries = $false; $t.Settings.StopIfGoingOnBatteries = $false; Set-ScheduledTask -InputObject $t }"
 ```
 
 ⚠ **PowerShell 창에서 래퍼 형태를 쓰지 말 것** — 바깥 PS가 `$names`, `$n`, `$t`를 자기 변수로 먼저 치환(빈 값)해버려 `foreach 뒤에 변수 이름이 없습니다` 오류가 발생합니다.
@@ -203,7 +222,7 @@ Outlook 수신함을 폴링해 일정 파일 첨부를 자동으로 로컬에 �
 
 1. `win32com.client`로 Outlook 접근 — 기본 프로필이 아니라 **`STORE_NAME` 과 이름이 일치하는 메일함(store)** 을 찾아 그 받은편지함을 연다. 공유 메일함을 쓰므로 실행 전 스크립트 상단 `STORE_NAME` 을 본인 환경의 메일함 이름으로 반드시 교체할 것 (못 찾으면 그대로 종료)
 2. 제목 필터 조건에 맞는 메일만 선별 (스크립트 상단 `SUBJECT_KEYS` 참고)
-3. 처리 이력(`sw_mail_processed_ids.txt`)에 없는 메일만 처리
+3. 처리 이력(`campaign_mail_processed_ids.txt`)에 없는 메일만 처리
 4. `.xlsx` 첨부파일을 지정 폴더에 저장
 5. 처리한 메일의 EntryID를 이력 파일에 추가
 
@@ -213,14 +232,14 @@ Outlook 수신함을 폴링해 일정 파일 첨부를 자동으로 로컬에 �
 python check_mail_attachment.py
 ```
 
-작업 스케줄러 등록 방법은 위의 **작업 스케줄러 등록** 섹션 참고 (`md_mail_check_v2` 작업).
+작업 스케줄러 등록 방법은 위의 **작업 스케줄러 등록** 섹션 참고 (`cmp_mail_check` 작업).
 
 ### 재처리 방지 (EntryID 마커)
 
 처리 완료한 메일의 `EntryID`를 마커 파일에 기록해, 다음 실행 시 동일 메일을 건너뜀.
 
 ```
-C:\Users\user_name\Documents\sw_mail_processed_ids.txt
+C:\Users\user_name\Documents\campaign_mail_processed_ids.txt
 ```
 
 - 파일이 없으면 자동 생성
@@ -245,3 +264,55 @@ C:\Users\user_name\Documents\sw_mail_processed_ids.txt
 임시 파일에 먼저 저장 후 `shutil.move()`로 이동하는 방식으로 우회.
 
 > 레지스트리 설정(`LongPathsEnabled = 1`)도 병행 적용 필요 → [`enable_long_path.md`](enable_long_path.md) 참고
+
+---
+
+## 첨부 감지 변형 3종
+
+`check_mail_attachment.py`(제목 기준)와 조건만 다른 자립 스크립트들. 상단 상수만 고쳐 쓴다.
+
+| | `_byname` | `_status` | `_url` |
+|---|---|---|---|
+| 제목 조건 | — | — | `SUBJECT_KEYS` |
+| 첨부파일명 조건 | `ATTACHMENT_KEYS` | `ATTACHMENT_KEYS` | `ATTACHMENT_KEYS` |
+| 수신일 필터 | `RECEIVED_FROM` 이후 | `RECEIVED_FROM` 이후 | `RECEIVED_FROM ~ RECEIVED_TO` |
+| 마커 위치 | `Documents/` | 저장 폴더 안 | 저장 폴더 안 |
+
+- `ATTACHMENT_KEYS` 는 **모두 포함(AND)** 조건이고, 원소가 리스트면 그 안은 **OR 그룹**이다.
+  `["campaign name", ["Campaign", "캠페인"]]` = 캠페인명 + (영문 또는 한글 표기) 둘 다 있어야 통과.
+- 마커를 저장 폴더 안에 두는 변형(`_status` / `_url`)은 폴더를 통째로 복사·이동하면 처리 이력도
+  같이 따라간다. 캠페인별로 폴더를 새로 파는 운영에서 편하다.
+- 세 스크립트를 서로 다른 폴더·주기로 동시에 돌릴 수 있다 (`create_schtasks_v2.txt` 의 시각 배치 참고).
+
+## update_schedule_summary.py
+
+`update_schedule.py` 앞에 **Summary 시트 자동 정제** 단계를 붙인 버전.
+
+메일로 오는 일정 파일이 `Summary` 시트 하나만 담아 오게 바뀌면서, 사람이 손으로 `일정` 시트를
+만들어야(기간 `6/24~9/13` 을 시작·종료 날짜 2개로 쪼개기 등) 기존 스크립트가 돌 수 있었다.
+그 수동 단계를 대신한다.
+
+| Summary 원본 | 정제 결과 |
+|---|---|
+| `캠페인 기간(B2B)` = `6/24~9/13` | F열 시작일 / H열 종료일 (date 타입) |
+| `캠페인 기간(B2C)` = 같은 형식 | J열 시작일 / L열 종료일 |
+| `TBU` / `-` / 빈칸 | 시작·종료 모두 빈칸 |
+| `Remark` | N열 note |
+
+- B2B / B2C **2개 기간 세트를 한 번에** 처리한다 (`SRC_MAX_COL=14`).
+- 정제 결과를 소스 xlsx 에 `일정` 시트로 되쓸지는 `WRITE_SHEET_TO_SOURCE` 로 결정.
+- 직전 소스도 같은 규칙으로 정제해서 전후 비교(노란 음영)에 쓴다.
+- 자세한 내용은 [`update_schedule_summary.md`](update_schedule_summary.md).
+
+## 26_Schedule(Auto)_example.xlsx
+
+`update_schedule*.py` 가 값을 써 넣는 Auto 워크북이 실제로 어떻게 생겼는지 보여주는 예시.
+
+- 13시트 구조·컬럼 배치·서식이 운영본과 같고, **변경 셀 노란 음영도 그대로** 들어있다.
+- **수식이 제거된 값 스냅샷**이다. 원본은 1만 개가 넘는 수식으로 시트끼리 얽혀 있는데,
+  예시는 계산 결과 값만 남겨 열어보기만 해도 구조가 보이도록 했다.
+- 회사·법인·국가·사이트코드·날짜·비고는 전부 마스킹돼 있다. 마스킹은 **토큰 단위 일관 치환**이라
+  시트 간 사이트코드 매칭(예: `태깅기획site_code` ↔ `MASTER` ↔ `api용`)은 예시에서도 그대로 성립하고,
+  날짜도 전체를 같은 폭으로 옮겨 **기간 길이와 선후관계가 보존**된다.
+- `update_schedule_summary.py` 의 `TARGET_SHEET` 가 가리키는 `고객법인일정파일` 시트가
+  붙여넣기 대상이다.
