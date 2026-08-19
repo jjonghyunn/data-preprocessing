@@ -16,9 +16,6 @@ data-preprocessing/
 │   ├── update_schedule.py            ← 고객 일정 xlsx → Auto 정제 파일 업데이트
 │   ├── update_schedule_summary.py    ← 위 + Summary 시트 → 13열 일정 자동 정제 단계 포함본
 │   ├── check_mail_attachment.py      ← Outlook 첨부 감지·저장 (메일 제목 기준)
-│   ├── check_mail_attachment_byname.py  ← 첨부파일명 기준 + 수신일 이후 필터
-│   ├── check_mail_attachment_status.py  ← 첨부파일명 기준, 저장 폴더 안 마커
-│   ├── check_mail_attachment_url.py     ← 제목 + 첨부파일명 2중 조건 + 수신기간 필터
 │   ├── create_schtasks_v2.txt        ← 작업 스케줄러 등록 명령어(전체 경로 포함) 모음
 │   ├── 26_Schedule(Auto)_example.xlsx   ← Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷)
 │   ├── 26_Schedule_separate(Auto).md / -kr.md  ← Auto 정제 파일 구조 설명 (영/한)
@@ -54,8 +51,10 @@ data-preprocessing/
 | `update_schedule.py` | 최신 고객 일정 xlsx → Auto 정제 파일 업데이트 |
 | `update_schedule_summary.py` | 위 + 자유형 Summary 시트를 13열 일정으로 자동 정제 |
 | `check_mail_attachment.py` | Outlook 수신함 → 신규 첨부 xlsx 로컬 저장 (제목 기준) |
-| `check_mail_attachment_byname.py` / `_status.py` / `_url.py` | 첨부파일명·수신기간 등 조건이 다른 감지 변형 |
 | `26_Schedule(Auto)_example.xlsx` | Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷) |
+
+> 첨부 감지 변형(첨부파일명 기준 / 제목+파일명 2중 조건 등)은 Outlook 도구라
+> [`mail_search`](https://github.com/jjonghyunn/mail_search) repo 에 있습니다.
 
 ### 작업 스케줄러 자동 실행
 

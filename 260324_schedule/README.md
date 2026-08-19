@@ -11,16 +11,15 @@
 | 파일 | 역할 |
 |---|---|
 | `check_mail_attachment.py` | **메일 제목** 키워드로 첨부 감지 |
-| `check_mail_attachment_byname.py` | **첨부파일명** 키워드(OR 그룹 지원) + 수신일 이후 필터 |
-| `check_mail_attachment_status.py` | 첨부파일명 키워드, 저장 폴더 안에 마커를 두는 독립 감시본 |
-| `check_mail_attachment_url.py` | **제목 + 첨부파일명 2중 조건** + 수신 기간(From~To) 필터 |
 | `update_schedule.py` | 최신 소스 선택 → Auto 워크북 반영 → 변경 셀 음영 → 강제 재계산 |
 | `update_schedule_summary.py` | 위 + **자유형 Summary 시트를 13열 일정으로 자동 정제**하는 단계가 앞에 붙은 버전 |
 | `26_Schedule(Auto)_example.xlsx` | Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷) |
 | `create_schtasks_v2.txt` | 작업 스케줄러 등록 명령어 모음 |
 
-> 감지 스크립트 4종은 **일부러 각각 독립 파일**로 둔다. 공통 함수로 묶으면 한 캠페인의 조건을
-> 바꿀 때 다른 캠페인 감시까지 흔들려서, 파일 하나만 복사해 상단 상수만 고치는 편이 안전하다.
+> **첨부 감지 변형 3종**(첨부파일명 기준 / 저장폴더 마커 / 제목+파일명 2중 조건)은
+> Outlook 도구라 [`mail_search`](https://github.com/jjonghyunn/mail_search) repo 에 있다 —
+> `check_mail_attachment_byname.py` · `_status.py` · `_url.py`.
+> 여기 있는 `check_mail_attachment.py`(제목 기준)는 이 폴더의 일정 체인이 바로 쓰는 것이라 함께 둔다.
 
 
 > 📄 정제 대상 Auto 파일의 시트 구조 상세: [`26_Schedule_separate(Auto).md`](<26_Schedule_separate(Auto).md>) (한글판: [`26_Schedule_separate(Auto)-kr.md`](<26_Schedule_separate(Auto)-kr.md>))
@@ -266,23 +265,6 @@ C:\Users\user_name\Documents\campaign_mail_processed_ids.txt
 > 레지스트리 설정(`LongPathsEnabled = 1`)도 병행 적용 필요 → [`enable_long_path.md`](enable_long_path.md) 참고
 
 ---
-
-## 첨부 감지 변형 3종
-
-`check_mail_attachment.py`(제목 기준)와 조건만 다른 자립 스크립트들. 상단 상수만 고쳐 쓴다.
-
-| | `_byname` | `_status` | `_url` |
-|---|---|---|---|
-| 제목 조건 | — | — | `SUBJECT_KEYS` |
-| 첨부파일명 조건 | `ATTACHMENT_KEYS` | `ATTACHMENT_KEYS` | `ATTACHMENT_KEYS` |
-| 수신일 필터 | `RECEIVED_FROM` 이후 | `RECEIVED_FROM` 이후 | `RECEIVED_FROM ~ RECEIVED_TO` |
-| 마커 위치 | `Documents/` | 저장 폴더 안 | 저장 폴더 안 |
-
-- `ATTACHMENT_KEYS` 는 **모두 포함(AND)** 조건이고, 원소가 리스트면 그 안은 **OR 그룹**이다.
-  `["campaign name", ["Campaign", "캠페인"]]` = 캠페인명 + (영문 또는 한글 표기) 둘 다 있어야 통과.
-- 마커를 저장 폴더 안에 두는 변형(`_status` / `_url`)은 폴더를 통째로 복사·이동하면 처리 이력도
-  같이 따라간다. 캠페인별로 폴더를 새로 파는 운영에서 편하다.
-- 세 스크립트를 서로 다른 폴더·주기로 동시에 돌릴 수 있다 (`create_schtasks_v2.txt` 의 시각 배치 참고).
 
 ## update_schedule_summary.py
 
