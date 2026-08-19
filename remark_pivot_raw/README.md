@@ -1,5 +1,5 @@
 # remark_pivot_raw  
-<sub>2026-07-29  Jonghyun Park w/ Claude</sub>  
+<sub>2026-08-19  Jonghyun Park w/ Claude</sub>  
 
 분석 결과 xlsx / CSV 를 외부 공유용 리마킹 파일로 변환하는 스크립트 모음.  
 피봇 종류(Classic / OLAP)에 따라 도구가 나뉜다.
@@ -131,7 +131,7 @@ FACT_REMARK = {
 | `remark_olap.csv` / `remark_classic.csv` | `check_pivot_cache.py` (선택) | 캐시에 실제 있던 차원값 기준 (원본칼럼 \| 칼럼_fx 쌍) |
 | `remark_prefix.csv` | `check_pivot_cache.py` (선택) | 토큰 레전드 (Token_Original \| Token_fx) |
 
-- 세 경로 모두 **같은 SEED=<REMARK_SEED> cipher** → `ca_fr` 은 어디서 나오든 항상 같은 `_fx` 값. 서로 모순 없이 맞물린다.
+- 세 경로 모두 **같은 고정 시드 cipher** → `ca_fr` 은 어디서 나오든 항상 같은 `_fx` 값. 서로 모순 없이 맞물린다.
 - ⚠️ 레전드는 **역추적 키** — 외부 공유 파일과 같이 보내지 말 것 (내부 검증용).
 
 ---
@@ -142,4 +142,4 @@ FACT_REMARK = {
   - 예) `ca_fr` → `vp_ez` (`ca`→`vp`, `_` 유지, `fr`→`ez`)
 - **대소문자 유지**: `France` → `Ezpdvc`, `FRANCE` → `EZPDVC`
 - **일관성**: 같은 토큰은 파일 전체에서 항상 같은 결과
-- **시드 고정**: `SEED = <REMARK_SEED>` — 동일 입력이면 언제나 동일 출력 (재현 가능)
+- **시드 고정**: 동일 입력이면 언제나 동일 출력 (재현 가능). 시드 값은 각 스크립트 상단 상수 참조
