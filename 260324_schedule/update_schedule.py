@@ -1,28 +1,38 @@
 """
 update_schedule.py
-2026-04-15  Jonghyun Park w/ Claude
-2026-04-21  Jonghyun Park w/ Claude
-2026-05-08  Jonghyun Park w/ Claude
-2026-07-22  Jonghyun Park w/ Claude  — latest_file_key: 메일 중복 suffix _YYMMDD_HHMM(시각) 인식
+2026-10-01  Jonghyun Park w/ Claude  — SKIP 판정을 마커 대신 Auto 파일 실제 저장내용으로 전환 (target_is_saved)
+                                       + 저장 직후 재검증을 통과했을 때만 마커 기록 + --force 옵션
 2026-08-11  Jonghyun Park w/ Claude  — win32com 지연 바인딩에서 wb_com.Close() 가 TypeError 로 죽는 문제 방어
-2026-07-30  Jonghyun Park w/ Claude  — ① 읽기/붙여넣기 범위를 상단 상수로 추출(SRC_*/TGT_*/COMPARE)
-                                       ② 대상 영역과 겹치는 병합셀 자동 해제 — MergedCell 은 value 설정이
-                                          불가(read-only)해서 클리어 단계에서 예외로 죽던 문제
+(이전 버전 이력은 git history / GitHub Releases 참조 — 헤더에는 최근 2개 항목만 남긴다)
 
 1. 1.고객 법인 일정 파일/ 폴더에서 최신 파일 자동 선택
    - 정렬 기준: 파일명 내 날짜(YYMMDD) → 버전(_vX.XX) → 끝 번호(_2 등) → 메일수신 일시
 2. 소스 파일 첫 번째 시트 B3:J(마지막 데이터 행) 값 읽기  ※ 범위는 상단 SRC_* 상수
    - datetime → yyyy-mm-dd 문자열 변환
    - WEEKNUM 수식 셀 → W01 형식 변환
-3. Auto 파일의 '고객법인일정파일' 시트 B2:K999 클리어 후 B2부터 값 붙여넣기 (서식 제외)
+3. Auto 파일에 그 결과가 실제로 저장돼 있는지 확인 → 이미 반영돼 있으면 SKIP
+   (마커가 아니라 파일 내용으로 판정 — 아래 '재실행 판정' 참조)
+4. Auto 파일의 '고객법인일정파일' 시트 B2:K999 클리어 후 B2부터 값 붙여넣기 (서식 제외)
    ※ 범위는 상단 TGT_* 상수
+5. Excel COM 으로 전체 재계산 후 저장 → 저장 직후 재검증 → 통과했을 때만 마커 기록
+
+재실행 판정:
+  종전엔 마커(schedule_last_source.txt)가 최신이면 무조건 SKIP 했다. 그런데 저장이 끝난 뒤
+  Auto 파일이 외부(열려 있던 Excel / OneDrive 옛 버전 복원)에 의해 되돌려지거나 붙여넣기가 어긋난 채 남으면
+  마커만 '처리 완료'인 상태로 굳어 스케줄러가 계속 SKIP 한다.
+  → target_is_saved() 가 Auto 파일의 D1 스탬프 + 붙여넣기 영역 값 + 잔재 행을 실제로 대조해 판정한다.
+    마커는 기록·경고용으로만 남는다.
+  → 내용이 같아도 다시 붙여넣고 싶으면:  python update_schedule.py --force
 """
 
 import re
+import sys
+import time
 import datetime as dt
 from pathlib import Path
 import openpyxl
 from openpyxl.styles import PatternFill
+from openpyxl.utils import get_column_letter
 import win32com.client
 
 CHANGED_FILL = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
@@ -128,6 +138,82 @@ COMPARE = {
 #     COMPARE 에 { 8: 10 (J 2번째 Starts at), 10: 12 (L 2번째 Ends at) } 추가
 #   (포맷이 바뀐 직후 1회는 전후 비교에서 성격이 다른 열끼리 비교돼 음영이 과하게 찍힐 수 있음)
 
+# ── 재실행 판정 설정 ─────────────────────────────────────────
+STAMP_ROW         = 1      # 붙여넣은 소스 파일명을 기록·대조하는 셀 (D1) — 재실행 판정의 1차 키
+STAMP_COL         = 4
+FORCE_FLAG        = "--force"   # 이 인자를 주면 판정과 무관하게 다시 붙여넣는다
+# 저장 직후 재검증 재시도 — Excel 이 막 저장하고 핸들을 놓기 전 찰나에 읽으면 PermissionError 가 난다
+VERIFY_RETRIES    = 3
+VERIFY_WAIT_SEC   = 2
+
+
+# ── 재실행 판정 ──────────────────────────────────────────────
+def _norm(v):
+    """저장값·소스값 비교용 정규화 — datetime → date, 문자열 줄바꿈 통일·앞뒤 공백 제거, 빈 문자열 == 빈칸."""
+    if isinstance(v, dt.datetime):
+        return v.date()
+    if isinstance(v, str):
+        v = v.replace("\r\n", "\n").strip()
+        return v or None
+    return v
+
+
+def target_is_saved(output_file: Path, source_name: str, src_data: list) -> tuple[bool, str]:
+    """Auto 파일에 현재 소스의 붙여넣기 결과가 **실제로 저장돼 있는지** 확인.
+
+    (True, "")    = 이미 반영됨 → 실행 불필요
+    (False, 사유) = 미반영·유실 → 실행 필요
+
+    마커(로그)를 믿지 않고 파일 내용으로만 판정한다. 저장이 끝난 뒤 외부(Excel/OneDrive)가
+    파일을 되돌려도 다음 실행이 스스로 알아채고 재처리하게 하는 게 목적.
+    """
+    try:
+        wb = openpyxl.load_workbook(output_file, data_only=True, read_only=True)
+    except Exception as e:                  # 사용 중·손상 등 — 못 읽으면 '미반영' 으로 보고 진행
+        return False, f"Auto 파일을 읽을 수 없음 ({type(e).__name__}: {e})"
+
+    try:
+        if TARGET_SHEET not in wb.sheetnames:
+            return False, f"'{TARGET_SHEET}' 시트 없음"
+        ws = wb[TARGET_SHEET]
+        # read_only 모드는 ws.cell() 랜덤 접근이 느리므로 한 번에 훑어 dict 로 받는다
+        rows = {r_idx: row for r_idx, row in enumerate(
+            ws.iter_rows(min_row=1, max_row=TGT_MAX_ROW,
+                         min_col=TGT_MIN_COL, max_col=TGT_MAX_COL,
+                         values_only=True), start=1)}
+    finally:
+        wb.close()
+
+    def cell(r_idx: int, col: int):
+        row = rows.get(r_idx)
+        idx = col - TGT_MIN_COL
+        return row[idx] if row and idx < len(row) else None
+
+    # 1) D1 소스 파일명 스탬프
+    stamp = _norm(cell(STAMP_ROW, STAMP_COL))
+    if stamp != source_name:
+        return False, f"D1 소스명 불일치 (저장됨 {stamp!r} != 현재 {source_name!r})"
+
+    # 2) 붙여넣기 영역 값 대조 (B2~)
+    for r_offset, want_row in enumerate(src_data):
+        r_idx = TGT_START_ROW + r_offset
+        for c_offset, want in enumerate(want_row):
+            got = cell(r_idx, TGT_MIN_COL + c_offset)
+            if _norm(got) != _norm(want):
+                col = get_column_letter(TGT_MIN_COL + c_offset)
+                return False, f"{col}{r_idx} 값 불일치 (저장됨 {got!r} != 소스 {want!r})"
+
+    # 3) 영역 밖 잔재 — 행 수가 줄었는데 옛 행이 남은 경우
+    paste_end = TGT_START_ROW + len(src_data) - 1
+    for r_idx, row in rows.items():
+        if r_idx <= paste_end:              # 스탬프 행(1행) + 붙여넣기 영역
+            continue
+        if any(_norm(v) is not None for v in row):
+            return False, f"{r_idx}행에 옛 데이터 잔재"
+
+    return True, ""
+
+
 # ── Auto 파일 자동 탐색 ──────────────────────────────────────
 auto_files = list(BASE.glob("*Auto*.xlsx"))
 if not auto_files:
@@ -142,13 +228,6 @@ if not xlsx_files:
 
 source_file = xlsx_files[-1]
 print(f"[소스 파일] {source_file.name}")
-
-# 소스 파일이 이전과 동일하면 업데이트 불필요 → 스킵 (파일명 + mtime 기준)
-src_mtime = int(source_file.stat().st_mtime)
-current_marker = f"{source_file.name}|{src_mtime}"
-if LAST_SOURCE_FILE.exists() and LAST_SOURCE_FILE.read_text(encoding="utf-8").strip() == current_marker:
-    print(f"[SKIP] 소스 파일 변경 없음 ({source_file.name}), 업데이트 생략")
-    exit(0)
 
 # ── Pass 1: WEEKNUM 수식이 있는 셀 위치 파악 ─────────────────
 src_wb_raw = openpyxl.load_workbook(source_file, data_only=False)
@@ -190,6 +269,28 @@ for row in src_ws.iter_rows(min_row=SRC_MIN_ROW, min_col=SRC_MIN_COL, max_col=SR
 
 src_wb.close()
 print(f"[읽은 행 수] {len(src_data)}행")
+
+# ── 재실행 판정 — 마커(로그)가 아니라 Auto 파일에 실제 저장된 내용으로 ──
+# ※ 마커는 '처리 완료' 기록·경고용으로만 남긴다. 판정에 쓰면 저장이 유실됐을 때 영원히 SKIP 된다.
+src_mtime = int(source_file.stat().st_mtime)
+current_marker = f"{source_file.name}|{src_mtime}"
+marker_says_done = (LAST_SOURCE_FILE.exists()
+                    and LAST_SOURCE_FILE.read_text(encoding="utf-8").strip() == current_marker)
+
+if FORCE_FLAG in sys.argv[1:]:
+    print(f"[강제 실행] {FORCE_FLAG} - 판정을 건너뛰고 다시 붙여넣습니다")
+else:
+    saved, reason = target_is_saved(output_file, source_file.name, src_data)
+    if saved:
+        print(f"[SKIP] Auto 파일에 이미 반영돼 있습니다 ({source_file.name})")
+        if not marker_says_done:
+            LAST_SOURCE_FILE.write_text(current_marker, encoding="utf-8")
+            print("[알림] 내용은 최신이라 마커만 뒤늦게 동기화했습니다.")
+        exit(0)
+    if marker_says_done:
+        print("[경고] 마커는 '처리 완료'인데 Auto 파일 내용은 최신이 아닙니다 - 저장이 유실된 것으로 보고 재실행합니다.")
+        print("        (Auto 파일이 Excel 에서 열려 있었거나 OneDrive 가 옛 버전으로 되돌렸을 수 있습니다)")
+    print(f"[갱신 필요] {reason}")
 
 # ── 이전 파일 읽기 (전후 비교용) ──────────────────────────────
 prev_data = {}
@@ -235,8 +336,8 @@ if TARGET_SHEET not in tgt_wb.sheetnames:
 
 tgt_ws = tgt_wb[TARGET_SHEET]
 
-# D1에 소스 파일명 기록
-tgt_ws.cell(row=1, column=4, value=source_file.name)
+# D1에 소스 파일명 기록 (재실행 판정의 1차 키 — target_is_saved() 가 이 값을 대조한다)
+tgt_ws.cell(row=STAMP_ROW, column=STAMP_COL, value=source_file.name)
 
 # 대상 영역과 겹치는 병합셀 해제 — MergedCell 은 value 설정이 불가(read-only)해서
 # 클리어·붙여넣기에서 예외가 난다. 이 영역은 어차피 소스값으로 덮어쓰므로 해제해도 무방.
@@ -300,7 +401,22 @@ try:
         wb_com.Close(SaveChanges=False)
     except TypeError:
         pass
-    LAST_SOURCE_FILE.write_text(current_marker, encoding="utf-8")
-    print(f"[완료] {output_file.name} 저장 완료")
 finally:
     excel.Quit()
+
+# 저장 직후 재검증 — 마커는 여기를 통과했을 때만 기록한다.
+# ※ 저장이 외부(Excel/OneDrive)에 의해 되돌려진 경우를 즉시 드러내기 위한 단계.
+# ※ Excel 이 막 놓은 파일을 곧바로 읽으면 PermissionError 가 난다 — 그건 '되돌려짐' 이 아니라 단순 타이밍이므로
+#   **읽기 실패 사유일 때만** 잠시 기다렸다 다시 본다. 값 불일치·잔재는 재시도해도 그대로라 즉시 판정한다.
+for _ in range(VERIFY_RETRIES):
+    ok, why = target_is_saved(output_file, source_file.name, src_data)
+    if ok or "읽을 수 없음" not in why:
+        break
+    time.sleep(VERIFY_WAIT_SEC)
+if ok:
+    LAST_SOURCE_FILE.write_text(current_marker, encoding="utf-8")
+    print(f"[완료] {output_file.name} 저장 완료")
+else:
+    print(f"[경고] 저장 직후 검증 실패 - {why}")
+    print("        다른 프로그램(Excel/OneDrive)이 파일을 되돌렸을 수 있습니다.")
+    print("        마커를 기록하지 않았으므로 다음 실행이 다시 처리합니다.")
