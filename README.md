@@ -1,10 +1,10 @@
 # data-preprocessing  
-<sub>2026-08-19  Jonghyun Park w/ Claude</sub>  
+<sub>2026-10-01  Jonghyun Park w/ Claude</sub>  
 
-preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과 리마킹, SQL 쿼리 모음.
+preprocessing data — 캠페인 매핑·정제, 분석 결과 리마킹, SQL 쿼리 모음.
 
 > 각 모듈 상세는 해당 폴더의 README를 참고하세요.  
-> - 일정 자동화: [`260324_schedule/README.md`](260324_schedule/README.md)  
+> - 일정 자동화(메일 첨부 감시 → 워크북 반영)는 [`auto_mailing/schedule_automation/`](https://github.com/jjonghyunn/auto_mailing/tree/main/schedule_automation) 로 옮겼습니다.  
 > - 리마킹 피봇 변환: [`remark_pivot_raw/README.md`](remark_pivot_raw/README.md)  
 > - SQL 쿼리 모음: [`SQL/README.md`](SQL/README.md)
 
@@ -12,16 +12,6 @@ preprocessing data — 캠페인 매핑·정제, 일정 자동화, 분석 결과
 
 ```
 data-preprocessing/
-├── 260324_schedule/                  ← 캠페인 일정 자동화 (xlsx 정제 + Outlook 첨부 감지)
-│   ├── update_schedule.py            ← 고객 일정 xlsx → Auto 정제 파일 업데이트
-│   ├── update_schedule_summary.py    ← 위 + Summary 시트 → 13열 일정 자동 정제 단계 포함본
-│   ├── check_mail_attachment.py      ← Outlook 첨부 감지·저장 (메일 제목 기준)
-│   ├── create_schtasks_v2.txt        ← 작업 스케줄러 등록 명령어(전체 경로 포함) 모음
-│   ├── 26_Schedule(Auto)_example.xlsx   ← Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷)
-│   ├── 26_Schedule_separate(Auto).md / -kr.md  ← Auto 정제 파일 구조 설명 (영/한)
-│   ├── update_schedule_summary.md    ← Summary 정제판 상세 가이드
-│   ├── enable_long_path.md           ← 긴 경로(MAX_PATH) 우회 설정 안내
-│   └── README.md                     ← 260324_schedule 상세 가이드
 ├── remark_pivot_raw/                 ← 분석 결과 xlsx/CSV → 외부 공유용 리마킹 (Classic/OLAP 피봇)
 │   ├── remark_classic.py             ← Classic 피봇 xlsx 리마킹
 │   ├── remark_olap.py                ← OLAP 피봇 (fact/dim CSV) 리마킹
@@ -37,29 +27,6 @@ data-preprocessing/
 ├── .gitignore
 └── LICENSE
 ```
-
----
-
-## **260324_schedule**
-
-캠페인 법인별 일정 파일을 자동 정제 Excel에 반영하고, Outlook 수신함에서 첨부파일을 감지해 저장하는 자동화 스크립트 모음.
-
-### 주요 스크립트
-
-| 파일 | 역할 |
-|---|---|
-| `update_schedule.py` | 최신 고객 일정 xlsx → Auto 정제 파일 업데이트 |
-| `update_schedule_summary.py` | 위 + 자유형 Summary 시트를 13열 일정으로 자동 정제 |
-| `check_mail_attachment.py` | Outlook 수신함 → 신규 첨부 xlsx 로컬 저장 (제목 기준) |
-| `26_Schedule(Auto)_example.xlsx` | Auto 워크북 13시트 구조 예시 (마스킹된 값 스냅샷) |
-
-> 첨부 감지 변형(첨부파일명 기준 / 제목+파일명 2중 조건 등)은 Outlook 도구라
-> [`mail_search`](https://github.com/jjonghyunn/mail_search) repo 에 있습니다.
-
-### 작업 스케줄러 자동 실행
-
-`pythonw.exe`로 작업 스케줄러에 직접 등록 (bat/vbs 래퍼 불필요).  
-등록 명령어, 배터리 모드 허용, 트러블슈팅 등 상세는 `260324_schedule/README.md` 참고.
 
 ---
 
